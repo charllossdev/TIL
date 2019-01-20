@@ -4,13 +4,14 @@
 
 ### Python
 
-* python
-* css3
-* stn
+* Python
+* Css3
+
 
 ## 2019_01_22
 
-* javascript
+* List
+* Function
 
 ## Welcome to GitHub Pages
 

@@ -1,10 +1,16 @@
 # Today I Learned
 
+## 2019_01_21
+
 ### Python
 
 * python
 * css3
 * stn
+
+## 2019_01_22
+
+* javascript
 
 ## Welcome to GitHub Pages
 

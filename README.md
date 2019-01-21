@@ -37,3 +37,26 @@
 ### JQuery
 
 ### Jstl
+---
+
+# Rules
+
+* Directory and File would be lowercase.
+* Follow GFM(Github Flavored Markdown)
+
+# Other TIL Collections
+
+Inspired by
+
+* @thoughtbot
+* @jbranchaud
+* @milooy
+* @channprj
+* @aweekj
+
+# License
+
+© 2019 Charlloss.dev@gmail.com
+This repository is licensed under the MIT license. See LICENSE for details.
+
+

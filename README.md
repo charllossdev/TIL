@@ -32,7 +32,7 @@
 
 ## C#
 
-* [C# Content](./c#/C#_Content.md)
+* [C# Content](./c%23/C%23_Content.md)
 
 ## Java
 

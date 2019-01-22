@@ -18,6 +18,7 @@
     + [Jqgird](#jqgrid)
     + [Chartist](#chartist)
 * [Python](#python)
+* [Git](#git)
 
 
 ## Framework
@@ -25,18 +26,23 @@
 * [EgovFramework](#egov-framework)
 * [Xamarin](#xamarin)
 
+---
+
+# Details
 
 ## C#
+
+* [C# Content](./c#/C#_Content.md)
 
 ## Java
 
 ## JavaScript
 
-### Python
+## Python
 
-### JQuery
+## Git
 
-### Jstl
+* [Git Content](./git/Git_Content.md)
 ---
 
 # Rules
@@ -58,5 +64,3 @@ Inspired by
 
 © 2019 Charlloss.dev@gmail.com
 This repository is licensed under the MIT license. See LICENSE for details.
-
-

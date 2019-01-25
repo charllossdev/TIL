@@ -1,6 +1,6 @@
 # C# Content
 
-## Categories
+# Categories
 
 0. [Virtual Function](#virtual-function)
 

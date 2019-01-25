@@ -85,7 +85,8 @@ $ git commit -m "Message"
 
 
 > Message Tips!
->> First Title Keywords
+
+First Title Keywords
 
 * feat
 * fix

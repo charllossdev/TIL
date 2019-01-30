@@ -36,13 +36,9 @@ This repository is mosly a mirror of my [Today I Learned By Hashrocket.](https:/
 
 * [C# Content](./c%23/C%23_Content.md)
 
-## Java
-
 ## JavaScript
 
 * [JavaScript Content](./javascript/JavaScript_Content.md)
-
-## Python
 
 ## Git
 

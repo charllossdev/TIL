@@ -1,7 +1,10 @@
-# TIL
-> Today I Learned
+# TIL(Today I Learned)
+> Study hard what interests you the most in the most undisciplined, irreverent, and original manner possible.
+—Richard Feynman
 
-오늘 배운 내용을 간결하게 정리하여 모아둔다.
+This is a collection of short articles about things I have learned.
+
+This repository is mosly a mirror of my [Today I Learned By Hashrocket.](https://til.hashrocket.com/)
 
 ---
 
@@ -29,7 +32,6 @@
 
 ---
 
-
 ## C#
 
 * [C# Content](./c%23/C%23_Content.md)
@@ -37,6 +39,8 @@
 ## Java
 
 ## JavaScript
+
+* [JavaScript Content](./javascript/JavaScript_Content.md)
 
 ## Python
 
@@ -61,12 +65,11 @@ Inspired by
 
 * [Today I Learned By Hashrocket](https://til.hashrocket.com/)
 * [@jbranchaud](https://github.com/jbranchaud/til)
-* [@milooy](https://github.com/milooy/TIL)
 * [@channprj](https://github.com/channprj/TIL)
 * [@aweekj](https://github.com/aweekj/TIL)
 
 # License
 
-© 2019 Charlloss.dev@gmail.com
+© 2019 Charlloss.Dev@gmail.com
 
 This repository is licensed under the MIT license. See LICENSE for details.

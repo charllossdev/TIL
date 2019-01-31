@@ -46,7 +46,7 @@ This repository is mosly a mirror of my [Today I Learned By Hashrocket.](https:/
 
 ## Database
 
-* [Database](./database/Db2_Content.md)
+* [Database Content](./database/Db2_Content.md)
 
 ---
 

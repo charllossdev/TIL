@@ -23,6 +23,7 @@ This repository is mosly a mirror of my [Today I Learned By Hashrocket.](https:/
 * [Python](#python)
 * [Git](#git)
 * [Database](#database)
+* [Markdown](#markdown)
 
 
 ### Framework
@@ -48,12 +49,20 @@ This repository is mosly a mirror of my [Today I Learned By Hashrocket.](https:/
 
 * [Database Content](./database/Db2_Content.md)
 
+## Markdown
+
+* [Markdown Emoji Selector](./markdown/Markdown_Emoji_Selector.md)
+
 ---
 
 # Rules
 
 * Directory would be lowercase.
 * Follow GFM(Github Flavored Markdown)
+
+# 🙌 Goal
+
+* [2019 Developer Roadmap](./roadmap/README.md)
 
 # Other TIL Collections
 

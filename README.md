@@ -24,11 +24,14 @@ This repository is mosly a mirror of my [Today I Learned By Hashrocket.](https:/
 * [Git](#git)
 * [Database](#database)
 
-
 ### Framework
 
 * [EgovFramework](#egov-framework)
 * [Xamarin](#xamarin)
+
+#### Seminar
+
+* [Developer Survival](#seminar)
 
 ---
 
@@ -47,6 +50,16 @@ This repository is mosly a mirror of my [Today I Learned By Hashrocket.](https:/
 ## Database
 
 * [Database Content](./database/Db2_Content.md)
+
+
+---
+
+## Seminar
+
+* [Developer Survival](./seminar/developer-survival/Developer_Survival.md)
+
+
+
 
 ---
 

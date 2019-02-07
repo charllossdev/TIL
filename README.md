@@ -32,6 +32,7 @@ This repository is mosly a mirror of my [Today I Learned By Hashrocket.](https:/
 
 #### Seminar
 
+* [T-Academy](#seminar)
 * [Developer Survival](#seminar)
 
 ---
@@ -52,21 +53,17 @@ This repository is mosly a mirror of my [Today I Learned By Hashrocket.](https:/
 
 * [Database Content](./database/Db2_Content.md)
 
-<<<<<<< HEAD
+
 ## Markdown
 
 * [Markdown Emoji Selector](./markdown/Markdown_Emoji_Selector.md)
-=======
 
 ---
 
-## Seminar
+## 😎 Seminar
 
 * [Developer Survival](./seminar/developer-survival/Developer_Survival.md)
-
-
-
->>>>>>> 5104b12cc03e249f47442766e1cb41b95aacc641
+* [T Academy](./seminar/t-Academy/T_Academy_Content.md)
 
 ---
 

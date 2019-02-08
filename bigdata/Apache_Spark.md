@@ -75,3 +75,28 @@ Relational database management systems, desktop statistics[clarification needed]
 * [Hadoop VS Apache Spark](http://engineering.vcnc.co.kr/2015/05/data-analysis-with-spark/)
 * Hadoop은 매번 중간 결과를 디스크에 저장하지만, Spark은 이를 메모리에서 처리하므로 효율이 매우 좋다.
 * PageRank or 머신러닝 알고리즈 ㅁ같이 반복계산이 많은 경우 특히 성능이 좋다
+
+
+### Apache Spark 핵심개념
+
+* **RDD(Resilient Distributed Dataset)** 탄력적으로 분산된 데이터 셋
+    * 오류 자동복구 기능이 포함된 가상 리스트
+    * 다양한 계산을 수행 가능, 메모리를 활용하여 높은 성능을 가짐
+* **Scala Interface**
+    * 매우 간결한 표현이 가능한 모던 프로그래밍 언어
+    * Functional Programming이 가능하여 데이터의 변환을 효과적으로 표현할 수 있음
+
+
+### Apache Spark 확장 프로그램
+
+* Spark을 엔진으로 하는 확장 프로그젝트들이 같이 제공된다.
+    * Spark SQL : Hive와 비슷하게 SQL로 데이터를 분석
+    * Spark Streamming 실시간 분석
+    * MLlib : 머신러닝 라이브러리
+    * GraphX : 페이지랭크 같은 그래프 분석
+
+
+### 향후 방향성
+
+* Apache Spark이 계속 힘을 얻을 것
+    * 강력한 성능과 좋은 인터페이스, 확장성

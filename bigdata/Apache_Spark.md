@@ -74,7 +74,7 @@ Relational database management systems, desktop statistics[clarification needed]
 * 스칼라, 자바, 파이썬, R
 * [Hadoop VS Apache Spark](http://engineering.vcnc.co.kr/2015/05/data-analysis-with-spark/)
 * Hadoop은 매번 중간 결과를 디스크에 저장하지만, Spark은 이를 메모리에서 처리하므로 효율이 매우 좋다.
-* PageRank or 머신러닝 알고리즈 ㅁ같이 반복계산이 많은 경우 특히 성능이 좋다
+* PageRank or 머신러닝 알고리즘 같이 반복계산이 많은 경우 특히 성능이 좋다
 
 
 ### Apache Spark 핵심개념

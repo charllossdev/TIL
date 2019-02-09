@@ -23,12 +23,17 @@ This repository is mosly a mirror of my [Today I Learned By Hashrocket.](https:/
 * [Python](#python)
 * [Git](#git)
 * [Database](#database)
-
+* [Markdown](#markdown)
 
 ### Framework
 
 * [EgovFramework](#egov-framework)
 * [Xamarin](#xamarin)
+
+#### Seminar
+
+* [T-Academy](#seminar)
+* [Developer Survival](#seminar)
 
 ---
 
@@ -48,12 +53,28 @@ This repository is mosly a mirror of my [Today I Learned By Hashrocket.](https:/
 
 * [Database Content](./database/Db2_Content.md)
 
+
+## Markdown
+
+* [Markdown Emoji Selector](./markdown/Markdown_Emoji_Selector.md)
+
+---
+
+## 😎 Seminar
+
+* [Developer Survival](./seminar/developer-survival/Developer_Survival.md)
+* [T Academy](./seminar/t-Academy/T_Academy_Content.md)
+
 ---
 
 # Rules
 
 * Directory would be lowercase.
 * Follow GFM(Github Flavored Markdown)
+
+# 🙌 Goal
+
+* [2019 Developer Roadmap](./roadmap/README.md)
 
 # Other TIL Collections
 

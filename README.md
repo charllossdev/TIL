@@ -75,6 +75,7 @@ This repository is mosly a mirror of my [Today I Learned By Hashrocket.](https:/
 # 🙌 Goal
 
 * [2019 Developer Roadmap](./roadmap/README.md)
+* [To Do List](./roadmap/to-do-list/README.md)
 
 # Other TIL Collections
 

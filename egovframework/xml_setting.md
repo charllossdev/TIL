@@ -1,8 +1,13 @@
 # Project XML Setting
 
-# 타일즈
+# 타일즈 설정
 
 <div id=tiles></div>
+
+Tiles Import Path
+```Javascript
+	<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+```
 
 ## pom.XML
 ```xml
@@ -59,8 +64,9 @@ viewResolver 우선순위 변경 1 -> 2로 변경
   </list>
 </property>
 </bean>
-
 ```
+
+> Tiles 3 Configurer Setting File Path Create 'default-layout.xml'
 
 
 

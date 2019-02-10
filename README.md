@@ -1,4 +1,6 @@
 # TIL(Today I Learned)
+[![License](https://img.shields.io/github/license/mashape/apistatus.svg)](./LICENSE) 
+[![Email](https://img.shields.io/badge/Email-gwonsungjun-yellow.svg)](charlloss.dev@gmail.com)
 > Study hard what interests you the most in the most undisciplined, irreverent, and original manner possible.
 —Richard Feynman
 

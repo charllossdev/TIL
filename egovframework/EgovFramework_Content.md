@@ -47,3 +47,168 @@
 ![RequestMapping](./assets/requestMapping.png)
 6. return 명령어의 지시는 경로/파일이름으로 main.jsp의 논리적 주소로 이동
 7. main.jsp로 인해 웹 브라우져에서 view가 보여지게 됩니다.
+
+
+# Interceptor Setting
+
+```java
+
+package egovframework.example.cmmn;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
+import egovframework.example.cmmn.service.CmmnService;
+import egovframework.rte.psl.dataaccess.util.EgovMap;
+
+public class Interceptor extends HandlerInterceptorAdapter{
+	
+	private final Logger log = LoggerFactory.getLogger(getClass());
+	
+	@Resource
+	private CmmnService cmmnService;
+	
+	@Override
+	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+			ModelAndView modelAndView) throws Exception {
+		
+		if (!"XMLHttpRequest".equals(request.getHeader("X-Requested-With"))) {
+			
+			List<EgovMap> menuList = cmmnService.selectMenuList();
+			
+			log.debug("Debug Intercepter " , menuList.toString());
+			
+			System.out.println(menuList);
+			
+			modelAndView.addObject("menuList", menuList);
+		}		
+	}
+}
+
+```
+
+
+
+## Logger Setting
+
+```java
+private final Logger log = LoggerFactory.getLogger(getClass());
+```
+
+> Import org.slf4j.Logger;
+
+
+---
+
+## Maria DB Connection
+
+# 데이터베이스
+
+<div id=db></div>
+DB - mariadb Setting
+
+## pon.xml
+
+```xml
+<dependency>
+    <groupId>commons-dbcp</groupId>
+    <artifactId>commons-dbcp</artifactId>
+    <version>1.4</version>
+</dependency>
+
+<dependency>
+    <groupId>org.mariadb.jdbc</groupId>
+    <artifactId>mariadb-java-client</artifactId>
+    <version>2.2.1</version>
+</dependency>
+```
+
+
+## context-datasource.xml
+
+DB 경로 및 데이터베이스 경로 계정
+
+```XML
+<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+  <property name="driverClassName" value="org.mariadb.jdbc.Driver"/>
+  <property name="url" value="jdbc:mariadb://localhost:3306/test" />
+  <property name="username" value="root"/>
+  <property name="password" value="root"/>
+</bean>
+```
+
+### DB SQL 문
+
+### <selectKey>
+
+parameterType의 VO가 가지고 있는 속성의 변하는 값을 DB에 넣고싶을때 사용하는 설정
+
+```xml
+<insert id="insertJoinMbr" parameterType="joinVO">
+
+	<selectKey order="BEFORE" keyProperty="mbrNo" resultType="String">
+
+		SELECT CONCAT('F', LPAD(IFNULL(REPLACE(MAX(MBR_NO), 'F', ''), 0) + 1, 9, 0)) as mbrNo
+		FROM T_MBR
+
+	</selectKey>
+
+	INSERT INTO T_MBR
+	(
+	   MBR_NO
+	 , LOGIN_ID
+	 , PWD
+	 , EMAIL
+	 , CP_NO
+	 , JOIN_DT
+	 , EMAIL_RCP_YN
+	 , SMS_RCP_YN
+	 , REGR
+	 , REG_DT
+	 , UPDR
+	 , UPD_DT
+	)
+	VALUES
+	(
+	   #{mbrNo}
+	 , #{loginId}
+	 , #{pwd}
+	 , #{email}
+	 , #{cpNo}
+	 , now()
+	 , #{emailRcpYn}
+	 , #{smsRcpYn}
+	 , #{mbrNo}
+	 , now()
+	 , #{mbrNo}
+	 , now()
+	)
+</insert>
+```
+
+### 트랜젝션 설정하기
+
+context-transaction.XML
+
+```XML
+
+<tx:advice id="txAdvice" transaction-manager="txManager">
+	<tx:attributes>
+		<tx:method name="*Tx" rollback-for="Exception"/>
+	</tx:attributes>
+</tx:advice>
+
+<aop:config>
+	<aop:pointcut id="requiredTx" expression="execution(* egovframework.example.**..impl.*Impl.*(..))"/>
+	<aop:advisor advice-ref="txAdvice" pointcut-ref="requiredTx" />
+</aop:config>
+
+```

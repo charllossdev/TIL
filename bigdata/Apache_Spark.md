@@ -100,3 +100,66 @@ Relational database management systems, desktop statistics[clarification needed]
 
 * Apache Spark이 계속 힘을 얻을 것
     * 강력한 성능과 좋은 인터페이스, 확장성
+
+
+## Scala
+
+> Scala 란?
+> 데이터 분석을 위한 Scala
+
+### **Sca**lable **La**nguage -> Scala
+***
+
+* 간결한 표현과 강력한 기능을 통해 더 큰 프로그램을 나들기 위한 언어
+* Scala가 가진 여러가지 특징들이 데이터 분석하기에 좋은 것들이 많다.
+* 아주 간결한 문법(Like Python)
+* OOP, Functional Programming
+* JVM에서 실행 -> Java와 호환
+* 좋은 성능(== Java)
+* 정적 타입
+
+
+### Java - Scala
+
+```Java
+public class Job {
+ public void main(String[] args) {
+ Person kevin = new Person();
+ kevin.setName("Kevin");
+ kevin.setWork("Between");
+ }
+}
+
+public class Person {
+ private String name;
+ private String work;
+ public void setName(String name) {
+ this.name = name;
+ }
+ public String getName() {
+ return name;
+ }
+ public void setWork(String work) {
+ this.work = work;
+ }
+ public String getWork() {
+ return work;
+ }
+}
+```
+
+
+
+```Scala
+class Person(val name: String, val work: String)
+
+val kevin = new Person("Kevin", "Between")
+```
+
+### JVM(자바가상머신)
+
+* JVM에서 실행, JAVA와 호환
+* Scala 코드를 컴파일하면, java와 마찬가지로, .class 파일이 나옴
+* JVM에서 실행, Java와 거의 동일한 실행 성능을 가짐
+* Java Class Import 하여 사용 가능
+* Java file롸 Scala file을 혼용하여 컴파일도 가능

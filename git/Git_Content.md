@@ -130,3 +130,47 @@ github에서 저장소 생성 후 저장소 주소를 remote에 입력(git remot
 아래와 같이 git pull 시에 –allow-unrelated-histories 옵션 추가하여 관련 없었던 두 저장소를 병합하도록 허용
 
 git pull origin master --allow-unrelated-histories
+
+
+
+# Git Ignore Setting
+
+> gitignore - Specifies intentionally untracked files to ignore
+
+### Description
+
+A **gitignore** file specifies intentionally untracked files that Git should ignore.
+Files already tracked by Git are not affected.
+
+https://git-scm.com/docs/gitignore
+
+```
+$ cat .gitignore
+```
+
+Create Git Igonore File(In git root path) : .gitignore 
+
+
+
+
+이제 .gitignore 파일에 버전 관리를 하지 않을 파일 목록들을 작성하면 됩니다.
+
+그런데 .gitignore 파일에 작성한 파일이 이미 버전 관리가 되고 있으면 git은 이 파일을 원래대로 추적합니다.
+
+따라서 이미 버전 관리가 되고 있는 파일들은 수동으로 삭제해줘야 합니다.
+
+
+
+git rm --cached 파일명  ( 대쉬가 2개 입니다. )
+
+이 명령어를 입력하면 작성한 파일명을 Git 버전 관리에서 제외한다는 의미가 됩니다.
+
+폴더를 제외하고 싶다면, git rm --cached 폴더명\ -r 명령어를 실행하면 됩니다.
+
+
+
+위의 명령어를 실행한 후 꼭 git commit 커밋을 해야 합니다.
+
+
+
+출처: https://victorydntmd.tistory.com/80 [victolee]

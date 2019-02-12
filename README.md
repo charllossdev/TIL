@@ -1,4 +1,8 @@
 # TIL(Today I Learned)
+
+[![Email](https://img.shields.io/badge/Email-charlloss.dev-blueviolet.svg)](mailto:charlloss.dev@gmail.com)
+[![License](https://img.shields.io/github/license/mashape/apistatus.svg)](./LICENSE)
+
 > Study hard what interests you the most in the most undisciplined, irreverent, and original manner possible.
 —Richard Feynman
 
@@ -64,6 +68,7 @@ This repository is mosly a mirror of my [Today I Learned By Hashrocket.](https:/
 
 * [Developer Survival](./seminar/developer-survival/Developer_Survival.md)
 * [T Academy](./seminar/t-Academy/T_Academy_Content.md)
+* [Nomad Coder](./seminar/nomad-coder/Nomad_Coder_Content.md)
 
 ---
 
@@ -75,6 +80,8 @@ This repository is mosly a mirror of my [Today I Learned By Hashrocket.](https:/
 # 🙌 Goal
 
 * [2019 Developer Roadmap](./roadmap/README.md)
+* [To Do List](./roadmap/to-do-list/README.md)
+* [Information Repository](./roadmap/info-repo/READM.md)
 
 # Other TIL Collections
 

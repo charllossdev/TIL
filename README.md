@@ -20,10 +20,6 @@ This repository is mosly a mirror of my [Today I Learned By Hashrocket.](https:/
 * [C#](#c#)
 * [Java](#java)
 * [JavaScript](#javascript)
-    + [JQuery](#jquery)
-    + [Jstl](#jstl)
-    + [Jqgird](#jqgrid)
-    + [Chartist](#chartist)
 * [Python](#python)
 * [Git](#git)
 * [Database](#database)
@@ -31,7 +27,7 @@ This repository is mosly a mirror of my [Today I Learned By Hashrocket.](https:/
 
 ### Framework
 
-* [EgovFramework](#egov-framework)
+* [EgovFramework](#egovframework)
 * [Xamarin](#xamarin)
 
 #### Seminar
@@ -48,19 +44,29 @@ This repository is mosly a mirror of my [Today I Learned By Hashrocket.](https:/
 ## JavaScript
 
 * [JavaScript Content](./javascript/JavaScript_Content.md)
-
+* [JQuery Content](./javascript/jQuery_Content.md)
+* [Jstl Content](./javascript/Jstl_Content.md)
+* [Jqgird](#jqgrid)
+* [Chartist](#chartist)
 ## Git
 
 * [Git Content](./git/Git_Content.md)
 
 ## Database
 
-* [Database Content](./database/Db2_Content.md)
+* [DB2 Content](./database/Db2_Content.md)
+* [MySQL Content](./database/MySQL_Content.md)
 
 
 ## Markdown
 
 * [Markdown Emoji Selector](./markdown/Markdown_Emoji_Selector.md)
+
+
+## EgovFramework
+
+* [EgovFramework Content](./egovframework/EgovFramework_Content.md)
+* [EgovFramework Xml Setting](./egovframework/xml_setting.md)
 
 ---
 

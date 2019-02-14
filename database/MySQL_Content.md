@@ -124,6 +124,60 @@ SQL쿼리(SQL Query)
 * 각 컬럼에서 나올 수 있는 후보값
 
 
+## MySQL & Maria DB
+
+기본 명령어
+
+```SQL
+show databases;     // DB들의 리스트를 표시
+
+use world;          // DB들의 리스트 중 'world'를 사용
+
+show tables;        // 사용하는 'world'의 테이블 리스트를 표시
+
+desc city;          // 'city' 테이블의 구조를 표시
+
+select * from city  // 'city' 테이블의 내용을 표시
+```
+
+## SQL
+
+>SQL (Structured Query Langague)
+
+* 데이터베이스에 있는 필요한 정보를 사용할 수 있도록 도와주는 언어
+* 인터프리터(쿼리문을 입력 받아야 실행)
+* 대소문자를 구별하지 않는다(데이터 내용은 구별함)
+
+### DML
+
+> DML(Data Manipulation Langague)
+
+* 테이블의 데이터를 조작하는 기능
+* 테이블의 레코드를 CRUD(생성, 삭제, 수정, 조회)
+    + INSERT
+    + DELETE
+    + UPDATE
+    + SELECT
+### DDL
+
+> DDL(Data Definition Langugae)
+
+* 데이터베이스 테이블의 스키마를 정의, 수정하는 기능
+* 데이터베이스 테이블의 생성, 컬럼추가, 타입변경, 각종 제약조건 지정, 수정
+    + CREATE
+    + DROP
+    + ALTER
+
+### DCL
+
+> DCL(Data Control Langague)
+
+* 데이터 베이스나 테이블의 접근 권한이나 CRUD 권한을 정의하는 기능
+* 특정 사용자에게 테이블의 조회권한 허가/금지 등
+    + GRANT
+    + REVOKE
+
+
 ## DISTINCT
 
 SELECT문의 결과값에서 특정 컬럼만 출력할 경우 중복된 값들이 나오는 경우 이를 제거해서 표시하는 기능

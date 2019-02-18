@@ -220,7 +220,7 @@ LOWER()                 // 레코드의 문자열을 모두 소문자로 리턴
 ROUND(컬럼, 자리수)     // 레코드의 소수값을 반올림 해주는 함수
 ```
 
-
+!25분 강의-JOIN 다시보기
 
 ## JOIN
 
@@ -244,8 +244,62 @@ ROUND(컬럼, 자리수)     // 레코드의 소수값을 반올림 해주는 �
 > CREATE VIEW name AS SELECT .....
 
 
+## SELECT INTO
 
+* 쿼리 결과를 새 테이블로 만든다.
+* 기존에는 존재하지 않는 테이블이 새로 생성된다.
+> 문법
+> CREATE TABLE table-name1 SELECT * FROM table-name2 WHERE ...
 
+## INSERT INTO SELECT
+
+* 쿼리 결과를 기존 테이블에 추가한다.(기존 테이블이 존재 해야 한다.)
+* SELECT 하는 테이블과 INSERT 테이블은 동일한 구조를 가져야 한다.
+* 두 개의 별도 쿼리를 하나로 합친다.
+> 문법
+> INSERT INTO table-name1 SELECT * FROM table-name2 WHERE ...
+
+## CASE ~ WHEN ~ END
+
+* SQL의 조건문(IF/SWITCH) 해당
+
+## LIKE 검색
+
+* 정확한 키워드를 모를 경우 일부만으로 검색하는 방법
+* 와일드카드(%, ____)를 사용하여 패턴매칭___
+      + % : 0 - n 글자
+      + _ : 1 글자
+* LIKE 검색은 매칭하기 위해 DBMS에 부담이 많으므로 LIKE에 OR 같은 논리조건자를 중복해서 사용하지 않는게 좋음
+> 문법
+> SELECT * FROM table-name WHERE LIKE column-name%_
+
+## NULL VALUE
+
+* NULL 이란 해당 컬럼의 값이 없다는 의미(해당 컬럼이 NULL값을 허용하는 경우)
+* NULL 값을 가지고 있는 컬럼을 검색하려면 > IS NULL의
+* NULL 이 아닌 값을 가지고 있는 컬럼을 검색하는 경우
+> 문법
+> IS NULL / IS NOT NULL
+
+## NULL 함수
+
+* 숫자컬럼을 연산해야 할 때 NULL 을 처리해주는 함수
+* NULL 값이 나오면(주로 0)으로 대체해서 계싼에 문제없도록 처리
+* 숫자연산/집합함수(Ex: SUM())의 경우 내장처리 되있어서 NULL함수를 사용하지 않아도 된다.
+* 직접 함수나 쿼리에 넣는 경우는 NULL 함수를 사용해야 함.
+> 문법
+> ISNULL()
+> COALESCE()
+
+## GROUP BY / HAVING
+
+* 집합함수와 같이 사용해 그룹별 연산을 적용한다.
+> 문법
+> SELECT column-name, 집합함수명(column-name) FROM table-name GROUP BY group-column-name;
+
+### HAVING
+
+* 그룹별 연산을 할때, 집합연산에 WHERE 조건절 대체 조건연산문
 
 # MySQL 내장 함수 정리
 

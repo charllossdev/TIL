@@ -40,6 +40,7 @@ This repository is mosly a mirror of my [Today I Learned By Hashrocket.](https:/
 ## C#
 
 * [C# Content](./c%23/C%23_Content.md)
+* [C# Naming Convention](./c%23/C%23_Naming.md)
 
 ## JavaScript
 

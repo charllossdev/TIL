@@ -58,7 +58,7 @@ This repository is mosly a mirror of my [Today I Learned By Hashrocket.](https:/
 
 * [DB2 Content](./database/Db2_Content.md)
 * [MySQL Content](./database/MySQL_Content.md)
-
+* [Database tuning rules for faster SQL queries](./database/Database-Tunning-Rules)
 
 ## Markdown
 

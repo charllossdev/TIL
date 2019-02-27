@@ -6,6 +6,12 @@
 <c:forEach items="${menuList}" var="mainMenuList" varStatus="status">
 ```
 
+## out
+
+```JavaScript
+<c:out value="${}"/>
+```
+
 ## if
 
 ```JavaScript

@@ -148,7 +148,7 @@ https://git-scm.com/docs/gitignore
 $ cat .gitignore
 ```
 
-Create Git Igonore File(In git root path) : .gitignore 
+Create Git Igonore File(In git root path) : .gitignore
 
 
 
@@ -171,6 +171,114 @@ git rm --cached 파일명  ( 대쉬가 2개 입니다. )
 
 위의 명령어를 실행한 후 꼭 git commit 커밋을 해야 합니다.
 
-
-
 출처: https://victorydntmd.tistory.com/80 [victolee]
+
+## Git Error Code: GH001: Large files detected.
+
+GitHub 에는 기본적으로 100MB 이상 되는 파일을 올릴 수 없다.
+
+대용량의 파일을 올리려고 시도할 경우 아래와 같은 에러 메서지가 나온다.
+
+> Error Message
+
+```git-error
+$ git push
+Counting objects: 3086, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (2980/2980), done.
+Writing objects: 100% (3086/3086), 363.25 MiB | 935.00 KiB/s, done.
+Total 3086 (delta 1236), reused 111 (delta 57)
+remote: error: GH001: Large files detected. You may want to try Git Large File Storage — https://git-lfs.github.com.
+remote: error: Trace: ***
+remote: error: See http://git.io/iEPt8g for more information.
+remote: error: File *** is 120.94 MB; this exceeds GitHub’s file size limit of 100.00 MB
+To git@github.com:***
+ ! [remote rejected] master -> master (pre-receive hook declined)
+ ! [remote rejected] *** -> *** (pre-receive hook declined)
+error: failed to push some refs to ‘git@github.com:***’
+```
+
+HEAD의 마지막 Commit에는 100MB가 넘는 파일이 없더라도 이전 Commit 중에 100MB 이상의 파일이 포함된 적이 있다면 이 경고를 피할 수 없다.
+
+### 해결책
+
+Commit 과정에서 지정한 파일을 작게 조각내주는 Git extension인 git-lfs — Git Large File Storage https://git-lfs.github.com/ — 를 로컬에 설치한 뒤, 적용하려는 Repository 경로에서 다음 명령을 실행한다.
+
+```git
+$ git lfs install
+Updated pre-push hook.
+Git LFS initialized.
+```
+그다음 용량이 큰 파일을 git-lfs의 관리 대상으로 등록해준다. 다음 예시는 120MB 정도의 exe 파일을 Stage에 추가한 상황에서, 확장자가 exe인 모든 파일을 git-lfs의 관리 대상으로 지정하고 Commit을 수행한 모습이다.
+
+```git
+$ git lfs track “*.exe”
+Tracking *.exe
+$ git commit -m “Large file included”
+[master (root-commit) dd2b715] Large file included
+(...)
+```
+
+이제 하단에 있는 3번 과정대로 Github에 push를 시도하면 된다. 그런데 기존에 100MB 이상의 파일을 Commit한 적이 있다면 여전히 100MB 이상의 파일을 올릴 수 없다는 경고 메시지를 보게 된다. 그럴 땐 다음 2번 과정을 적용해야 한다.
+
+2. BFG Repo-Cleaner 적용
+기존 Commit에서 100MB보다 큰 파일의 로그를 강제로 없애줘야 한다. BFG Repo-Cleaner — BFG Repo-Cleaner https://rtyley.github.io/bfg-repo-cleaner/ — 를 이용하면 그 작업을 손쉽게 적용할 수 있다.
+
+공식 사이트에서 bfq-x.x.x.jar — x.x.x는 버전 — 를 받고, 대상이 되는 Repository에서 다음과 같이 그동안의 Commit에 포함된 100MB 이상의 파일을 정리하는 명령을 실행한다.
+```git
+$ java -jar bfg-1.13.0.jar --strip-blobs-bigger-than 100M
+```
+
+실행 결과 에러 시
+
+```git-bfq-x.x.x.jar-Eroor
+Using repo : C:\eGovFrameDev-3.6.0-64bit\workspace2\Eagle-Eye-Admin\.git
+
+Scanning packfile for large blobs: 1108
+Scanning packfile for large blobs completed in 67 ms.
+Warning : no large blobs matching criteria found in packfiles - does the repo need to be packed?
+Please specify tasks for The BFG :
+bfg 1.13.0
+Usage: bfg [options] [<repo>]
+
+  -b, --strip-blobs-bigger-than <size>
+                           strip blobs bigger than X (eg '128K', '1M', etc)
+  -B, --strip-biggest-blobs NUM
+                           strip the top NUM biggest blobs
+  -bi, --strip-blobs-with-ids <blob-ids-file>
+                           strip blobs with the specified Git object ids
+  -D, --delete-files <glob>
+                           delete files with the specified names (eg '*.class', '*.{txt,log}' - matches on file name, not path within repo)
+  --delete-folders <glob>  delete folders with the specified names (eg '.svn', '*-tmp' - matches on folder name, not path within repo)
+  --convert-to-git-lfs <value>
+                           extract files with the specified names (eg '*.zip' or '*.mp4') into Git LFS
+  -rt, --replace-text <expressions-file>
+                           filter content of files, replacing matched text. Match expressions should be listed in the file, one expression per line - by default, each expression is treated as a literal, but 'regex:' & 'glob:' prefixes are supported, with '==>' to specify a replacement string other than the default of '***REMOVED***'.
+  -fi, --filter-content-including <glob>
+                           do file-content filtering on files that match the specified expression (eg '*.{txt,properties}')
+  -fe, --filter-content-excluding <glob>
+                           don't do file-content filtering on files that match the specified expression (eg '*.{xml,pdf}')
+  -fs, --filter-content-size-threshold <size>
+                           only do file-content filtering on files smaller than <size> (default is 1048576 bytes)
+  -p, --protect-blobs-from <refs>
+                           protect blobs that appear in the most recent versions of the specified refs (default is 'HEAD')
+  --no-blob-protection     allow the BFG to modify even your *latest* commit. Not recommended: you should have already ensured your latest commit is clean.
+  --private                treat this repo-rewrite as removing private data (for example: omit old commit ids from commit messages)
+  --massive-non-file-objects-sized-up-to <size>
+                           increase memory usage to handle over-size Commits, Tags, and Trees that are up to X in size (eg '10M')
+  <repo>                   file path for Git repository to clean
+
+```
+
+그럴 땐 아래 명령을 먼저 수행하고 다시 위의 bfg-x.x.x.jar에 의한 명령을 실행한다.
+
+```git
+$ git repack && git gc
+Counting objects: 3002, done.
+(...)
+```
+> 마지막으로
+> git-push 재시도
+> 위 과정들을 적용한 뒤 push를 시도하면 다음과 같이 성공 메시지를 볼 수 있다.
+
+https://medium.com/@stargt/github%EC%97%90-100mb-%EC%9D%B4%EC%83%81%EC%9D%98-%ED%8C%8C%EC%9D%BC%EC%9D%84-%EC%98%AC%EB%A6%AC%EB%8A%94-%EB%B0%A9%EB%B2%95-9d9e6e3b94ef

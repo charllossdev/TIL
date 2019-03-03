@@ -1,6 +1,6 @@
 # JavaScript
 
-## AJAX (Asynchronous JavaScript and XML)
+# AJAX (Asynchronous JavaScript and XML)
 
 Ajax 설정 속성
 ```JavaScript
@@ -50,14 +50,14 @@ Data 속성은 Json : Object Type 데이터가 전송된다.
 링크참조
 > https://poiemaweb.com/js-ajax
 
-#### 1. Ajax(Asynchronous JavaScript and XML)
+## 1. Ajax(Asynchronous JavaScript and XML)
 Ajax(Asynchronous JavaScript and XML)는 자바스크립트를 이용해서 비동기적(Asynchronous)으로 서버와 브라우저가 데이터를 교환할 수 있는 통신 방식을 의미
 
 서버로부터 웹페이지가 반환되면 화면 전체를 갱신해야 하는데 페이지 일부만을 갱신하고도 동일한 효과를 볼 수 있도록 하는 것이 Ajax이다. 페이지 전체를 로드하여 렌더링할 필요가 없고 갱신이 필요한 일부만 로드하여 갱신하면 되므로 빠른 퍼포먼스와 부드러운 화면 표시 효과를 기대할 수 있다.
 
 
 
-#### 2. JSON (JavaScript Object Notation)
+## 2. JSON (JavaScript Object Notation)
 클라이언트와 서버 간에는 데이터 교환이 필요하다. JSON(JavaScript Object Notation)은 클라이언트와 서버 간 데이터 교환을 위한 규칙 즉 데이터 포맷을 말한다.
 
 JSON은 일반 텍스트 포맷보다 효과적인 데이터 구조화가 가능하며 XML 포맷보다 가볍고 사용하기 간편하며 가독성도 좋다.
@@ -75,7 +75,7 @@ JSON은 일반 텍스트 포맷보다 효과적인 데이터 구조화가 가능
 
 **키는 반드시 큰따옴표(작은따옴표 사용불가)로 둘러싸야 한다.**
 
-#### 2.1 JSON.stringify
+## 2.1 JSON.stringify
 
 JSON.stringify 메소드는 객체를 JSON 형식의 문자열로 변환한다.
 
@@ -135,7 +135,7 @@ var strFilteredArray = JSON.stringify(arr, replaceToUpper);
 console.log(typeof strFilteredArray, strFilteredArray); // string "1,5,FALSE"
 ```
 
-#### 2.2 JSON.parse
+## 2.2 JSON.parse
 JSON.parse 메소드는 JSON 데이터를 가진 문자열을 객체로 변환한다.
 
 > 서버로부터 브라우저로 전송된 JSON 데이터는 문자열이다. 이 문자열을 객체로서 사용하려면 객체화하여야 하는데 이를 역직렬화(Deserializing)이라 한다. 역직렬화를 위해서 내장 객체 JSON의 static 메소드인 JSON.parse를 사용한다.
@@ -167,7 +167,52 @@ console.log(typeof str, str);
 var parsed = JSON.parse(str);
 console.log(typeof parsed, parsed);
 ```
+# HTML
 
+Javascipt Control with HTML DOM
+
+## document.createElement("Tag")
+
+Create Html Dom Tag
+
+```JavaScript
+var TagA      = document.createElement("a");
+var TagLi     = document.createElement("li");
+var TagDiv    = document.createElement("div");
+var TagSpan   = document.createElement("span");
+var TagH1     = document.createElement("h1");
+var TabBtn    = document.createElement("button");
+```
+
+## setAttribute("Attribute", "Value")
+
+Setting Add Attribute
+
+If you want Add Attribute Anymore Content
+
+```JavaScript
+TagA.setAttribute("class", "Active-Class");
+TabA.setAttribute("data-code", "A-Tag-Data-Code");
+TabBtn.setAttribute("type", "button");
+......
+```
+
+## textContent
+
+Dom Tag Add Text
+
+```JavaScript
+TagA.textContent    = "You Want String Data";
+TagLi.textContent   = TagA.text() + "Append Things";
+```
+
+## appendChild("Tag")
+
+Add Append Child Dom tag
+
+```JavaScript
+TabA.appendChild(TabLi);
+```
 
 ## 즉시 실행 함수
 

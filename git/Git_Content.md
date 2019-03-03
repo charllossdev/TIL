@@ -173,7 +173,7 @@ git rm --cached 파일명  ( 대쉬가 2개 입니다. )
 
 출처: https://victorydntmd.tistory.com/80 [victolee]
 
-## Git Error Code: GH001: Large files detected.
+# Git Error Code: GH001: Large files detected.
 
 GitHub 에는 기본적으로 100MB 이상 되는 파일을 올릴 수 없다.
 
@@ -282,3 +282,19 @@ Counting objects: 3002, done.
 > 위 과정들을 적용한 뒤 push를 시도하면 다음과 같이 성공 메시지를 볼 수 있다.
 
 https://medium.com/@stargt/github%EC%97%90-100mb-%EC%9D%B4%EC%83%81%EC%9D%98-%ED%8C%8C%EC%9D%BC%EC%9D%84-%EC%98%AC%EB%A6%AC%EB%8A%94-%EB%B0%A9%EB%B2%95-9d9e6e3b94ef
+
+# CRLF will be replaced by LF ERROR
+
+https://blog.jaeyoon.io/2018/01/git-crlf.html
+
+이 기능은 개발자가 git에 코드를 추가했을 때 (예컨대 커밋할 때)에는 CRLF를 LF로 변환해주고, git의 코드를 개발자가 조회할 때 (예컨대 clone한다거나 할 때)에는 LF를 CRLF로 변환해준다.
+
+그러므로 윈도우 사용자의 경우 이러한 변환이 항상 실행되도록 다음과 같은 명령어를 입력한다. 물론 시스템 전체가 아닌 해당 프로젝트에만 적용하고 싶다면 —global 을 빼주면 된다.
+
+git config --global core.autocrlf true
+리눅스나 맥을 사용하고 있는 경우, 조회할 때 LF를 CRLF를 변환하는 것은 원하지 않을 것이다. 따라서 뒤에 input이라는 명령어를 추가해줌으로써 단방향으로만 변환이 이루어지도록 설정한다.
+
+git config --global core.autocrlf true input
+혹은 이러한 변환 기능을 원하지 않고, 그냥 에러 메시지 끄고 알아서 작업하고 싶은 경우에는 아래 명령어로 경고메시지 기능인 core.safecrlf를 꺼주면 된다.
+
+git config --global core.safecrlf false

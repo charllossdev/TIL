@@ -1,5 +1,11 @@
 # Project XML Setting
 
+Categoris
+* [Tiles Setting](#타일즈-설정)
+* [Interceptor](#인터셉터)
+* [Database](#데이터베이스)
+* [Server](#서버)
+
 # 타일즈 설정
 
 <div id=tiles></div>
@@ -221,3 +227,11 @@ context-transaction.XML
 </aop:config>
 
 ```
+
+# 서버
+
+## UTF-8 Encoding
+
+![server-setting-location](./img/server-setting-location.png)
+
+![server-setting-code](./img/server-setting-code.png)

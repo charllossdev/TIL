@@ -2,9 +2,24 @@
 # JavaScript
 Categoris
 
+* [Javascript Data Type](#javascript-data-type)
 * [Javascript Basic Method](#basic-method)
 * [Ajax](#ajax)
-* [Dom](#dom)
+* [Dom](#dom)]
+
+## JavaScript Data Type
+
+자바스크립트의 DATA Type은 총 7개가 있으며 아래와 같다.
+
+1. Boolean
+2. Null
+3. Undefined
+4. Number
+5. String
+6. Symbol (ES6 에서 추가)
+7. Object
+> 위 리스트에서 6번까지는 primitive type 이며  Object 는 primitive가 아니다.  여기서 각 type별로 선언하는 여러가지 방법이 있지만 Object는 아래와 같이 주로 선언한다.
+
 
 ## Basic Method
 

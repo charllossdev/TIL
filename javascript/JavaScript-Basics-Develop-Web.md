@@ -33,6 +33,32 @@ Categoris
 지역 변수 (함수 수준 범위)
 대부분의 프로그래밍 언어와 달리, 자바스크립트는 블럭-수준(block-level)의 범위를 가지고 있지 않습니다. 대신, 자바스크립트는 함수-수준(function-level)의 범위를 가집니다. 함수내에 정의된 변수는 지역 범위를 가지며, 해당 함수와 내부 함수에서만 접근이 가능합니다. 내부 함수에서 외부 함수의 변수 접근에 관한 더 자세한 내용은 클로저(Closure)를 설명한 글을 참조하시기 바랍니다.
 
+### 함수-수준 범위의 예제
+
+```JavaScript
+var name = "Richard";
+function showName() {
+     var name = "Jack"; // 지역 변수; showName()함수에서만 접근가능.
+     console.log(name); // Jack
+}
+console.log(name); // Richard : 전역 변수
+```
+
+### 잘못된 예제. (블럭-수준 범위로 오해할 경우)
+
+```JavaScript
+var name = "Richard";
+// 아래의 if문은 name변수에 대한 지역-범위를 생성하지 않습니다.
+if (name) {
+     name = "Jack";
+     console.log(name); // Jack : 전역 변수
+}
+// name은 여전히 전역변수이며 if문에서 변경되었습니다.
+console.log(name); // Jack
+```
+
+>지역변수를 선언하지 않는다면 문제를 일으킬 가능성이 높아집니다.
+
 
 # Basic Method
 

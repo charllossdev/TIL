@@ -59,6 +59,44 @@ console.log(name); // Jack
 
 >지역변수를 선언하지 않는다면 문제를 일으킬 가능성이 높아집니다.
 
+### 지역 변수와 전역 변수
+
+항상 지역변수를 사용하기 이전에 선언하도록 하십시오. JSHint를 사용하면 코드의 문법 오류나 스타일을 체크할 수 있습니다. 다음은 지역변수를 선언하지 않음으로 인해 문제가 발생한 경우입니다.
+
+```JavaScript
+// 지역변수를 var키워드로 선언하지 않았을 경우, 그것은 전역-범위(global-scope)가 됩니다.
+var name = "Michael Jackson";
+function showCelebrityName() {
+     console.log(name);
+}
+function showOrdinaryPersonName() {
+     name = "Johnny Evers";
+     console.log(name);
+}
+showCelebrityName(); // Michael Jackson
+// name 은 지역변수가 아닙니다. 이것은 전역변수 name을 변경해 버립니다.
+showOrdinaryPersonName(); // Johnny Evers
+// 이제 전역변수 name은 Johny Evers입니다. 더이상, 셀럽의 이름은 없습니다. -.-;;
+showCelebrityName(); // Johnny Evers
+// 해결책은 지역변수 선언시 var 키워드를 사용하는 것입니다.
+function showOrdinaryPersonName() {
+     var name = "Johnny Evers"; // 이제 name은 항상 지역변수이며, 전역변수를 덮어쓰지 않습니다.
+     console.log(name);
+}
+```
+
+>지역번수는 함수내에서 전역번수보다 높은 우선순위를 가집니다.
+
+만약, 같은 이름의 전역변수와 지역변수가 존재할 경우 이 변수를 함수내에서 사용한다면, 지역변수가 우선권을 갖게 됩니다.
+
+```JavaScript
+var name = "Paul";
+function users() {
+     var name = "Jack";
+     console.log(name);
+}
+users(); // Jack
+```
 
 # Basic Method
 

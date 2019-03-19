@@ -38,8 +38,23 @@ Categoris
 
 * Eclipse
 * Bisual Studio
-* Aptan Studio
+* aptana Studio
     + 멀티플랫폼 통합개발환경 Eclipse 기반으로 한 오픈소스 자바스크립트 편집기
+
+## JavaScript 사용 2가지 방식
+
+JavaScript를 사용하기 위해서는 2가지 방법을 기술할 수 있다.
+
+1. 인라인 스크립트 방식
+2. 외부 스크립트 방식
+
+### 인라인 스크립트 방식
+HTML DOM 에서 <script> 태그를 사용하여 자바스크립트 코드를 직접 작성
+
+### 외부 스크립트 방식
+자바스크립트 코드를 외부 파일(* .js) 확장자에 작성하고, 작성된 js 파일을 Include 하는 방법
+
+외부 스크립트와 인라인 스크립트는 동시에 작성 불가(인라인 스크립트의 내용은 무시된다.)
 
 
 # JavaScript Data Type

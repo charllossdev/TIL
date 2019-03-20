@@ -148,6 +148,91 @@ function users() {
 users(); // Jack
 ```
 
+
+
+전역 변수
+함수의 외부에서 선언된 모든 변수는 전역 범위(global scope)를 가집니다. 브라우저에서, 전역 컨텍스트(또는 scope)는 window 객체를 가리킵니다.
+
+그러므로, 전역변수는 전체 어플리케이션에서 사용이 가능합니다.
+
+그러므로, 전역변수는 전체 어플리케이션에서 사용이 가능합니다.
+
+```JavaScript
+// 전역변수는 아래와 같이 선언될 수 있습니다.
+var myName = "Richard";
+// 또는
+firstName = "Richard";
+// 또는
+var name;
+name;
+```
+
+모든, 전역 변수는 window객체와 연결됩니다. 그러므로, 아래와 같이 window객체를 통해 모든 전역 변수에 접근이 가능합니다.
+
+```JavaScript
+console.log(window.myName); // Richard
+// 또는
+console.log("myName" in window); // true
+console.log("firstName" in window); // true
+```
+
+만약, 변수가 최초 선언 없이(var 키워드를 사용하여) 초기화 되었다면, 이 변수는 자동으로 전역 컨텍스트에 추가됩니다:
+
+```JavaScript
+function showAge() {
+     // age는 전역 변수입니다.
+     age = 90;
+     console.log(age);
+}
+showAge(); // 90
+// age는 전역 변수이므로, 이런식으로도 호출될 수 있습니다.
+console.log(age); // 90
+```
+
+아래의 firtName은 둘다 전역 범위입니다. 두번째, firstName은 {} 블럭으로 쌓여있지만, 자바 스크립트는 블럭단위 범위를 지원하지 않는다는 것을 기억하기 바랍니다.
+
+```JavaScript
+var firstName = "Richard";
+{
+     var firstName = "Bob";
+}
+console.log(firstName); // Bob
+다른 예제:
+
+for (var i=1; i<=10; i++) {
+     console.log(i); // 1~10까지 출력
+}
+// 변수 i는 전역 변수입니다. 그러므로, 아래 함수 호출시 i는 for문에서 실행된 후 마지막 값을 가르키게 됩니다.
+function aNumber() {
+     console.log(i);
+}
+aNumber(); // 11
+```
+
+setTimeout 변수는 전역 범위에서 실행됩니다.
+
+setTimeout 안에서 선언된 모든 함수는 전역 범위에서 실행됩니다. 다음 예제를 주의해서 보십시오.
+```JavaScript
+// setTimeout 함수내에서 사용된 "this"객체는 myObj가 아니라, window객체를 참조합니다.
+var highValue = 200;
+var constantVal = 2;
+var myObj = {
+     highValue: 20,
+     constantVal: 5,
+     calculateIt: function() {
+          setTimeout(function() {
+               console.log(this.constantVal * this.highValue);
+          }, 2000);
+     }
+}
+// 전역변수인 highValue와 constantVal을 사용하여 계산됩니다. 200*2.
+myObj.calculateIt(); //400
+```
+
+전역 범위를 오염시키지 마십시오
+
+자바스크립트 전문가가 되려면, 가급적 전역 범위에 변수를 생성하는것을 피하도록 해야 합니다.
+
 # Basic Method
 
 DOM - Javascript Method

@@ -233,6 +233,43 @@ myObj.calculateIt(); //400
 
 자바스크립트 전문가가 되려면, 가급적 전역 범위에 변수를 생성하는것을 피하도록 해야 합니다.
 
+
+자바스크립트 전문가가 되려면, 가급적 전역 범위에 변수를 생성하는것을 피하도록 해야 합니다.
+
+```JavaScript
+// 다음 두 변수는 전역 범위에 있습니다.
+var firstName, lastName;
+function fullName() {
+     console.log("Full Name : " + firstName + " " + lastName);
+}
+다음은, 개선된 코드로서 전역범위를 덜 오염시킵니다.
+
+// 함수내에 선언함으로서 이것은 지역변수 입니다.
+function fullName() {
+     var firstName = "Michael", lastName = "Jackson";
+     console.log("Full Name : " + firstName + " " + lastName);
+}
+```
+위의, 예제에서 fullName() 함수 역시 전역 범위에 있습니다.
+
+
+
+### 자바스크립트 원시
+
+리터럴 : 내가 변수에 넣을 값을 표현하는 것.
+
+원시 : 데이터, 값, 벨류
+원시를 넣은 변수는 원시변수
+
+5가지 인스턴스
+  1. 문자열
+  2. 숫자
+  3. 불리언
+  4. Null
+  5. Undefined
+
+---
+
 # Basic Method
 
 DOM - Javascript Method

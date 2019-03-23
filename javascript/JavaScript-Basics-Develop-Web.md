@@ -268,6 +268,59 @@ function fullName() {
   4. Null
   5. Undefined
 
+
+  ### Object Literal(객체 리터럴)
+
+  **Object는 다음과 같이 주로 선언한다.**
+
+  ```JavaScript
+  var obj1 = {};
+  var obj2 = new Object();
+  ```
+
+  위 코드에서 obj1 과 obj2는 객체는 동일한 역할을 하게 된다. 즉 아무것도 없는 빈 객체를 생성해서, 향후 프로퍼티 또는 메소드를 추가할 수 있는 객체가 된다.
+
+  책, 자료에서는 아래와 같은 방식을 좋은 패턴이라고 말한다.
+
+  ```JavaScript
+  var obj1 = {}; //good pattern
+  ```
+
+  위 코드를 바로 literal 표기법이라고 한다. 간단하게 객체를 선언할 수 있으며 아래와 같은 코드에서는 가독성 또한 좋아진다.
+
+  ```JavaScript
+  //객체 생성과 할당
+  var obj1 = {
+    a: 1,
+    b: 2
+  };
+  //객체 생성한 후 할당
+  var obj2 = new Object();
+  obj2.a = 1;
+  obj2.b = 2;
+  ```
+
+  ---
+
+  #### Object Literal(객체 리터럴)을 권장하는 이유
+  그렇다면 단순히 가독성을 위해서 {} 를 new Object에 비해 권장하는 것일까?
+
+  **1. {} 과  new Object()는  동일한 객체를 생성할까?**
+
+  우선 Literal 기법과 new 기법으로 생성된 객체는 동일한 객체이다. ( 의미적으로 동일하다는 말이다. [참고]로 String 은 다르다. ).
+
+
+  [참고]
+
+  ```JavaScript
+  var str1 = "";
+  var str2 = new String();
+  console.log( typeof str1 ); // "string"
+  console.log( typeof str2 ); // "object"
+  ```
+
+  위 코드에서  str1 과 str2 는 다르다. str1 은 type이 string 이지만 str2는 object 이다.
+
 ---
 
 # Basic Method

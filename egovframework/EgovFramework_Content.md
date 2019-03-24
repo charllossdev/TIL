@@ -135,7 +135,17 @@ DB - mariadb Setting
     <version>2.2.1</version>
 </dependency>
 ```
+## context-mapper.xml
+Mapper 경로 설정 변경 필요
 
+```XML
+
+<!-- MapperConfigurer setup for MyBatis Database Layer with @Mapper("deptMapper") in DeptMapper Interface -->
+<bean class="egovframework.rte.psl.dataaccess.mapper.MapperConfigurer">
+  <property name="basePackage" value="egovframework.example.**.service.impl" />
+</bean>
+
+```
 
 ## context-datasource.xml
 

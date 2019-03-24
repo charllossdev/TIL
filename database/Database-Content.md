@@ -3,7 +3,7 @@
 
 * [데이터베이스 특징](#데이터베이스-특징)
 * [DBMS(DataBase Management System)](#dbms(dataBase-management-system))
-
+* [SQL(Structured Query Language)](#sql(structured-query-Language))
 
 데이터베이스(DataBase, DB)는 체계화된 데이터의 모임이다. 즉, 작성된 목록으로써 여러 응용 시스템들의 통합된 정보들을 저장하여 운영할 수 있는 공용 데이터들의 묶음이다.
 
@@ -66,3 +66,64 @@
   - 무결성에 관한 제약 조건을 정의/검사하는 기능을 제공한다. 데이터베이스는 반드시 무결성 제약조건을 통과한 데이터만을 저장하고 있어야 한다.
 
 * 백업/회복
+
+# SQL(Structured Query Language)
+
+데이터베이스 관리 시스템(DBMS)의 데이터를 관리하기 위해 설계된 특수 목적의 프로그래밍 언어이다. 데이터베이스 관리 시스템에서 자료의 검색과 관리, 데이터베이스 스키마 생성과 수정, 데이터베이스 객체 접근 조정 관리를 위해 고안되었다. 많은 수의 데이터베이스 관련 프로그램들이 SQL을 표준으로 채택하고 있다.
+
+## SQL 언어의 기능
+
+* 데이터베이스에 대한 쿼리를 실행할 수 있다.
+* 데이터베이스로부터 데이터를 검색할 수 있다.
+* 데이터베이스에 레코드를 삽입, 갱신, 삭제 할 수 있다.
+* 새로운 데이터베이스, 테이블, 프로시저, 뷰를 만들 수 있다.
+* 테이블, 프로시저, 뷰에 대한 권한을 설정할 수 있다.
+
+## SQL 언어의 특징
+
+* 배우고 사용하기 쉬운 언어이다.
+* 프로그래밍 언어들 처럼 절차적인 개별 단위로 처리되기보다는 데이터의 집합 단위로 처리된다. 또한 실제 데이터들이 어떻게 처리되는지에 대한 세부적인 과정은 SQL문장을 작성하는 사람은 신경 쓰지 않아도 된다는 장점이 있다.(절차적 언어가 아닌 선언적 언어이다.)
+* 공인된 기관의 표준 SQL 문법이 존재한다. 즉 DBMS의 종류에 얽매이지 않고 사용할 수 있는 장점이 있다.
+* **SQL언어는 C, Java와 달리 명령을 위한 예약어에 대소문자를 구분하지 않는다.(단, 'Person', 'person'과 같이 데이터베이스에 저장된 내용을 검색할 경우에는 대소문자를 구분한다.)**
+
+## SQL 문법
+
+데이터베이스 언어 SQL 문법의 종류는 다음 세 가지로 대별된다.
+
+* 데이터 정의 언어 (DDL : Data Definition Language)
+  - CREATE
+  - ALTER
+  - DROP
+* 데이터 조작 언어 (DML : Data Manipulation Language)
+  - SELECT(특별히 질의어(Query)로 부른다.)
+  - INSERT
+  - DELETE
+  - UPDATE
+* 데이터 제어 언어 (DCL : Data Control Language)
+  - GRANT
+  - REVOKE
+
+## SELECT 문(QUERY 문)
+
+SELECT [* | DISTINCT] 컬럼
+FROM TABLE명
+[ WHERE 조건 ]
+[ GROUP BY 컬럼 ]
+[ HAVING 검색조건 ]
+[ ORDER BY 컬럼 [ ASC | DESC ]
+
+**데이터 처리순서**
+
+1. FROM
+2. ON
+3. JOIN
+4. WHERE
+5. GROUP BY
+6. WITH CUBE 또는 WITH ROLLUP
+7. HAVING
+8. SELECT
+9. DISTINCT
+10. ORDER BY
+11. TOP
+
+자세한 문법 및 함수는 [링크참조](http://www.evernote.com/l/AnRS5NqGm6NLXIEUtYFTlXz3DhbLMmH-QGE/)

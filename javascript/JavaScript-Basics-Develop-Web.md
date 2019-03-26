@@ -543,6 +543,13 @@ var parsed = JSON.parse(str);
 console.log(typeof parsed, parsed);
 ```
 
+# Parameter Data
+jsp(View)의 Form 테그(이하 a테그 등) Controller로 데이터를 보내서 제어를 하려는 경우 받는 방법을 소개한다.
+
+**Controller** 측에서 즉(java코드)로 제어가 가능하며, 배운 방법은 3가지 이다.
+  1. HttpServletRequest
+  2. @RequestParam
+  3. @ModelAttribute
 
 ## 즉시 실행 함수
 

@@ -468,8 +468,6 @@ Ajax(Asynchronous JavaScript and XML)는 자바스크립트를 이용해서 비�
 
 서버로부터 웹페이지가 반환되면 화면 전체를 갱신해야 하는데 페이지 일부만을 갱신하고도 동일한 효과를 볼 수 있도록 하는 것이 Ajax이다. 페이지 전체를 로드하여 렌더링할 필요가 없고 갱신이 필요한 일부만 로드하여 갱신하면 되므로 빠른 퍼포먼스와 부드러운 화면 표시 효과를 기대할 수 있다.
 
-
-
 #### 2. JSON (JavaScript Object Notation)
 클라이언트와 서버 간에는 데이터 교환이 필요하다. JSON(JavaScript Object Notation)은 클라이언트와 서버 간 데이터 교환을 위한 규칙 즉 데이터 포맷을 말한다.
 
@@ -605,7 +603,6 @@ jsp(View)의 Form 테그(이하 a테그 등) Controller로 데이터를 보내�
 // 내부함수의 접근방법 -> return
 ```
 
-
 ## HTML DOM Data 속성 값 가져오기
 
 ```JavaScript
@@ -614,7 +611,6 @@ $this.data("name");
 //Target
 $("data-name");
 ```
-
 
 ## Validation 예외 설정
 
@@ -634,7 +630,6 @@ Example:
     >>> var removeBlankData = $this.val().replace(/(\s*)/g, "");
 ```
 
-
 ## DOM
 
 문서 객체 모델(DOM; Document Object Model)은 객체 지향 모델로써 구조화된 문서를 표현하는 형식이다. DOM은 플랫폼/언어 중립적으로 구조화된 문서를 표현하며, 표준은 [W3C의 공식 (https://www.w3.org/DOM/)](https://www.w3.org/DOM/)이다.
@@ -650,7 +645,6 @@ DOM 은 프로그래밍 언어와 독립적으로 디자인되었다. 때문에 
 이 문서는 objects 와 types 을 최대한 간단하게 설명하려 한다. API 에는 우리가 반드시 알고 있어야 할 수많은 data types 이 있다는 사실을 염두해 두기 바란다.  이 문서에서는 nodes 는 elements 로, 노드의 arrays 는 nodeLists(또는 elements), attribute 노드들은 attributes 로 표현하였다.
 
 아래의 표는 이러한 data types 에 대한 간략한 설명이다.
-
 
 <center>Data Type</center> |  <center> Description </center> |
 |:--------|:--------|

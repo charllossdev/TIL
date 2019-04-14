@@ -16,8 +16,106 @@ Categoris
 > - 스프링 프레임워크를 기반으로 하기 때문에 수많은 오픈소스 또는 상용 솔루션 탑재 및 연계를 할 수 있는 범용성이 있다.
 > - 닷넷(.NET), php, asp를 위한 프레임워크가 아니로 오로지 Java 기반의 정보시스템(웹, 홈페이지, 하이브리드 앱) 등을 구축하기 위한 개발환경이다.
 
+현재 전자정부 프레임워크는 3.8 버전까지 상용화
+통합 개발 환경 가이드 - http://www.egovframe.go.kr/wiki/doku.php?id=egovframework:%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD%EA%B0%80%EC%9D%B4%EB%93%9C
+* [3.8 개발자 가이드](http://www.egovframe.go.kr/wiki/doku.php?id=egovframework:dev3.8:dev3.8)
+* [3.7 개발자 가이드](http://www.egovframe.go.kr/wiki/doku.php?id=egovframework:dev3.7:dev3.7)
+* [3.6 개발자 가이드](http://www.egovframe.go.kr/wiki/doku.php?id=egovframework:dev3.6)
 ### 특징
 ![img_sub01](./img/img_sub01.png)
+
+# 전자정부 표준 프레임워크 3.7 Version
+
+* 프레임워크 개발환경
+* 개발자 개발환경
+* 서버 개발환경
+
+## 프레임워크 개발 환경
+전자정부 표준프레임워크의 개발환경 대해 전체적인 개요를 설명한다.
+
+전자정부 표준프레임워크 개발환경은 비즈니스 프로그램 개발, 버전관리, 단위 테스트, 빌드 등의 개발 Life-Cycle 전반에 대한 지원 도구를 제공한다.
+* Implementation Tool
+* Test Tool
+* Configuration & Change Management Tool
+* Deployment Tool
+
+전체 구조 및 구성요소
+
+![egov_logo](./img/egov-config.jpg)
+
+| 구성| 설명 |
+|:--|:--|
+| Implementation Tool| 프로그램 개발, 테스트, 디버그 등 개발자 개별 개발환경을 제공  |
+| Test Tool  | 개발 프로그램에 대한 단위 테스트용 프로그램 작성 및 개별 배치 테스트 지원  |
+| Conf. & Change & Batch Mgt. Tool  | 개발 프로그램에 대한 형상 식별, 버전관리, 이슈 관리
+및 모니터링 도구 제공  |
+| Deployment Tool   |	CI (Continuous Integration)와 서버 이관 관련 도구 제공  |
+
+### 개발자 개발환경
+
+개발자 개발환경은 Implementation Tool(Editor, Debug, IDE, Common Component, Mobile IDE, Batch IDE)과 Test Tool(Test Reporting, Unit Test, Batch Test)로 구성되어있다.
+
+개발자 개발환경의 세부 기능을 좀 더 자세히 살펴보면 개발자들이 필수적으로 사용해야 하는 기능과 개발 편의성을 위해 선택적으로 사용하는 기능으로 구분됨을 알 수 있다.
+
+이에 따라 전자정부 표준프레임워크에서는 개발환경을 경량화하기 위해 개발자 필수 기능만으로 구성된 경량 개발환경을 제공한다.
+경량 개발환경은 개발자들이 간편하게 설치하여 사용할 수 있으며 소규모 프로젝트에서 사용하기 용이한 개발환경이다.
+
+또한 전자정부 표준프레임워크에서는 개발자 필수 기능과 개발 편의성 향상을 위한 선택적 기능을 모두를 설치한 통합 개발환경도 제공한다.
+개발자는 프로젝트의 상황에 적합한 환경을 다운로드하여 사용하도록 한다.
+
+### 서버 개발환경
+서버 개발환경은 Deployment Tool(Build, Deploy)과 Conf. & Change Mgt. Tool(Configuration Management, Change Management)로 구성되어 있다.
+
+전자정부 표준프레임워크에서는 서버 개발환경 역시 프로젝트에서 필수적으로 사용하는 기능과 선택적으로 사용하는 기능으로 구분하였다.
+프로젝트 상황에 따라 Deployment Tool과 Conf. & Change Mgt. Tool 중 일부 기능을 선택적으로 사용할 수 있다.(서버 개발환경)
+
+## 개발 프로세스
+
+개발환경에서 제공하는 개발환경 도구를 기반으로 개발을 진행할 경우 제시될 수 있는 개발 프로세스이다.
+개발 프로세스는 아래의 4개 영역으로 분류되며 각 영역에서 수행하는 상세 프로세스는 그림에서 확인할 수 있다.
+
+* 개발자 PC
+* 형상관리 서버
+* CI 서버
+* 어플리케이션 서버
+
+![egov_logo](./img/egov-process.jpg)
+
+## 개발 버전 차이
+
+* 개발환경 3.7.0
+
+|항목 | 권장버전 | 비고|
+|:--|:--|:--|
+|Java Development Kit | 8.0 이상 | 7.0 미지원|
+|Servlet | 2.5 이상 |
+|Eclipse IDE for Java EE Developers | 4.6.3 (Neon.3) | http://www.eclipse.org/neon/|
+
+* 개발환경 3.6.0
+
+|항목 | 권장버전 | 비고|
+|:--|:--|:--|
+|Java Development Kit | 7.0 이상 | 8.0 지원|
+|Servlet | 2.4 이상 |
+|Eclipse IDE for Java EE Developers | 4.5.2 (Mars.2) | http://www.eclipse.org/mars/|
+
+* WAS
+
+|이름 |권장버전|	자바호환성|	비고|
+|:--|:--|:--|:--|
+|Apache Tomcat|	8	| JDK 7.0 이상	|
+|Jboss application platform|	7	|JDK 7.0 이상	|
+|Tmax JEUS|	7	|JDK 7.0 이상	|
+|Oracle WebLogic Server	|12C|	JDK 7.0 이상	|
+
+* DBMS
+
+|이름	|권장버전|	비고|
+|:--|:--|:--|
+|Mysql|	5.1.30	||
+|Tibero|	3.0(sp2)	||
+|Altibase DBMS Server	|5.1.3.18	||
+|Oracle	|9.2(mp3)	||
 
 ### 전자정부 표준 프레임워크 라이센스
 [전자정부 표준프레임워크 라이센스](http://www.egovframe.go.kr/EgovLicense.jsp?menu=1&submenu=4)는 Apache License, Version 2.0 을 채택합니다.
@@ -56,6 +154,37 @@ Categoris
 ![RequestMapping](./img/requestMapping.png)
 6. return 명령어의 지시는 경로/파일이름으로 main.jsp의 논리적 주소로 이동
 7. main.jsp로 인해 웹 브라우져에서 view가 보여지게 됩니다.
+
+
+---
+
+# 전자정부 프레임 워크 설정 에러 해결 건
+
+# 2019-04-06
+The Eclipse executable launcher was unable to locate its companion shared library." 오류
+
+> eclipse.ini 파일의 설정이 잘못되어 있기 때문인데 메모장으로 eclipse.ini 파일을 열어서 수정을 합니다.
+
+```ini
+-startup
+plugins/org.eclipse.equinox.launcher_1.1.1.R36x_v20101122_1400.jar
+--launcher.library
+plugins/org.eclipse.equinox.launcher.win32.win32.x86_1.1.2.R36x_v20101222
+-showsplash
+org.eclipse.platform
+
+--launcher.defaultAction
+openFile
+-vm
+c:\Program files\java\jdk1.6.0_24\bin\javaw.exe
+
+-vmargs
+-Xms40m
+-Xmx384m
+-XX:MaxPermSize=512m
+==============================================================
+```
+
 
 
 # Interceptor Setting

@@ -1,7 +1,6 @@
 # 2Week
 
 * [Tiles](#tiles)
-*
 
 # EgovFrameWork - Maven Setting
 

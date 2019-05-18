@@ -233,8 +233,6 @@ public class Interceptor extends HandlerInterceptorAdapter{
 
 ```
 
-
-
 # Logger Setting
 
 ```java
@@ -251,7 +249,21 @@ DB - mariadb Setting
 
 ## pom.xml
 
+Dependency Injection
+
 ```xml
+<dependency>
+    <groupId>com.googlecode.log4jdbc</groupId>
+    <artifactId>log4jdbc</artifactId>
+    <version>1.2</version>
+    <exclusions>
+        <exclusion>
+            <artifactId>slf4j-api</artifactId>
+            <groupId>org.slf4j</groupId>
+        </exclusion>
+    </exclusions>
+</dependency>
+
 <dependency>
     <groupId>commons-dbcp</groupId>
     <artifactId>commons-dbcp</artifactId>

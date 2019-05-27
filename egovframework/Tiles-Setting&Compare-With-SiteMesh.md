@@ -113,11 +113,11 @@ Spring Framework의 주요기능인 의존성을 주입하여 jar파일을 다�
 
 ```Java
 <bean class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
-<property name="definitions">
-<list>
-  <value>/WEB-INF/tiles/default-layout.xml</value>
-</list>
-</property>
+  <property name="definitions">
+  <list>
+    <value>/WEB-INF/tiles/default-layout.xml</value>
+  </list>
+  </property>
 </bean>
 ```
 
@@ -148,6 +148,11 @@ Spring Framework의 주요기능인 의존성을 주입하여 jar파일을 다�
 ## default-layouts.jsp
 
 전체 레이아웃 구성
+
+타일즈 디렉티브 추가
+```JavaScript
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+```
 
 ```Java
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>

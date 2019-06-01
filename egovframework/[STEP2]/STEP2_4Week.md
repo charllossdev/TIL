@@ -1,6 +1,3 @@
-
-# EL 테그
-
 # Form 테그
 
 Window 객체의 location.href == Form 테그의 action 속성

@@ -125,6 +125,10 @@ viewResolver 우선순위 변경 1 -> 2로 변경
 </dependency>
 ```
 
+# VO(Value Object) Path Setting
+
+sql-mapper-config.xml 에서 만든 VO 경로를 설정해주어야 한다.
+
 # 데이터베이스
 
 <div id=db></div>

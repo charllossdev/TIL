@@ -134,3 +134,10 @@ mybatis.mapper-locations=classpath:mapper/**/*.xml
 ```
 파라메터 타입이 string 일 경우에 파타메터는 반드시 1개일 것이고,
 if가 있을 경우 반드시 _paraemter or value_
+
+/*
+1. HttpServletRequest로 age를 받았다. 8줄 중에 age가 38인 애를 for문과 if문을 돌려 map에 넣고 이 map을 mvc태운다. 그럼 1줄 나오면 화면에 넣는다.
+2. 19세 이상만 출력.
+3. 이름이 두큐라면 두큐를 세큐로 바꿔서 넣는다.
+4. Map을 두 개 만들고 List에 map의 데이터를 넣는다.
+*/

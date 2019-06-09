@@ -158,217 +158,6 @@ Categoris
 
 ---
 
-# 전자정부 프레임 워크 설정 에러 해결 건
-
-# 2019-04-06
-The Eclipse executable launcher was unable to locate its companion shared library." 오류
-
-> eclipse.ini 파일의 설정이 잘못되어 있기 때문인데 메모장으로 eclipse.ini 파일을 열어서 수정을 합니다.
-
-```ini
--startup
-plugins/org.eclipse.equinox.launcher_1.1.1.R36x_v20101122_1400.jar
---launcher.library
-plugins/org.eclipse.equinox.launcher.win32.win32.x86_1.1.2.R36x_v20101222
--showsplash
-org.eclipse.platform
-
---launcher.defaultAction
-openFile
--vm
-c:\Program files\java\jdk1.6.0_24\bin\javaw.exe
-
--vmargs
--Xms40m
--Xmx384m
--XX:MaxPermSize=512m
-==============================================================
-```
-
-
-
-# Interceptor Setting
-
-```java
-
-package egovframework.example.cmmn;
-
-import java.util.List;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
-
-import egovframework.example.cmmn.service.CmmnService;
-import egovframework.rte.psl.dataaccess.util.EgovMap;
-
-public class Interceptor extends HandlerInterceptorAdapter{
-
-	private final Logger log = LoggerFactory.getLogger(getClass());
-
-	@Resource
-	private CmmnService cmmnService;
-
-	@Override
-	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
-			ModelAndView modelAndView) throws Exception {
-
-		if (!"XMLHttpRequest".equals(request.getHeader("X-Requested-With"))) {
-
-			List<EgovMap> menuList = cmmnService.selectMenuList();
-
-			log.debug("Debug Intercepter " , menuList.toString());
-
-			System.out.println(menuList);
-
-			modelAndView.addObject("menuList", menuList);
-		}		
-	}
-}
-
-```
-
-# Logger Setting
-
-```java
-private final Logger log = LoggerFactory.getLogger(getClass());
-```
-
-> Import org.slf4j.Logger;
-
-
-# Maria DB Connection
-
-<div id=db></div>
-DB - mariadb Setting
-
-## pom.xml
-
-Dependency Injection
-
-```xml
-<dependency>
-    <groupId>com.googlecode.log4jdbc</groupId>
-    <artifactId>log4jdbc</artifactId>
-    <version>1.2</version>
-    <exclusions>
-        <exclusion>
-            <artifactId>slf4j-api</artifactId>
-            <groupId>org.slf4j</groupId>
-        </exclusion>
-    </exclusions>
-</dependency>
-
-<dependency>
-    <groupId>commons-dbcp</groupId>
-    <artifactId>commons-dbcp</artifactId>
-    <version>1.4</version>
-</dependency>
-
-<dependency>
-    <groupId>org.mariadb.jdbc</groupId>
-    <artifactId>mariadb-java-client</artifactId>
-    <version>2.2.1</version>
-</dependency>
-```
-## context-mapper.xml
-Mapper 경로 설정 변경 필요
-
-```XML
-
-<!-- MapperConfigurer setup for MyBatis Database Layer with @Mapper("deptMapper") in DeptMapper Interface -->
-<bean class="egovframework.rte.psl.dataaccess.mapper.MapperConfigurer">
-  <property name="basePackage" value="egovframework.example.**.service.impl" />
-</bean>
-
-```
-
-## context-datasource.xml
-
-DB 경로 및 데이터베이스 경로 계정
-
-```XML
-<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-  <property name="driverClassName" value="org.mariadb.jdbc.Driver"/>
-  <property name="url" value="jdbc:mariadb://localhost:3306/test" />
-  <property name="username" value="root"/>
-  <property name="password" value="root"/>
-</bean>
-```
-
-### DB SQL 문
-
-### <selectKey>
-
-parameterType의 VO가 가지고 있는 속성의 변하는 값을 DB에 넣고싶을때 사용하는 설정
-
-```xml
-<insert id="insertJoinMbr" parameterType="joinVO">
-
-	<selectKey order="BEFORE" keyProperty="mbrNo" resultType="String">
-
-		SELECT CONCAT('F', LPAD(IFNULL(REPLACE(MAX(MBR_NO), 'F', ''), 0) + 1, 9, 0)) as mbrNo
-		FROM T_MBR
-
-	</selectKey>
-
-	INSERT INTO T_MBR
-	(
-	   MBR_NO
-	 , LOGIN_ID
-	 , PWD
-	 , EMAIL
-	 , CP_NO
-	 , JOIN_DT
-	 , EMAIL_RCP_YN
-	 , SMS_RCP_YN
-	 , REGR
-	 , REG_DT
-	 , UPDR
-	 , UPD_DT
-	)
-	VALUES
-	(
-	   #{mbrNo}
-	 , #{loginId}
-	 , #{pwd}
-	 , #{email}
-	 , #{cpNo}
-	 , now()
-	 , #{emailRcpYn}
-	 , #{smsRcpYn}
-	 , #{mbrNo}
-	 , now()
-	 , #{mbrNo}
-	 , now()
-	)
-</insert>
-```
-
-### 트랜젝션 설정하기
-
-context-transaction.XML
-
-```XML
-
-<tx:advice id="txAdvice" transaction-manager="txManager">
-	<tx:attributes>
-		<tx:method name="*Tx" rollback-for="Exception"/>
-	</tx:attributes>
-</tx:advice>
-
-<aop:config>
-	<aop:pointcut id="requiredTx" expression="execution(* egovframework.example.**..impl.*Impl.*(..))"/>
-	<aop:advisor advice-ref="txAdvice" pointcut-ref="requiredTx" />
-</aop:config>
-
-```
-
 # QueryString Setting
 
 쿼리스트링은 사용자가 웹프로그램으로 입력 데이터를 전달하는 가장 단순하고 또한 널리 사용되는 방법이다. 이 방법은 URL 주소 뒤에 입력 데이터를 함께 제공하는 방법으로 다음과 같은 형식을 취한다.
@@ -396,3 +185,39 @@ http://hostname[:port]/folder/file?변수1=값1&변수2=값2&변수3=값3
 > 2. 사용하기 위해서는 JSTL 디렉티브를 추가해야 한다.
 > ![c_out](./img/c_out.PNG)
 > 3. 데이터 전송을 GET방식으로 할 경우에 한글 사용을 하려면 인코딩을 해주어야 한다.(Tomcat Server Localhost Config/server.xml)![server_encoding](./img/server_encoding.PNG)
+
+# VO (Value Object) 형식에 대해서
+Mapper XML 에서 VO경로를 설정해줘야 한다. - sel-mapper-config.xml
+
+> VO의 사용처
+> 초기값이 있어야 하는 경우는 Map보다 VO를 사용하는 방법이 훨신 더 좋다.
+
+그 외의 경우는 Map을 사용하는 것이 더 좋다.
+**Map이 속도가 훨신 빠르기 떄문**
+
+# 전자정부 프레임 워크 설정 에러 해결 건
+
+# 2019-04-06
+The Eclipse executable launcher was unable to locate its companion shared library." 오류
+
+> eclipse.ini 파일의 설정이 잘못되어 있기 때문인데 메모장으로 eclipse.ini 파일을 열어서 수정을 합니다.
+
+```ini
+-startup
+plugins/org.eclipse.equinox.launcher_1.1.1.R36x_v20101122_1400.jar
+--launcher.library
+plugins/org.eclipse.equinox.launcher.win32.win32.x86_1.1.2.R36x_v20101222
+-showsplash
+org.eclipse.platform
+
+--launcher.defaultAction
+openFile
+-vm
+c:\Program files\java\jdk1.6.0_24\bin\javaw.exe
+
+-vmargs
+-Xms40m
+-Xmx384m
+-XX:MaxPermSize=512m
+==============================================================
+```

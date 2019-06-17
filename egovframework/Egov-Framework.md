@@ -123,37 +123,38 @@ Categoris
 
 ### 전자정부 프레임워크 폴더 구조
 ![folder_java](./img/folder_java_55mhy03gx.PNG)
-- Java
+* Java
   - 자바코드(컨트롤러, 모델)를 관리 한다.
+  - MVC Model (Controller, Service, Mapper)
+  - VO(Visual Object)
   - cmmn (공통 업무)
-  - main (model controller)
-  - sample
 
 ![folder_resource](./img/folder_resource_xkm29gual.PNG)
-- resources
+* resources
   - spring, mapper, sql 자바 코드에서 사용할 리소스를 관리 한다.
 
 ![folder_webapp](./img/folder_webapp_sepe45wdg.PNG)
-- webapp
+* webapp
   - View 관련 소스 및 js, jsp, css, image 등등을 관리 한다.
   - jsp를 제외한 js, css, image 등은 webapp의 하위 폴더에 명시 되있다.
   - jsp 폴더의 경로는 webapp/WEB-INF/jsp 로 구성되 있다.
     ![folder_jsp](./img/folder_jsp.PNG)
   - jsp 폴더 구조와 java 폴더의 구조가 같다.
 
-### 전자정부 프레임워크 흐름
+### 전자정부 프레임워크 첫 실행 흐름
 로컬 이클립스에서 톰캣으로 서버를 실행하고, 웹 브라우져에서 http://localhost:8080/first/ 로 접속을 하면 화면에 보여지는 흐름은 이렇다.
-1. 이클립스의 톰캣 서버의 설정-module-path 탭에 저장된 path가 입력이 됬는지 확인
-2. 톰캣 서버의 localhost-config 폴더안에 context.xml에 <WatchedResource> 테그로 경로로 요청
-![watchedResource](./img/watchedResource.PNG)
-3. WEB-INF/web.xml 에 <welcome-file-list> 테그로 웹 요청시 지정한 리소스를 Call
-![welcome-file-list](./img/welcome-file-list.png)
-4. jsp 페이지 내에 forward 액션 태그를 만나게 되면, 그전까지 출력 버퍼에 저장되어 있던 내용을 제거하고 forward 액션 태그가 지정하는 page 속성의 논리적 주소로 Get방식 이동
-![jsp_forward](./img/jsp_forward.PNG)
-5. Get방식으로 넘겨받은 논리적 주소값이 @RequestMapping 명령어의 Value 속성값과 일치하면 하위 메서드가 실행
-![RequestMapping](./img/requestMapping.png)
-6. return 명령어의 지시는 경로/파일이름으로 main.jsp의 논리적 주소로 이동
-7. main.jsp로 인해 웹 브라우져에서 view가 보여지게 됩니다.
+
+  1. 이클립스의 톰캣 서버의 설정-module-path 탭에 저장된 path가 입력이 됬는지 확인
+  2. 톰캣 서버의 localhost-config 폴더안에 context.xml에 <WatchedResource> 테그로 경로로 요청
+  ![watchedResource](./img/watchedResource.PNG)
+  3. WEB-INF/web.xml 에 <welcome-file-list> 테그로 웹 요청시 지정한 리소스를 Call
+  ![welcome-file-list](./img/welcome-file-list.png)
+  4. jsp 페이지 내에 forward 액션 태그를 만나게 되면, 그전까지 출력 버퍼에 저장되어 있던 내용을 제거하고 forward 액션 태그가 지정하는 page 속성의 논리적 주소로 Get방식 이동
+  ![jsp_forward](./img/jsp_forward.PNG)
+  5. Get방식으로 넘겨받은 논리적 주소값이 @RequestMapping 명령어의 Value 속성값과 일치하면 하위 메서드가 실행
+  ![RequestMapping](./img/requestMapping.png)
+  6. return 명령어의 지시는 경로/파일이름으로 main.jsp의 논리적 주소로 이동
+  7. main.jsp로 인해 웹 브라우져에서 view가 보여지게 됩니다.
 
 
 ---

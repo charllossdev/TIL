@@ -26,6 +26,8 @@ console.log(item);
 
 ```JavaScript
 <c:forEach items="${menuList}" var="mainMenuList" varStatus="status">
+//status.index 0부터 시작
+//status.count 1부터 시작
 ```
 
 ## out

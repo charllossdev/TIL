@@ -10,6 +10,11 @@ Categoris
 
 # JavaScript
 
+좋은 정보
+
+https://30secondsofcode.org/index
+
+
 * 웹 브라우저에 내장되어 있는 스트립트 언어
 * 객체지향 프로그래밍
 * 인터 프리터 방식 프로그램 <-> 컴파일러 방식
@@ -308,6 +313,26 @@ function fullName() {
 }
 ```
 위의, 예제에서 fullName() 함수 역시 전역 범위에 있습니다.
+
+## 자바스크립트 배열
+
+```JavaScript
+var hanq = {
+    test: "한큐"
+}
+
+hanq.test
+> "한큐"
+
+hanq["test"]
+> "한큐"
+
+var twoq = "test"
+hanq[twoq]
+>"한큐"
+```
+자바스크립트 배열에 대괄호에는 0, 1, 2, 3 같은 인덱스만 들어가는 것이 아니라, 문자열도 들어갈 수 있다.
+
 
 ### 자바스크립트 원시
 

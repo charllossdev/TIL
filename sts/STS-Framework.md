@@ -1,87 +1,46 @@
 # STS (Spring Tool Suite) Framework
 
-# Install And First Init Setting
+# First Web Start Path Setiing
 
-  * **Check Java Version**
-  ![](assets/STS-Framework-60092b10.png)
-  * characters Set UTF-8
-      + Workspace
-      ![](assets/STS-Framework-0ae7f40f.png)
-      + CSS
-      ![](assets/STS-Framework-5a7f4a46.png)
-      + HTML
-      ![](assets/STS-Framework-3674168c.png)
-      + JSP
-      ![](assets/STS-Framework-b830ab08.png)
-  * SVN Install & Connect - Subclipse 4.3.0
-  ![](assets/STS-Framework-84cd1ecb.png)
-  * Mavin Location Setting
-  ![](assets/STS-Framework-ee6c3135.png)
+```java
+@RequestMapping({"/main.do", "/"})
+public String initMain() throws Exception{
 
-  * Color Theme Install
-  ![](assets/STS-Framework-df07d3dc.png)
+  return "main/main.tiles";
+}
+```
+@RequestMapping을 이용해 초기 URL설정 혹은 여러 URL의 경로를 맵핑할 수 있다.(STS, Egov)
 
 
-# New project
+# STS VO Setting
+![](assets/STS-Framework-0e830397.png)
 
-  * Gradle Nature New Project
-  ![](assets/STS-Framework-9b5514fa.png)
+STS에서는 VO관리를 EgovFramework처럼 사용하려면, VO 클래스 하나 생성 할 때마다, 위와 같이 mybatis 경로를 설정해 줘야 한다.
 
-  * Gradle Config Setting
-
-  ```JavaScript
-    plugins {id 'org.springframework.boot' version '2.1.5.RELEASE'
-  	id 'java'
-    }
-
-    apply plugin: 'io.spring.dependency-management'
-
-    group = 'com.example'
-    version = '0.0.1-SNAPSHOT'
-    sourceCompatibility = '1.8'
-
-    configurations {
-    	developmentOnly
-    	runtimeClasspath {
-    		extendsFrom developmentOnly
-    	}
-    }
-
-    repositories {
-    	mavenCentral()
-    }
-
-    dependencies {
-    	implementation 'org.springframework.boot:spring-boot-starter-web'
-    	implementation 'org.springframework.boot:spring-boot-starter-web-services'
-    	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.1'
-    	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    	runtimeOnly 'mysql:mysql-connector-java'
-    	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    	compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-jasper', version: '9.0.19'
-    	compile group: 'javax.servlet', name: 'jstl', version: '1.2'
-    	compile group: 'org.apache.tiles', name: 'tiles-servlet', version: '3.0.8'
-    	compile group: 'org.apache.tiles', name: 'tiles-extras', version: '3.0.8'
-    	compile group: 'org.apache.tiles', name: 'tiles jsp', version: '3.0.8'
-    }
-
-  ```
-
-  * application.properties Setting(DB.Connection, JSP Setting)
-  ![](assets/STS-Framework-2eb78fba.png)
-  ```java
-  spring.mvc.view.prefix=/WEB-INF/jsp
-  spring.mvc.view.suffix=.jsp
-
-  spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
-  spring.datasource.url=jdbc:mysql://localhost:3306/test?serverTimezone=UTC
-  spring.datasource.username=root
-  spring.datasource.password=root
-
-  mybatis.mapper-locations=classpath:mapper/**/*.xml
-  ```
+> STS에서 이런 반복적인 일을 줄이기 위해서 공통 폴더에 VO 관리 폴더를 생성하여 VO들을 하나로 관리한다.
+> ![](assets/STS-Framework-8fe33e97.png)
 
 
-# Visual Studio Code Theme
+![](assets/STS-Framework-148e8967.png)
 
-[추천 테마 카테고리 별 정리 사이트](https://vscodethemes.com/)
+Egovframework와 다르게 VO를 만들었을때, @Value 어노테이션을 사용하여, VO 클래스에 별칭을 주입시켜 준다.
+
+```java
+package com.step2.mvc.cmmn.vo;
+
+import org.springframework.beans.factory.annotation.Value;
+
+public class WelcomeWebVO {
+
+	@Value("welcomeWebVO")
+	private int age = 0;
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+}
+```

@@ -211,7 +211,7 @@ Example Html Dom
 반복문
 
 ```JavaScript
-$('.list li').each(function (index, item) {
+$('.list li'). (function (index, item) {
 // 인덱스는 말 그대로 인덱스
 // item 은 해당 선택자인 객체를 나타냅니다.
 

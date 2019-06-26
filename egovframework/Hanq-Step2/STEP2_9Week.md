@@ -130,6 +130,36 @@ requestMappingHandlerMapping -
 
 이 2개가 논리적 주소를 받아서, @Bean으로 등록되있는 어노테이션 중에 임믜로 컨트롤러라는 오네세이션을 해한다.
 
+### Dispatcher Servlet.xml
+
+Dispatcher-Servlet 내부
+  - Component-Scan : 컴포넌트가 붙어있는 객체만, 구분하여 , Bin으로 설치
+  - 즉 RquestMpiing :
+Spring은 @Component 어노테이션이 붙어있는 객체만 @Bean으로 등록시키는 인젝션이 일어난다.
+Spring은 @Component 붙어있는 객체만 @Bean으로 등록시키는 Injection이 일어난다.
+dispatcher-Servlet.xml - component-scan 에 등록되있는 경로만 자동으로 등록되도록 한다.
+---
+@Controllere 어노테이션을 선언하지 않으면, @RequestMapping을 사용할 수 없다.
+
+* RequestMappingHandlerAdapter
+* RequestMappingHandlerMapping
+
+1. 위 RequestMappingHandler Adapter, Mapping2이 논리적 주소(Ex.'/main.do')를 받아서 @bean으로 등록되 있는 정보들 중 @Controller 어노테이션이로 이동한다.
+2. @Controller하위에 존재하는 @RequestMapping 벨류 정보와  논리적 주소가 매칭되는 메서드를 찾는다.
+3. 그 서비스 메서드가 작동되어 서비스, 서비스임플, 맵퍼를 통해 MVC를 탄다.
+4. DB 조회 후 결과물을 리턴받아 데이터를 처리하고 화면으로 올릴 데이터를 모델에 넣는다.
+5. 정보를 넣은 모델이 화면으로 바로 가는 것이 아니라, **다시 Dispatcher-Servlet으로 간다.**
+> 즉 Dispatcher-Servlet은 2가지를 받는다.
+>> 1. return 하는 화면의 논리적 주소
+>> 2. 모델 정보
+
+6. Dispatcher-Servlet에 있는 viewResolver(Jstlview)가 2개의 정보를 받는다.
+7. 정보를 받은 JstlView는 HTML(DOM)을 그리기 시작한다.
+8. DOM을 그리다가, HTML이 아닌 Ex)forEach(Jstl문)이 나온다면, HTML 정보가 아니기 떄문에 정보가 없고, Jstlview가 (No.6)에서 받은 정보 중 모델에 있는 데이터를 찾아서 화면을 그리게 된다.
+9. 화면을 다 그린 JstlView는 다시 Dispatcher-Servlet에게 화면에 관련된 정보를 준다.
+10. Dispatcher-Servlet은 화면 결과물을 브라우저 서블릿 컨터이너에 결과를 전달한다.
+11. HTTP 통신을 하려면, Dispatcher-Servlet에서 받은 결과물을 서블릿 컨테이너가 받아서,  HTTP 통신에 맞는 규격으로 맞춰 사람이 볼수 있도록 파싱하여 브러우저에서 화면이 보이게 된다.
+
 ---
 # 과제
 1. 연습숙제

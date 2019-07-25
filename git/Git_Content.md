@@ -43,6 +43,11 @@ $ git config --global user.name "Your Git Nmae"
 $ git config --global user.email "Your Git Email"
 ```
 
+```git
+$ git config --global user.name  "charllossDev"
+$ git config --global user.email "charlloss.dev@gmail.com"
+
+```
 ### Step.1.1 All Checking Your Settings
 
 If you want to check your configuration settings, you can use the *git config --list* command to list all the settings Git can find at that point.

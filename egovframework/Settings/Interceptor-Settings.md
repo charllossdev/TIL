@@ -1,7 +1,6 @@
 # Interceptor Setting
 
 ```java
-
 package egovframework.example.cmmn;
 
 import java.util.List;

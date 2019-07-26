@@ -1,4 +1,3 @@
-
 # jQuery Basics Develop Web
 categoris
 
@@ -19,7 +18,7 @@ jQuery 웹사이트의 설명에 따르면:
 
 즉 jQuery는 코드를 단순하고 간결하게 유지하여 많은 반복 루프와 DOM 스크립팅 라이브러리 호출을 작성할 필요가 없게 해준다.
 
-##### jQuery Version
+## jQuery Version
 
 jQuery는 jQuery Foundation을 통해 버전 개발 및 유지 보수가 진행되고 있다.
 
@@ -197,7 +196,7 @@ $.each(obj, function (index, item) {
 });
 ```
 
-### $().each()  
+### $().each()
 
 Example Html Dom
 ```html

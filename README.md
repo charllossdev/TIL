@@ -23,6 +23,7 @@ This repository is mosly a mirror of my [Today I Learned By Hashrocket.](https:/
 * [Python](#python)
 * [Git](#git)
 * [Database](#database)
+* [Bigdata](#bigdata)
 * [Markdown](#markdown)
 
 ### Framework
@@ -37,38 +38,62 @@ This repository is mosly a mirror of my [Today I Learned By Hashrocket.](https:/
 
 ---
 
+## Bigdata
+
++ [Apache Spark Content](./bigdata/Apach.Spark/Apache-Spark-Content.md)
+
 ## C#
 
-* [C# Content](./c%23/C%23_Content.md)
-* [C# Naming Convention](./c%23/C%23_Naming.md)
-
-## JavaScript
-
-* [JavaScript Content](./javascript/JavaScript_Content.md)
-* [JQuery Content](./javascript/jQuery_Content.md)
-* [Jstl Content](./javascript/Jstl_Content.md)
-* [Jqgird](#jqgrid)
-* [Chartist](#chartist)
-
-## Git
-
-* [Git Content](./git/Git_Content.md)
+* [C# Content](./c%23/C%23-Content.md)
+* [C# Naming Convention](./c%23/C%-Naming.md)
 
 ## Database
 
-* [DB2 Content](./database/Db2_Content.md)
-* [MySQL Content](./database/MySQL_Content.md)
-* [Database tuning rules for faster SQL queries](./database/Database-Tunning-Rules)
+* DB2
+    * [DB2 Content](./database/Db2-Content.md)
+    * [DB2 DataType](./database/Db2-DataType.md)
+* MYSQL
+    * [MariaDB DBMS](./database/MYSQL/MariaDB-DBMS.md)
+    * [MySQL Basics Method](./database/MYSQL/MySQL-Basics-Method.md)
+    * [MySQL Content](./database/MySQL/MySQL-Content.md)
 
-## Markdown
-
-* [Markdown Emoji Selector](./markdown/Markdown_Emoji_Selector.md)
++ [Database Content](./database/Database-Content.md)
++ [Database tuning rules for faster SQL queries](./database/Database-Tunning-Rules.md)
 
 
 ## EgovFramework
 
 * [EgovFramework Content](./egovframework/EgovFramework_Content.md)
-* [EgovFramework Xml Setting](./egovframework/xml_setting.md)  
+* [EgovFramework Xml Setting](./egovframework/xml_setting.md)
+
+
+## Git
+
+* [Git Content](./git/Git-Content.md)
+
+## JavaScript
+
+* Chart
+    + [JavaScript Chart Libraries](./javascript/Chart/JavaScript-Chart-Libraries.md)
+* Jquery
+    + [jQuery Ajax Content](./javascript/JQuery/jQuery-Ajax-Content.md)
+    + [jQuery Basics Develop](./javascript/JQuery/jQuery-Basics-Develop.md)
+    + [jQuery Selector Develop](./javascript/JQuery/jQuery-Selector-Develop.md)
+* Jstl
+    + [Jast Basics Develop](./javascript/Jstl/Jstl-Basic-Develop.md)
+- [JavaScript Basics Develop](./javascript/JavaScript-Basics-Develop-Web.md)
+- [JavaScript Closer Scope](./javascript/JavaScript-Closer-Scope.md)
+- [JavaScript Function Develop](./javascript/JavaScript-Function-Develop.md)
+
+
+
+
+
+
+## Markdown
+
+* [Markdown Emoji Selector](./markdown/Markdown_Emoji_Selector.md)
+
 
 ---
 

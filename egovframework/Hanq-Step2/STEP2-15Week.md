@@ -21,6 +21,21 @@
 
 ![](assets/STEP2-15Week-06bf4cee.png)
 
+```sequence
+Title: System Flow
+Main-->LeftClick.Init(): Call(Callback)
+Note right of Main: this: CallBack
+LeftClick.Init()-->this.menuClickFn(): e : Event Listenr, e.data: Callback
+Note right of LeftClick.Init(): this: Click Event a HTML Tag
+this.menuClickFn()-->that.addTabFn(): Call: this
+Note right of this.menuClickFn(): this: Click Event a Tag
+this.menuClickFn()-->that.activeFn(): Call: this
+Note over  this.menuClickFn(),that.activeFn(): this: Click Event a Tag
+this.menuClickFn()-->thatactiveTabFn(): Call: this
+Note over  this.menuClickFn(),thatactiveTabFn(): this: Click Event a Tag
+# Example of a comment.
+Note over  LeftClick.Init(): Click Event Handler
+```
 
 
 # 코드 분석
@@ -48,12 +63,6 @@ $(".lnb a").click(this, this.menuClickFn); //LeftMenu Click
 // $("#tabList > li > a").on("click",function() {}); 보다, $("#tabList").on("click", "li >a", funtion() {}); 가 더 빠르다.
 $("#tabList").on("click", "li > a", function() {}); // TabMenu Click
 ```
-
-<br>
-<br>
-<br>
-<br>
-<br>
 
 ### LeftMenu Click Event Function
 

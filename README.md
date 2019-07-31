@@ -12,7 +12,6 @@ This repository is mosly a mirror of my [Today I Learned By Hashrocket.](https:/
 
 ---
 
-
 # Categories
 
 ### Language
@@ -60,16 +59,29 @@ This repository is mosly a mirror of my [Today I Learned By Hashrocket.](https:/
 + [Database Content](./database/Database-Content.md)
 + [Database tuning rules for faster SQL queries](./database/Database-Tunning-Rules.md)
 
-
 ## EgovFramework
 
-* [EgovFramework Content](./egovframework/EgovFramework_Content.md)
-* [EgovFramework Xml Setting](./egovframework/xml_setting.md)
+* Egovframework Setting
+    * [Database Location Connect Setting](./egovframework/Settings/DB-Location-Connect-Setting.md)
+    * [Eclipse Setting](./egovframework/Settings/Eclipse-Setting.md)
+    * [Gradle Setting](./egovframework/Settings/Gradle-Setting.md)
+    * [Interceptor Setting](./egovframework/Settings/Interceptor-SeSetting.md)
+    * [Logger Config Init Setting](./egovframework/Settings/Logger-Config-Init-Setting.md)
+    * [Maven Save Location Setting](./egovframework/Settings/Marven-Save-Location-Setting.md)
+    * [Tiles vs SiteMesh Config Setting](./egovframework/Settings/Tiles&SiteMesh-Setting.md)
+    * [Xml Config Setting](./egovframework/Settings/Xml-Config-Setting.md)
 
++ [Egovframework Develop](./egovframework/Egovframework-Dev.md)
++ [Egovframework Error Solution](./egovframework/Egovframework-Error.md)
++ [Egovframework Information Introduce](./egovframework/Egovframework-Info.md)
 
 ## Git
 
 * [Git Content](./git/Git-Content.md)
+
+## Java
+
+* [Java Basics Develop](./java/Java-Basics-Develop.md)
 
 ## JavaScript
 
@@ -85,15 +97,15 @@ This repository is mosly a mirror of my [Today I Learned By Hashrocket.](https:/
 - [JavaScript Closer Scope](./javascript/JavaScript-Closer-Scope.md)
 - [JavaScript Function Develop](./javascript/JavaScript-Function-Develop.md)
 
-
-
-
-
-
 ## Markdown
 
-* [Markdown Emoji Selector](./markdown/Markdown_Emoji_Selector.md)
++ [Markdown Emoji Selector](./markdown/Markdown-Emoji-Selector.md)
++ [Markdown Special Characters](./markdown/Markdown-Special-Characters.md)
 
+## Security
+
++ [Windows Error Recovery Scan](./security/Window-Error-Recovery-Scan.md)
++ [Windows Event Error](./security/Window-Event-Error.md)
 
 ---
 
@@ -113,8 +125,7 @@ This repository is mosly a mirror of my [Today I Learned By Hashrocket.](https:/
 # 🙌 Goal
 
 * [2019 Developer Roadmap](./roadmap/README.md)
-* [To Do List](./roadmap/to-do-list/README.md)
-* [Information Repository](./roadmap/info-repo/READM.md)
+* [Information Repository](./roadmap/info-repo/README.md)
 
 # Other TIL Collections
 
@@ -130,3 +141,4 @@ Inspired by
 © 2019 Charlloss.Dev@gmail.com
 
 This repository is licensed under the MIT license. See LICENSE for details.
+ ㅍ

@@ -86,3 +86,12 @@ DB2 의 유용한 쿼리
 9. 분기 및 값 치환 (CASE WHEN ~ THEN ~ END)
     - Case When e1 is not null then e1 else e2 end  == Coalesce(e1,e2)
     Case When e1 is not null then e1 else Coalesce(e2,....,eN) end == Coalesce(e1,e2,....,eN)
+
+
+# LOCK 상태 확인
+
+```sql
+    GET SNAPSHOT FOR LOCKS ON depsdb
+```
+      유지되는 잠금, 현재 잠금대기중인 에이전트, 응용프로그램명,
+      응용프로그램 상태, 총대기시간, 모드상태 등을 확인

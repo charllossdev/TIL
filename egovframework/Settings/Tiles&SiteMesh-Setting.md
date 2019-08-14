@@ -1,6 +1,6 @@
 # Tiles Setting&Compare With SiteMesh
 
-![Tiles_Logo](./img/logo.PNG)
+![Tiles_Logo](./assets/logo.PNG)
 
 타일즈는 Composite View 패턴을 사용하며, 간단하게 View를 모듈화하여 필요한 View를 동적으로 배치한다.
 
@@ -65,7 +65,7 @@ Composite View 패턴은 각 페이지를 명시적으로 정의해야하지만,
 
 ```Java
 <org.apache.tiles-version>3.0.8</org.apache.tiles-version>
-```  
+```
 
 ### 의존성 주입
 
@@ -86,7 +86,7 @@ Spring Framework의 주요기능인 의존성을 주입하여 jar파일을 다�
 </dependency>
 ```
 (Package Explorer - Maven Dependencies 경로에서 타일즈 관련 jar파일 확인가능)
-![tiles_jar](./img/tiles_jar.PNG)
+![tiles_jar](./assets/tiles_jar.PNG)
 
 
 ## dispatcher-servlet.xml
@@ -101,10 +101,10 @@ Spring Framework의 주요기능인 의존성을 주입하여 jar파일을 다�
   p:viewClass="org.springframework.web.servlet.view.JstlView"
   p:prefix="/WEB-INF/jsp/egovframework/example/" p:suffix=".jsp"/>
 --------------------------------------------------------------------------
-<bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">  		
-  <property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />  		
-  <property name="order" value="1" /> 	
-</bean> 	
+<bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+  <property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
+  <property name="order" value="1" />
+</bean>
 ```
 
 > MainContorller에서 return 명령어에서 jsp파일 상위 경로가 생략되있는 이유는 UrlBasedViewResolver 클래스 설정과정에 **"/WEB-INF/jsp/egovframework/example/"** 경로가 명시되있기 떄문이다.

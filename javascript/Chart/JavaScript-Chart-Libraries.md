@@ -35,14 +35,14 @@ JavaScript Chart Libraries 사이트 정리
 
 # Scalable Vector Graphics(SVG)
 
- <img src="../img/svg_img.png" width="100">
+ <img src="../assets/svg_img.png" width="100">
 
  **스케일러블 벡터 그래픽스(Scalable Vector Graphics, SVG)**
 2차원 벡터 그래픽을 표현하기 위한 XML 기반의 파일 형식으로, 1999년 W3C(World Wide Web Consortium)의 주도하에 개발된 오픈 표준의 벡터 그래픽 파일 형식이다. SVG 형식의 이미지와 그 작동은 XML 텍스트 파일들로 정의 되어 검색화·목록화·스크립트화가 가능하며 필요하다면 압축도 가능하다.
 
 # Chartist
 
-<img src="../img/chartist_img.GIF" width="150">
+<img src="../assets/chartist_img.GIF" width="150">
 
 [사이트 : https://gionkunz.github.io/chartist-js](https://gionkunz.github.io/chartist-js)
 [깃허브 : https://github.com/chartist-js/chartist](https://github.com/chartist-js/chartist)
@@ -68,13 +68,13 @@ Chartist는 인기있는 Chart Javascript 라이브러리 중의 하나로 **SVG
 
 Ex)
 
-<img src="../img/chartist_example.PNG" width="300">
+<img src="../assets/chartist_example.PNG" width="300">
 
 
 
 ## Chartist License
 
-<img src="../img/wtfpl_logo.PNG" width="100">
+<img src="../assets/wtfpl_logo.PNG" width="100">
 
 [**WTFPL** 라이센스 참조](https://github.com/chartist-js/chartist)
 

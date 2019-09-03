@@ -11,7 +11,7 @@ $.ajax:
     페이지 전체를 로드하여 렌더링할 필요가 없고 갱신이 필요한 일부만 로드하여 갱신하면 되므로 빠른 퍼포먼스와 부드러운 화면 표시 효과를 기대할 수 있다.
 
 Args:
-    클라이언트와 서버 간에는 데이터 교환이 필요하다. JSON(JavaScript Object Notation)은 클라이언트와 서버 간 데이터 교환을 위한 규칙 즉 데이터 포맷을 말한다.    
+    클라이언트와 서버 간에는 데이터 교환이 필요하다. JSON(JavaScript Object Notation)은 클라이언트와 서버 간 데이터 교환을 위한 규칙 즉 데이터 포맷을 말한다.
     JSON은 일반 텍스트 포맷보다 효과적인 데이터 구조화가 가능하며 XML 포맷보다 가볍고 사용하기 간편하며 가독성도 좋다.
 
     **키는 반드시 큰따옴표(작은따옴표 사용불가)로 둘러싸야 한다.**
@@ -36,7 +36,7 @@ Example:
       success		: function (data) {
 
         // 서버로 부터 받은 데이터는 JSON Object String 타입이다.
-        // 이 데이터를 JSON으로 사용하려면 역직렬화해주는 JSON.parse 함수를 사용하면 JSON Object 타입으로 데이터를 가공하여 사용한다.  
+        // 이 데이터를 JSON으로 사용하려면 역직렬화해주는 JSON.parse 함수를 사용하면 JSON Object 타입으로 데이터를 가공하여 사용한다.
         var jObj = JSON.parse(data);
       }
     });
@@ -164,4 +164,41 @@ console.log(typeof str, str);
 // JSON 형식의 문자열 => 배열
 var parsed = JSON.parse(str);
 console.log(typeof parsed, parsed);
+```
+
+
+# Aajx Receive Controller
+
+기본적으로 Ajax로 데이터를 넘기고 컨트롤러에서 받을때
+
+```java
+@RequestMapping(value 		= "/saveBnnrData.do",
+                produces 	= "application/json; charset=utf8")
+@ResponseBody
+public String saveBnnrAjax(@RequestParam Map<String, Object> reqMap) {
+
+System.out.println(reqMap);
+
+try {
+
+} catch (Exception e) {
+
+}
+
+return null;
+}
+```
+
+Ajax로 동적인 url 이벤트를 생성할 때,  @RequestMapping("/{step}/{gisu}.do") 을 @PathVariable Map<String, String> pathMap 맵으로 데이터를 동적으로 받아서 처리하는 코드
+
+리턴은 HTML로 하기 때문에 파일 경로만 리턴한다.
+
+```Java
+//view에서 올라온 url을 / 기준으로 구별해주는 기능
+@RequestMapping("/{step}/{gisu}.do")
+public String pageAllInit(@PathVariable Map<String, String> pathMap) throws Exception {
+    System.out.println(pathMap);
+
+    return pathMap.get("step") + "/" + pathMap.get("gisu");
+}
 ```

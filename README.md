@@ -10,6 +10,21 @@ This is a collection of short articles about things I have learned.
 
 This repository is mosly a mirror of my [Today I Learned By Hashrocket.](https://til.hashrocket.com/)
 
+```
+:-:
+.==-+:
+.==. :+- .-=-
+.==.   :==++-+=.
+:==.     -**: :+=.
+:+-      :*+++. .++.
+:+-      -*= .++: .=+.
+-+:      =*-   .+*: .=+:
+-+:     .=*-     .=*-  =+:
+.==:     .+*:        -*-  -+-
+.=+:.....:+*-.........:=*=..=*-
+.-=------=++============++====:
+```
+
 ---
 
 # Categories

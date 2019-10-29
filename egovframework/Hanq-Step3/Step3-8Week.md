@@ -116,7 +116,8 @@ AND NOT ( (DATE(DBM.DP_STRT_DT) > DATE(#{dpStrtDt}) AND DATE(DBM.DP_STRT_DT) > D
 
 이 조건을 그림으로 표현아면 아래와 같다.
 
-![](assets/Step3-8Week-0094e900.png)
+ <img src="assets/Step3-8Week-0094e900.png" width="300">
+
 
 즉 간단하게
 배너 활성화 시작 일자가 검색 기간의 끝보다 작거나 같고,

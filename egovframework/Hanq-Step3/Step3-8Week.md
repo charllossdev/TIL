@@ -1,4 +1,8 @@
 
+# 8주차 과제
+
+* [OVER() 함수 분석하기](#분석함수)
+* [효율적인 쿼리 개선](#쿼리_개선)
 
 # 분석함수
 
@@ -73,7 +77,7 @@ RATIO_TO_REPORT(컬럼)OVER(PARTITION BY 컬럼) : 현재행값 / SUM(그룹행�
 
 * ROW_NUMBER
 
-그룹별로 각 로우에 대한 순번 반환
+DEPARTMENT_ID 파티션으로 분할된 그룹별로 각 로우에 대한 순번 반환
 ```Sql
 SELECT  DEPARTMENT_ID
         , EMP_NAME
@@ -95,7 +99,7 @@ FROM    EMPLOYEES;
 ```
 
 
-# 효율적인 쿼리 개선
+# 쿼리 개선
 
 기존쿼리
 
@@ -106,12 +110,30 @@ AND NOT ( (DATE(DBM.DP_STRT_DT) > DATE(#{dpStrtDt}) AND DATE(DBM.DP_STRT_DT) > D
 
 ```
 
+위 쿼리는 DB에 등록된 배너 목록 중에 배너 활성화 기간이 조건에 맞는 배너면 검색하는 쿼리이다.
 
-개선안
+조건은 배너 시작 날짜와, 배너 종료 날짜 2개로 이 2개의 기간 사이에 활성화 되는 배너만 검색하는 쿼리이다.
+
+이 조건을 그림으로 표현아면 아래와 같다.
+
+![](assets/Step3-8Week-0094e900.png)
+
+즉 간단하게
+배너 활성화 시작 일자가 검색 기간의 끝보다 작거나 같고,
+배너 활성화 종료 일자가 검색 기간의 시작보다 크거나 같으면 활성화 조건에 부합한다.
+
+이를 식으로 표현하면 아래와 같다.
+
+```sql
+AND     (DATE(DBM.DP_STRT_DT) <= DATE(#{dpEndDt}) AND DATE(#{dpStrtDt}) <= DATE(DBM.DP_END_DT))
+```
+
+**Mybatis 에서 비교 연산자 중 > 를 제외하고 (<, =)는 비교연산자인지 괄호의 시작 혹은 대입 연산자 같이 알 수 없기 때문에 사용할 수 없다.**
+
+그렇기 때문에 비교연산지 > 만 이용해서 위 식을 표현하려면 아래와 같다.
+
 
 ```Sql
 AND NOT (DATE(DBM.DP_STRT_DT) > DATE(#{dpEndDt}) OR DATE(#{dpStrtDt}) > DATE(DBM.DP_END_DT))
 
 ```
-
-필요하다면 그림 필요

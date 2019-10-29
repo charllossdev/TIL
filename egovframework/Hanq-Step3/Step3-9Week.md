@@ -1,85 +1,118 @@
-# 9Week
+# 9주차 과제
+
+# 데이트피커 날짜 셋팅 로직 변경
+
+데이트피커 즉시실행 공통함수 부분
 
 
-프로젝트의 규모가 클수록 공통코드를 가져오는 수단을 가장 쉽게하는 방법은
+```JavaScript
+/**
+ * 데이트피커 커스텀
+ */
+var CmmnDatePicker = (function() {
 
-서버를 올릴 때, 모든 공통코드를 자바 휘발성 메모리에 최초로 올려서 공통코드를 쉽게 가져올수 있도록
+	/**
+	 * 데이트 피커 설정
+	 */
+	var _setDatePicker = function(newDateYn) {
 
+	   	$(".cal-wrap").each(function(index) {
+			var $inputVar = $(this).children("input");
 
-단점: 서버 실행시 최초로 공통코드를 가져오기 때문에, 공통코드를 수정하거나, 생성하면, 서버를 내렸다 올려야 한다.
+```
 
+공통함수 메서드 실행 시 체크 플레그인 텍스트가 N인 경우는 Model의 데이터가 있는 경우로,
 
-# 숙제
+모델의 날짜 데이터를 벨리데이션하여 데이커피커에 설정하는 로직 추가
 
-데이트피커 날짜 셋팅 설정
+최초 설정한 날짜로 각 시작 날짜와, 종료 날짜의 Min, Max 입력제한 설정 메서드 호출
 
+```javascipt
+			// 오늘날짜 세팅
+			if (newDateYn !=="N") {
+				$inputVar.datepicker("setDate", "today");
+			} else { // Model에서 날자 데이터를 가져오는 경우
 
+				// 가져온 날짜 Validation
+				Picker.setInputOnlyNumber($inputVar);
 
----
+				// 유효한 날짜 datepicker 입력설정
+				$inputVar.datepicker("setDate", Picker.setDateFormat($inputVar.val()));
 
-#Backup
+				// Min, Max 설정
+				SetDatePickerLimit($inputVar);
+}
 
-REGR
-$(".cal-wrap").each(function(index) {
-var $inputVar = $(this).children("input");
+			// 맥스랭스 체크
+			$inputVar.attr("maxlength", "8");	// numeric - maxPreDecimalPlaces
 
-// 오늘날짜 세팅
-"<c:if test='${bnMngInfo == null}'>"
-  $inputVar.datepicker("setDate", "today");
-"</c:if>"
+			// 숫자만 입력
+			$inputVar.on("keyup", function() {	// 글자를 입력할 때
+				//console.log(typeof $(this));
+		    	Picker.setInputOnlyNumber($(this));
+		    });
 
-// 맥스랭스 체크
-$inputVar.attr("maxlength", "8");	// numeric - maxPreDecimalPlaces
+```
 
-// 숫자만 입력
-$inputVar.on("keyup", function() {	// 글자를 입력할 때
-  //console.log(typeof $(this));
-    Picker.setInputOnlyNumber($(this));
-  });
+날자 입력을 변경 이벤트 시, 기존에 중복 이벤트 처리로,
 
-$("[data-date]").on("change", function() {
-  var getV = $(this).data("date") === "start" ? "end" :"start",
-    setV = $(this).data("date") === "start" ? "start" :"end",
-    setDate = getV === "start" ? "setStartDate" : "setEndDate",
-    dateVal = $(this).val();   
+설정한 날짜로 각 시작 날짜와, 종료 날짜의 Min, Max 입력제한 설정 메서드 호출로직으로 개선
 
-  $("[data-date=" + getV + "]").on("change",function() {
-    $("[data-date=" + setV + "]").datepicker(setDate, this.value);
-  });
+```JavaScript
+			$("[data-date]").on("change", function() {
+				var $input		= $(this);
+					getV 		= $input.data("date") === "start" ? "end" :"start",	// 반대
+					dateVal	 	= $input.val();   
 
-  var $target = getV === "start" ? $(this).parent().prev().children("input") : $(this).parent().next().children("input");
+				/* 기존코드
+				 *
+				$("[data-date=" + getV + "]").on("change",function() {
+					$("[data-date=" + setV + "]").datepicker(setDate, this.value);
+				});
+				*/
 
-  // datepicker 날짜 형식 체크
-  //console.log(index);
-  //if (!Picker.validationDate(this.value, index)) {
-  //if (!Picker.validationDate(this.value.replace(/[^0-9]/gi, ""), index)) {
-  if (!Picker.validationDate(Valid.isNumeric(this.value), index)) {
-    // 처음 시작할 때 input태그에 오늘 날짜(2019-08-18)로 입력이 되어 있기 때문에 "-"나 이외의문자는 공백으로 바꾼다
-    // -> numeric 숫자만 입력하기 위함~~~!!
+				// *개선* Min, Max 설정
+				SetDatePickerLimit($input);
 
-    this.value = "";
+				var $target = getV === "start" ? $(this).parent().prev().children("input") : $(this).parent().next().children("input");
 
-    this.focus();
+				// datepicker 날짜 형식 체크
+				if (!Picker.validationDate(Valid.isNumeric(this.value), index)) {
 
-    return;	// 디버깅 종료
-  }
+					this.value = "";
 
-  if (getV === "start") {
+					this.focus();
 
-    // 두번째 달력(처음 Click 시) - 첫번째 달력의 값보다 작을 때
-    //if (setDateFormat($target.val()) > setDateFormat(dateVal)) {
-    //if (new Date(setDateFormat($target.val())) > new Date(setDateFormat(dateVal))) {
-    if (new Date(Picker.setDateFormat($target.val())) > new Date(Picker.setDateFormat(dateVal))) {
-      $target.val(this.value)
-    }
+					return;	// 디버깅 종료
+				}
 
-  } else {
-    // 첫번째 달력(처음 Click 시) - 두번째 달력의 값보다 클 때
-    //if (setDateFormat($target.val()) < setDateFormat(dateVal)) {
-    //if (new Date(setDateFormat($target.val())) < new Date(setDateFormat(dateVal))) {
-    if (new Date(Picker.setDateFormat($target.val())) < new Date(Picker.setDateFormat(dateVal))) {
-      $target.val(this.value);
-    }
-  }
-});
-});
+				if (getV === "start") {
+
+					if (new Date(Picker.setDateFormat($target.val())) > new Date(Picker.setDateFormat(dateVal))) {
+						$target.val(this.value)
+					}
+
+				} else {
+
+					if (new Date(Picker.setDateFormat($target.val())) < new Date(Picker.setDateFormat(dateVal))) {
+						$target.val(this.value);
+					}
+				}
+			});
+	    });
+	}
+
+	return {
+		setDatePicker	: _setDatePicker
+	}
+}());
+
+function SetDatePickerLimit($inputTag) {
+
+	var setV 			= $inputTag.data("date") === "start" ? "end" : "start",
+		setLimitDate	= setV === "start" ? "setEndDate" : "setStartDate";
+
+	$("[data-date=" + setV + "]").datepicker(setLimitDate, $inputTag.val());
+}
+
+```

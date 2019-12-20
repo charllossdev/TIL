@@ -107,3 +107,27 @@ CSS 명세만으로는 표현할 수 없는 특성이 있는 엘리먼트를 선
 # $.유틸리티 함수, Event 관련 함수
 
 출처: https://ggoreb.tistory.com/172 [나는 초보다]
+
+
+
+# Javascript Target Example
+
+동적으로 HTML 테그를 생성 시 타켓잡는 방법
+ -  화면을 그리고나서 생성된 타켓을 잡으려고 할때, 이 테그는 동적으로 생성 된 테그로 일반적으로는 그냥 타켓을 잡을 수 없다.
+ -  이때 사용하는 Jquery 함수가 on이다.
+
+on 함수의 특징
+* 첫 요소로 타겟을 잡는 것이 여러개면 속도가 느리다.
+* 여러개의 타겟을 잡지 않고, 한개의 타겟을 잡은 다음에, on을 사용하여 하위 요소타겟을 잡으면 속도가 훨신 빠르다.
+
+```javascript
+$("#tabList").on("click", "li > a", this, this.tabClickFn);
+
+// $(".lnb a").click(this, this.menuClickFn); 보다, $(".lnb").on("click", "a", this, this.menuClickFn); 가 더 빠르다.
+```
+
+*  탭 타겟을 잡으려고 할때, 탭은 동적으로 생성하기 때문에, $("#tabList > li > a") 로 타켓을 잡을 수 없다.
+*  화면을 그리고나서 타켓을 잡으려고 할때, 동적으로 생성된 타겟을 잡기 때문에,
+// 첫 요소로 타겟을 잡는 것이 여러개면 속도가 느리다.
+// 여러개의 타겟을 잡지 않고, 한개의 타겟을 잡은 다음에, on을 사용하여 하위 요소타겟을 잡으면 속도가 훨신 빠르다.
+// $(".lnb a").click(this, this.menuClickFn); 보다, $(".lnb").on("click", "a", this, this.menuClickFn); 가 더 빠르다.

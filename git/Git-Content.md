@@ -33,7 +33,7 @@ You should have to do these things only once on any given computer.
 They'll stick around between upgrades.
 You can also change them at any time by running through the commands again.
 
-### Step.1 Identity
+### Step.0 Identity
 
 The first thing you should do when you install Git is to set your user name and email address.
 This is important because every Git commit uses this information, and it's immutably baked into the commits you start creating
@@ -102,40 +102,29 @@ First Title Keywords
 * chore
 
 
-### Step.3
+### Step.3 Push Commit Data Set
 
 ```Git
 $ git remote add origin "Github Repository URL"
-
 ```
 
 ```Git
 $ git push origin master
 ```
 
----
-
-# ERROR
-
-```
- ! [rejected]        master -> master (non-fast-forward)
-error: failed to push some refs to 'https://github.com/charllossDev/TIL.git'
+**기존 Push data를 무시하고 강제로 Push**
+```Git
+$ git push -u origin +master
 ```
 
-"git merge" used to allow merging two branches that have no common base by default, which led to a brand new history of an existing project created and then get pulled by an unsuspecting maintainer, which allowed an unnecessary parallel history merged into the existing project. The command has been taught not to allow this by default, with an escape hatch "--allow-unrelated-histories" option to be used in a rare event that merges histories of two projects that started their lives independently.
 
+# Git clone
 
-현상
-github에서 저장소 생성 후 저장소 주소를 remote에 입력(git remote add origin https://github…..)했고, 로컬에서도 정상적으로 초기화(git init)했는데도 git pull 또는 git merge 명령이 동작하지 않고 git push origin master시 [rejected] master -> master (non-fast-forward)이런 에러가 발생하는 경우
+github source copy command
 
-원인
-깃허브에 생성된 원격 저장소와 로컬에 생성된 저장소 간 공통분모가 없는 상태에서 병합하려는 시도로 인해 발생. 기본적으로 관련 없는 두 저장소를 병합하는 것은 안되도록 설정되어 있음.
-
-해결방법
-아래와 같이 git pull 시에 –allow-unrelated-histories 옵션 추가하여 관련 없었던 두 저장소를 병합하도록 허용
-
-git pull origin master --allow-unrelated-histories
-
+```Git
+git clone 'url'
+```
 
 
 # Git Ignore Setting
@@ -177,6 +166,30 @@ git rm --cached 파일명  ( 대쉬가 2개 입니다. )
 위의 명령어를 실행한 후 꼭 git commit 커밋을 해야 합니다.
 
 출처: https://victorydntmd.tistory.com/80 [victolee]
+
+---
+
+# ERROR
+
+```
+ ! [rejected]        master -> master (non-fast-forward)
+error: failed to push some refs to 'https://github.com/charllossDev/TIL.git'
+```
+
+"git merge" used to allow merging two branches that have no common base by default, which led to a brand new history of an existing project created and then get pulled by an unsuspecting maintainer, which allowed an unnecessary parallel history merged into the existing project. The command has been taught not to allow this by default, with an escape hatch "--allow-unrelated-histories" option to be used in a rare event that merges histories of two projects that started their lives independently.
+
+
+현상
+github에서 저장소 생성 후 저장소 주소를 remote에 입력(git remote add origin https://github…..)했고, 로컬에서도 정상적으로 초기화(git init)했는데도 git pull 또는 git merge 명령이 동작하지 않고 git push origin master시 [rejected] master -> master (non-fast-forward)이런 에러가 발생하는 경우
+
+원인
+깃허브에 생성된 원격 저장소와 로컬에 생성된 저장소 간 공통분모가 없는 상태에서 병합하려는 시도로 인해 발생. 기본적으로 관련 없는 두 저장소를 병합하는 것은 안되도록 설정되어 있음.
+
+해결방법
+아래와 같이 git pull 시에 –allow-unrelated-histories 옵션 추가하여 관련 없었던 두 저장소를 병합하도록 허용
+
+git pull origin master --allow-unrelated-histories
+
 
 # Git Error Code: GH001: Large files detected.
 
@@ -303,3 +316,25 @@ git config --global core.autocrlf true input
 혹은 이러한 변환 기능을 원하지 않고, 그냥 에러 메시지 끄고 알아서 작업하고 싶은 경우에는 아래 명령어로 경고메시지 기능인 core.safecrlf를 꺼주면 된다.
 
 git config --global core.safecrlf false
+
+
+# Git & GitLab SSH Key 할당
+
+1. 키 존재 여부 확인
+![](assets/Git-Content-04920f52.png)
+
+2. 키 생성
+![](assets/Git-Content-2c438b26.png)
+  Enter file in which to save the key (/Users/tongchunkim/.ssh/id_rsa):
+  어디에 key를 만들지 묻는다.
+  그냥 엔터를 처서 기본 위치에 기본 파일명으로 만들면 된다.
+  Enter passphrase (empty for no passphrase):
+  key에 대한 비밀번호를 만들라고 나오는데 보통 그냥 엔터로 넘어간다.
+
+그럼 키가 만들어지고 기본 위치(/Users/tongchunkim/.ssh/id_rsa)에 파일이 생성
+
+3. 키 확인
+![](assets/Git-Content-3a945ac2.png)
+
+4. GitLab을 위한 SSH Key 생성
+![](assets/Git-Content-79d59eb1.png)

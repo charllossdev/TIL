@@ -27,7 +27,7 @@ var CmmnDatePicker = (function() {
 
 최초 설정한 날짜로 각 시작 날짜와, 종료 날짜의 Min, Max 입력제한 설정 메서드 호출
 
-```javascipt
+```JavaScript
 			// 오늘날짜 세팅
 			if (newDateYn !=="N") {
 				$inputVar.datepicker("setDate", "today");

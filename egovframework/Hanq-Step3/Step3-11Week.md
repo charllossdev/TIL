@@ -60,3 +60,6 @@ var _createSelectBox = function(cellVal, opt, rowObj, optionArr) {
   return str += "</select>";
 }
 ```
+
+
+3. instanceof <-> typeof

@@ -44,6 +44,14 @@ Mapper 경로 설정 변경 필요
 
 ```
 
+### SQL.xml 동적 폴더경로 설정하기 (2019-10-01 Step3-Week6)
+
+```xml
+		<property name="mapperLocations" value="classpath:/egovframework/sqlmap/example/mappers/**/*.xml" />
+
+```
+
+
 ## context-datasource.xml
 
 DB 경로 및 데이터베이스 경로 계정

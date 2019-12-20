@@ -38,7 +38,8 @@ $("#jqGrid").jqGrid({
         {label 	: "전시여부",     		name : "dpYn",       width : 90,     align : "center"},
         {label 	: "배경이미지여부", 	        name : "bgYn",       width : 120,    align : "center"},
         {label 	: "등록자",      		name : "regr",       width : 90,     align : "center"},
-        {label 	: "등록일",    			name : "regDt",      width : 90,     align : "center"}
+        {label 	: "등록일",    			name : "regDt",      width : 90,     align : "center"},
+        {label  : "구분",			name : "btn",        width : 50,     align : "center", formatter : gubunBtn} // 사용자 호출 콜백함수 gubunBtn() 추가
     ],
     height   	: "480",
     autowidth  	: true,
@@ -63,7 +64,24 @@ $("#jqGrid").jqGrid({
 });
 ```
 
-> jqgrid project
+> formatter 함수 설정
+
+```javascript
+
+// cellValue, option, rowObject
+function gubunBtn(cv, op, ro) {
+
+	console.log(cv); // cellValue
+	console.log(op); // option
+	console.log(ro); // rowObject: 열  컬럼명과 데이터  // bnnrText: "배너01", cnntUrl: "01.com" ,imgAttcFile: 5, sortSeq: 1
+
+	// 실행순서 - 추가버튼을 클릭 했을때, addRowFn() -> RowAdd -> gubunBtn()
+	return "<a href='#' onclick='delRowFn(" + op.rowId + ")'>행삭제</a>";
+}
+```
+
+
+###  jqgrid Attribute Setting Infomation
 
 | Attribute	|  Description	Default |
 |:---|:---|
@@ -236,8 +254,8 @@ Return: X
 ```javascript
 $("#jqGrid").setGridParam({
 
-     datatype    : "json",
-
+     datatype   : "json",
+     postData   : {"bnnrMngNo" : "<c:out value='${param.bnnrMngNo}'/>"},
      loadComplete  : function(data) {
        console.log("data : ", data);
      }

@@ -102,11 +102,28 @@ First Title Keywords
 * chore
 
 
-### Step.3 Push Commit Data Set
+### Step.3 Remote Target
 
 ```Git
 $ git remote add origin "Github Repository URL"
 ```
+
+### Git Pull
+
+```Git
+$ git pull origin master
+```
+#### ERROR
+> error: The following untracked working tree files would be overwritten by merge:
+오류 발생한 파일 위치 및 이름
+Please move or remove them before you can merge.
+Aborting
+
+```Git
+$ git clean -d -f -f
+```
+
+### Git Push
 
 ```Git
 $ git push origin master

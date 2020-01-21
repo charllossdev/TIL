@@ -1,9 +1,12 @@
 
-# Spring Boot
+# Spring Boot + Vue.js 연동
 
-개발환경 구성
+## Vue Cli
+Vue CLI는 React의 `create-react-app`처럼 Vue 프로젝트를 손쉽게 만들 수 있도록 도와주는 커맨드 라인 도구 입니다.
 
-## Spring Boot + Vue.js 연동
+현재 Vue Cli 버전은 2가지
+* Vue-Cli 2
+* Vue-Cli 3
 
 ### 프로젝트 구조
 
@@ -11,11 +14,52 @@
 
 Vue.js 파일들을 관리의 편의성을 위해 frontend 디렉터리 하위에 두어 Spring 파일들과 분리시켜 줍니다. Vue.js를 신규 셋팅을 하는 상황이라면, vue-cli를 이용하여 vue init webpack frontend와 같이 명령어를 입력하시면 됩니다. Vue.js 개발환경 셋팅에 대한 자세한 내용은 [vue-cli] Webpack 템플릿으로 vue.js 개발환경 구축하기를 참조하세요.
 
+# vue Cli 3
 
-### Vue Cli Command
+### Vue Cli 3 Install
+
+> 2020.01.03 Vue Cli 2 버전이 오래되어서 vue 프로젝트 생성 후 빌드가 되지 않는 오류가 생김(Mac)
+
+Vue Cli 3
+Vue CLI 패키지 이름이 바뀌었습니다.
+기존 Vue CLI 2는 `vue-cli` 였는데, 이번 Vue CLI 3는 `@vue/cli`라는 새로운 패키지 이름을 사용하고 있습니다.
+참고로 @ 마크는 NPM에 최근에 도입된 Scoped package를 의미합니다.
+
+먼저 기존에 Vue CLI 2를 사용하고 있었다면,
+vue라는 커맨드의 네임스페이스가 꼬일지도 모르니 Vue CLI 2를 제거하겠습니다.
+
+```node
+1 $ npm r -g vue-cli
+```
+
+그리고 Vue CLI 3를 전역으로 설치합니다.
+
+```ruby
+1 $ npm i -g @vue/cli
+2 $ vue --version
+3 3.0.0
+```
+
+### Vue Project Init
+
+```ruby
+$ vue create hello-vue-cli
+Vue CLI v3.0.0
+? Please pick a preset: (Use arrow keys)
+❯ default (babel, eslint)
+  Manually select features
+```
+
+
+---
+# Vue Cli 2
+
+### Vue Cli 2 Install
 
 ![](assets/SpringBoot-Vue-2dd31794.png)
 
+
+### Vue Project Init
 ```ruby
 # 해당 프로젝트 폴더에서 실행
 $ vue init webpack

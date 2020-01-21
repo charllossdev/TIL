@@ -1,9 +1,10 @@
-# Git Content
+git# Git Content
 
 # Categories
 
 0. [What is Git?](#what-is-git?)
 0. [Git Command](#git-command)
+0. [Simple Git Check](#simple-git-command)
 
 
 ---
@@ -186,6 +187,16 @@ git rm --cached 파일명  ( 대쉬가 2개 입니다. )
 
 ---
 
+# Simple git Command
+
+### Git Remote 경로 확인
+
+```git
+$ git remote -v
+```
+
+
+
 # ERROR
 
 ```
@@ -205,7 +216,9 @@ github에서 저장소 생성 후 저장소 주소를 remote에 입력(git remot
 해결방법
 아래와 같이 git pull 시에 –allow-unrelated-histories 옵션 추가하여 관련 없었던 두 저장소를 병합하도록 허용
 
+```ruby
 git pull origin master --allow-unrelated-histories
+```
 
 
 # Git Error Code: GH001: Large files detected.

@@ -7,7 +7,7 @@
 
 ## Developer Servival Curriculum
 
-![Curriculum](./img/52th-developer-survival-curriculum.jpg)
+![Curriculum](./assets/52th-developer-survival-curriculum.jpg)
 
 
 ## Seminar details

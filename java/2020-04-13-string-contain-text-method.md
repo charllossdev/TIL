@@ -1,4 +1,4 @@
-# String Find Method
+# String Contain Text Method
 
 특정 문자열에서 원하는 문자가 포함되어 있는지 확인해야 할 때가 있습니다.
 다양한 방법들 중 자바 문자열 관련 지원하는 메서드 3가지를 정리하려고 합니다.

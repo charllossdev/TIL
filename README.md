@@ -14,8 +14,15 @@ This repository is mosly a mirror of my [Today I Learned By Hashrocket.](https:/
 # Algorithm
 
 ### Hacker Rank
-* [Compare the triplets](./algorithm/hackerank/200409-compare-the-triplets.md)
-* [Very big sum](./algorithm/hackerank/200409-very-big-sum.md)
+
+* [Time Conversion](./algorithm/hackerank/2020-04-13-time-conversion.md)
+* [Mini Max Sum](./algorithm/hackerank/2020-04-13-mini-max-sum.md)
+* [Birthday Cake Candles](./algorithm/hackerank/2020-04-13-birthday-cake-candles.md)
+* [Staircase](./algorithm/hackerank/2020-04-10-staircase.md)
+* [Plue Minus Zero](./algorithm/hackerank/2020-04-10-plus-minus-zero.md)
+* [Diagonal Difference](./algorithm/hackerank/2020-04-10-diagonal-difference.md)
+* [Compare the triplets](./algorithm/hackerank/2020-04-09-compare-the-triplets.md)
+* [Very big sum](./algorithm/hackerank/2020-04-09-very-big-sum.md)
 
 # BigData
 [Apach Spark](./bigdata/apach-spark.md)
@@ -31,7 +38,7 @@ This repository is mosly a mirror of my [Today I Learned By Hashrocket.](https:/
 
 * [Markdown diagram config](./markdown/190729-markdown-diagram.md)
 * [Markdown special characters](./markdown/191218-markdown-spcharacters.md)
-* [Markdown emoji list set](./markdown/200410-markdown-emoji.md) 
+* [Markdown emoji list set](./markdown/200410-markdown-emoji.md)
 
 # 😎 Seminar
 
@@ -40,7 +47,10 @@ This repository is mosly a mirror of my [Today I Learned By Hashrocket.](https:/
 
 # Tools
 ### Intellij
-[Spring jsp resource setting](./tools/intelli/190820-spring-jsp-resource.md)
+[Spring jsp resource setting](./tools/intellij/setting/2019-08-20-spring-jsp-resource.md)
+
+### Atom
+[Delete Editor Middle Line](./tools/atom/setting/2020-04-13-delete-editor-middleline.md)
 
 ---
 

@@ -33,6 +33,16 @@ This repository is mosly a mirror of my [Today I Learned By Hashrocket.](https:/
 ### Git Error
 * [Warning lf replaced crlf](./git/error/200409-warning-lf-replaced-crlf.md)
 
+# JavaScript
+[What is JavaScript](./javascript/javascript.md)
+
+### Hacker Rank - 10 Days Javascript
+* [Hello World](./javascript/hackerank/2020-04-17-day-0-hello-javascript.md)
+* [Data Types](./javascript/hackerank/2020-04-17-day-0-data-types.md)
+* [Arithmetic Operators](./javascript/hackerank/2020-04-17-day-1-arithmetic-operators.md)
+* [Functions](./javascript/hackerank/2020-04-17-day-1-functions.md)
+* [Let & Const](./javascript/hackerank/2020-04-17-day-1-let-and-const.md)
+
 # Markdown
 [What is Markdown](./markdown/markdown.md)
 

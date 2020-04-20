@@ -15,6 +15,8 @@ This repository is mosly a mirror of my [Today I Learned By Hashrocket.](https:/
 
 ### Hacker Rank
 
+* [Apple & Orange](./algorithm/hackerank/2020-04-20-apple-and-orange.md)
+* [Grading Student](./algorithm/hackerank/2020-04-20-grading-student.md)
 * [Time Conversion](./algorithm/hackerank/2020-04-13-time-conversion.md)
 * [Mini Max Sum](./algorithm/hackerank/2020-04-13-mini-max-sum.md)
 * [Birthday Cake Candles](./algorithm/hackerank/2020-04-13-birthday-cake-candles.md)
@@ -42,13 +44,20 @@ This repository is mosly a mirror of my [Today I Learned By Hashrocket.](https:/
 * [Arithmetic Operators](./javascript/hackerank/2020-04-17-day-1-arithmetic-operators.md)
 * [Functions](./javascript/hackerank/2020-04-17-day-1-functions.md)
 * [Let & Const](./javascript/hackerank/2020-04-17-day-1-let-and-const.md)
-
+* [Conditional Statement: If-Else](./javascript/hackerank/2020-04-20-day-2-conditional-state-if-else.md)
+* [Conditional Statement: Switch](./javascript/hackerank/2020-04-20-day-2-conditional-state-switch.md)
+* [Loops](./javascript/hackerank/2020-04-20-day-2-loops.md)
 # Markdown
+
 [What is Markdown](./markdown/markdown.md)
 
 * [Markdown diagram config](./markdown/190729-markdown-diagram.md)
 * [Markdown special characters](./markdown/191218-markdown-spcharacters.md)
 * [Markdown emoji list set](./markdown/200410-markdown-emoji.md)
+
+# Node
+
+[What is Node.Js](./node/node.md)
 
 # 😎 Seminar
 

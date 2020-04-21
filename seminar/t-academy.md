@@ -4,27 +4,21 @@
 
 - [T Academy Seminar](#t-academy-seminar)
   - [Categories](#categories)
-- [Git & Github Seminar](#git--github-seminar)
 - [Database MySQL Seminar](#database-mysql-seminar)
+- [Git & Github Seminar](#git--github-seminar)
 
-# Git & Github Seminar
 
-![git-complete-img](./assets/git-complete.jpg)
+# Node.js based REST API Server development
+![](assets/t-academy-ba28bb84.png)
 
-Curriculum : [Git & Github Seminar](../../git/Git_Content.md)
-Professor : 박조은(Code For Women),이수진(Code For Women)
-Date : 2019.01.16 ~ 2019.02.01
-Time : 01:52:34(100%)
-
-1. ~~Tutorial GitHub~~
-2. ~~Git daily Commit~~
-3. ~~Make a Repository GitHub~~
-4. ~~Pull Request Github~~
-
+Curriculum : [Node.js based REST API Server development](/node/node.md)
+Professor : 김정환
+Date : 2020.04.16 ~ 2020.05.16
+Time : 01:35:03 (37%)
 
 # Database MySQL Seminar
 
-![database-complete-img](./assets/database-complete.jpg)
+![](assets/t-academy-b913a908.png)
 
 Curriculum : [Database MySQL Seminar](../../database/MySQL_Content.md)
 Professor : 하석재
@@ -52,3 +46,17 @@ Time : 07:33:10 (100%)
 * ~~[19강] SQL Advanced 6~~
 * ~~[20강] SQL Advanced 7~~
 * ~~[21강] SQL Advanced 8~~
+
+# Git & Github Seminar
+
+![](assets/t-academy-2f48691f.png)
+
+Curriculum : [Git & Github Seminar](/git/git.md)
+Professor : 박조은(Code For Women),이수진(Code For Women)
+Date : 2019.01.16 ~ 2019.02.01
+Time : 01:52:34(100%)
+
+1. ~~Tutorial GitHub~~
+2. ~~Git daily Commit~~
+3. ~~Make a Repository GitHub~~
+4. ~~Pull Request Github~~

@@ -87,20 +87,36 @@ const file = fs.readFile('test.txt', {encodig: 'utf'}, callback), (err, data) =>
 # Node.js Create Server
 
 ```js
-const http = require('http');
+const http      = require('http');
 
-const hostname = '127.0.0.1';
-const port = 3000;
+const hostname  = '127.0.0.1';
+const port      = 3000;
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World!\n');
+const server    = http.createServer((req, res) => {
+    //console.log('login');
+    console.log(req.url);
+
+    if (req.url === '/') {
+        res.statusCode = 200;
+        res.setHeader ('Content-type', 'text/plain');
+        res.end('Hello Client');
+    }
+    else if (req.url === '/users') {
+        const users = [
+            {name: 'Alice'},
+            {name: 'Back'},
+        ]
+        res.statusCode = 200;
+        res.setHeader ('Content-type', 'application/json');
+        res.end(JSON.stringify(users));
+    }
+
+
 });
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
+server.listen(port, hostname, ()=> {
+    console.log(`Server running at http://${hostname}:${port}/`);
+});                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
 ```
 
 ### Request server
@@ -111,4 +127,32 @@ curl localhost:3000
 
 ```return
 Hellow World
+```
+
+## curl을 통해 Server의 정보 얻기
+
+```bash
+curl localhost:3000/users
+```
+return
+* $>$: http request에 관련 정보 리턴
+* $<$: http response에 관련 정보 리턴
+
+
+http request에 관련된 정보
+```bash
+> GET /users HTTP/1.1
+> Host: localhost:3000
+> User-Agent: curl/7.55.1
+> Accept: */*
+```
+
+http response에 관련된 정보
+```bash
+< HTTP/1.1 200 OK
+< Content-type: application/json
+< Date: Tue, 21 Apr 2020 01:55:06 GMT
+< Connection: keep-alive
+< Content-Length: 34
+[{"name":"Alice"},{"name":"Back"}]
 ```

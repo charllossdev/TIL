@@ -1,0 +1,3 @@
+# Angular
+
+$scope 란?

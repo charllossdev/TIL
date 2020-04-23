@@ -156,3 +156,34 @@ http response에 관련된 정보
 < Content-Length: 34
 [{"name":"Alice"},{"name":"Back"}]
 ```
+# REST API
+
+### HTTP 요청
+* 모든 자원은 명사로 식별한다.
+* HTTP 경로로 자원을 요청한다.
+  + $e.i$: $GET$ $/user/${id}
+
+### HTTP 요청 메서드를
+* GET
+* POST
+* PUT
+* DELETE
+
+# TDD 테스트 주도 개발 방법론
+
+### Mocah
+* 모카(Mocha): 테스트 코드를 돌려주는 테스트 러너
+* 테스트 꾸러미: 테스트 환경응로 모카에서는 describe()으로 구현한다.
+* 테스트 케이스: 실제 테스트를 말하며, 모카에서는 it()으로 구현한다.
+
+### should
+* 슈드: 검증(assertion), 벨리데이션 라이브러리.
+* 가독성 높은 테스트 코드를 만들 수 있다.
+
+### SuperTest
+API를 테스트 할 수 있는 라이브러리
+Node.js의 API를 테스트 자동화 할 수 있는 라이브러리
+
+* 단위 테스트:
+* 통합 테스트:
+*

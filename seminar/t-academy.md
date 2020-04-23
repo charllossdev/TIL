@@ -16,6 +16,16 @@ Professor : 김정환
 Date : 2020.04.16 ~ 2020.05.16
 Time : 01:35:03 (37%)
 
+
+* ~~[1강] Node.js 기본 구조 이해~~
+* ~~[2강] Express.js 역할 및 구조의 이해~~
+* ~~[3강] REST API 이해와 설계~~
+* [4강] TDD 이해 및 환경 구축
+* [5강] TDD로 API 서버 개발
+* [6강] 사용자목록 API 개발
+* [7강] 코드 리팩토링 및 데이터베이스 연동
+
+
 # Database MySQL Seminar
 
 ![](assets/t-academy-b913a908.png)
@@ -55,6 +65,7 @@ Curriculum : [Git & Github Seminar](/git/git.md)
 Professor : 박조은(Code For Women),이수진(Code For Women)
 Date : 2019.01.16 ~ 2019.02.01
 Time : 01:52:34(100%)
+> [Certificates](./dfd/d)
 
 1. ~~Tutorial GitHub~~
 2. ~~Git daily Commit~~

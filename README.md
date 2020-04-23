@@ -14,17 +14,17 @@ This repository is mosly a mirror of my [Today I Learned By Hashrocket.](https:/
 # Algorithm
 
 ### Hacker Rank
-
+* [Very big sum](./algorithm/hackerank/2020-04-09-very-big-sum.md)
+* [Compare the triplets](./algorithm/hackerank/2020-04-09-compare-the-triplets.md)
+* [Diagonal Difference](./algorithm/hackerank/2020-04-10-diagonal-difference.md)
+* [Plue Minus Zero](./algorithm/hackerank/2020-04-10-plus-minus-zero.md)
+* [Staircase](./algorithm/hackerank/2020-04-10-staircase.md)
+* [Birthday Cake Candles](./algorithm/hackerank/2020-04-13-birthday-cake-candles.md)
+* [Mini Max Sum](./algorithm/hackerank/2020-04-13-mini-max-sum.md)
+* [Time Conversion](./algorithm/hackerank/2020-04-13-time-conversion.md)
 * [Apple & Orange](./algorithm/hackerank/2020-04-20-apple-and-orange.md)
 * [Grading Student](./algorithm/hackerank/2020-04-20-grading-student.md)
-* [Time Conversion](./algorithm/hackerank/2020-04-13-time-conversion.md)
-* [Mini Max Sum](./algorithm/hackerank/2020-04-13-mini-max-sum.md)
-* [Birthday Cake Candles](./algorithm/hackerank/2020-04-13-birthday-cake-candles.md)
-* [Staircase](./algorithm/hackerank/2020-04-10-staircase.md)
-* [Plue Minus Zero](./algorithm/hackerank/2020-04-10-plus-minus-zero.md)
-* [Diagonal Difference](./algorithm/hackerank/2020-04-10-diagonal-difference.md)
-* [Compare the triplets](./algorithm/hackerank/2020-04-09-compare-the-triplets.md)
-* [Very big sum](./algorithm/hackerank/2020-04-09-very-big-sum.md)
+* [Kangaroo](./algorithm/hackerank/2020-04-23-Kangaroo.md)
 
 # BigData
 [Apach Spark](./bigdata/apach-spark.md)
@@ -47,6 +47,14 @@ This repository is mosly a mirror of my [Today I Learned By Hashrocket.](https:/
 * [Conditional Statement: If-Else](./javascript/hackerank/2020-04-20-day-2-conditional-state-if-else.md)
 * [Conditional Statement: Switch](./javascript/hackerank/2020-04-20-day-2-conditional-state-switch.md)
 * [Loops](./javascript/hackerank/2020-04-20-day-2-loops.md)
+* [Arrays](./javascript/hackerank/2020-04-21-day-3-arrays.md)
+* [Try Catch and Finally](./javascript/hackerank/2020-04-21-day-3-try-catch-and-finally.md)
+* [Throws](./javascript/hackerank/2020-04-22-day-3-throws.md)
+* [Classes](./javascript/hackerank/2020-04-23-day-4-classes.md)
+* [Count Object](./javascript/hackerank/2020-04-23-day-4-loops.md)
+* [Create Rectangle Object](./javascript/hackerank/2020-04-23-day-4-create-rectangle-object.md)
+
+
 # Markdown
 
 [What is Markdown](./markdown/markdown.md)

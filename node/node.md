@@ -184,6 +184,75 @@ http response에 관련된 정보
 API를 테스트 할 수 있는 라이브러리
 Node.js의 API를 테스트 자동화 할 수 있는 라이브러리
 
-* 단위 테스트:
-* 통합 테스트:
-*
+* 단위 테스트
+* 통합 테스트
+
+```
+npm i mocha --save-dev
+npm i shoild --save-dev
+npm i supertest --save-dev
+```
+
+> package.JSON
+
+```json
+{
+  "name": "node-api-server",
+  "version": "1.0.0",
+  "description": "node test server api",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "mocha": "^7.1.1",
+    "should": "^13.2.3",
+    "supertest": "^4.0.2"
+  },
+  "scripts": {
+    "start": "node ./index.js",
+    "test": "mocha ./index.spec.js"
+  },
+  "author": "charllossDev",
+  "license": "MIT"
+}
+```
+
+> index.spec.js
+
+```js
+// node 기본 몯듈
+const assert  = require('assert');
+const should  = require('should');
+const request = require('supertest');
+const app     = require('./index'); // module export 한 객체를 가져오기
+
+// mocha 내장 함수 // 테스트 하려는 API
+describe('GET /users', () => {
+
+    // mocha 내장 it 함수 // param2: 검증 작업 이벤트 함수
+    it('Return Array', () => {
+
+        // 2개의 인자가 같으면 true, 다르면 에러를 리턴한다.
+        //assert.equal(1, 2);
+
+        // should // 위에 assert와 동일한 메서드
+        // (1).should.equal(1);
+        request(app)
+            .get('/users')
+            ,end((err, res) => {
+                console.log(res.body);  // 비동기로 서버가 실행되서 테스트
+
+                //  응답 값이 배열인지 확인
+                res.boyd.should.be.instanceof(Array);
+                res.boyd.forEach(user => {
+
+                    // 배열의 속성 중에 name이 있는지 확인
+                    user.should.have.property('name');
+                });
+                done();
+            })
+    })
+})
+```

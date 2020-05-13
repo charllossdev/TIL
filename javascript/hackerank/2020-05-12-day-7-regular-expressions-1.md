@@ -1,5 +1,67 @@
 # Regular Expressions 1
 
+### Task
+Complete the function in the editor below by returning a RegExp object, , that matches any string  that begins and ends with the same vowel. Recall that the English vowels are a, e, i, o, and u.
+
+### Constraints
+
+The length of string  is  .
+String  consists of lowercase letters only (i.e., [a-z]).
+
+### Output Format
+
+The function must return a RegExp object that matches any string  beginning with and ending in the same vowel.
+
+### Sample Input 0
+```js
+bcd
+```
+### Sample Output 0
+
+```js
+false
+```
+
+# Dev
+```js
+'use strict';
+
+process.stdin.resume();
+process.stdin.setEncoding('utf-8');
+
+let inputString = '';
+let currentLine = 0;
+
+process.stdin.on('data', inputStdin => {
+    inputString += inputStdin;
+});
+
+process.stdin.on('end', _ => {
+    inputString = inputString.trim().split('\n').map(string => {
+        return string.trim();
+    });
+
+    main();    
+});
+
+function readLine() {
+    return inputString[currentLine++];
+}
+
+function regexVar() {
+    /*
+     * Declare a RegExp object variable named 're'
+     * It must match a string that starts and ends with the same vowel (i.e., {a, e, i, o, u})
+     */
+    const re = new RegExp('^([aeiou]).*\\1$');
+
+    /*
+     * Do not remove the return statement
+     */
+    return re;
+}
+
+```
 
 # Regular Expressions in JavaScript
 A Regular Expression, or RegEx, is a pattern used to match character combinations in a string. In JavaScript, regular expressions are also objects. We'll start by giving some basic examples, and then explain the syntax needed to construct and understand RegExes in further detail.
@@ -22,6 +84,11 @@ const re = /ab + c/;
 We can write a regular expression string and pass it as an argument toi the RegExp construct:
 ```js
 const re = new RegExp('ab+c');
+
+// result same
+const reg = /(.).*\1/;
+const reg = new RegExp('(.).*\1' );
+asdlp;fjlask;dkfjkxptmxm xptmxm vka vmfptmx dkasdflkjsdaflkjasdflklsdjflkasjdf
 ```
 
 ### Flags
@@ -93,12 +160,14 @@ This is not a class in the traditional sense, but rather a term that refers to a
 ##### Working with Regular Expressions
 Regular expressions are used with the RegExp methods:
 
-* test
-* exec
+* test: The test() method executes a search for a match between a regular expression and a specified string. Returns true or false
+* exec: The exec() method executes a search for a match in a specified string. Returns a result array or null.
 
 and with the String methods:
 
-* match
-* search
-* split
-* replace
+* match: The match() method retrieves the matches when matching a string against a regular expression.
+* search: The search() method executes a search for a match between a regular expression and this String object. If successful, search() returns the index of the first match of the regular expression inside the string. Otherwise, it returns -1
+* split: The split() method splits a String object into an array of strings by separating the string into substrings. Separator specifies the character(s) to use for separating the string. The separator is treated as a string or a regular expression. If separator is omitted, the array returned contains one element consisting of the entire string. If separator is an empty string, str is converted to an array of characters.
+* replace:The replace(pattern, replacement) method returns a new string where some (or all) occurrences of a matched  have been replaced with a  substring.
+  + pattern: This value can be a string or a RegExp object to match against the calling string.
+  + replacement: This value can be a substring to replace the match with, or it can be a function to invoke that generates the replacement substring.

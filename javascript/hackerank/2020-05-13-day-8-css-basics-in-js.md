@@ -1,5 +1,38 @@
 
 
+
+# Dev
+```js
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Button</title>
+        <style>
+          #btn {
+              width: 96px;
+              height: 48px;
+              font-size: 24px;
+          }
+        </style>
+    </head>
+    <body>
+        <button id="btn">0</button>
+        <script type="text/javascript">
+        /* Create a button */
+        var buttonCounter = document.getElementById('btn');
+
+        /* What to do when the button is clicked */
+        buttonCounter.addEventListener('click', function() {
+            /* Increment number on button's label by 1 */
+            buttonCounter.innerHTML = +(buttonCounter.innerHTML) + 1;
+        });
+        </script>
+    </body>
+</html>
+
+```
+
 # Css Basics in Javascript
 In this article, we discuss some basics of writing JS (JavaScript) and CSS code in an HTML file. Note that we assume a certain level of basic HTML knowledge.
 
@@ -105,11 +138,11 @@ For instances where we want to apply a style to a single element within an HTML 
 0
 </button>
 <script type='text/javascript'>
-var btn = document.getElementById('btn');
+var buttonCounter = document.getElementById('btn');
 
-btn.onclick = function() {
-  this.innerHTML = this.innerHTML + 1;
-}
+buttonCounter.addEventListener('click', function() {
+  this.innerHTML++;
+});
 </script>
 
 

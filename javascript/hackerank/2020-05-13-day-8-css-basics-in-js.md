@@ -1,5 +1,19 @@
+# Create Css in Javascript
 
+### Task
 
+Complete the code in the editor so that it creates a clickable button satisfying the following properties:
+
+* The button's id is btn.
+* The button's initial text label is . After each click, the button must increment by . Recall that the button's text label is the JS object's innerHTML property.
+* The button has the following style properties:
+  + A width of 96px.
+  + A height of 48px.
+  + The font-size attribute is 24px.
+
+### Submissions
+
+This is a new style of challenge involving Front-End rendering. It may take up to  seconds to see the result of your code, so please be patient after clicking Submit. The Submissions page contains screenshots to help you gauge how well you did.
 
 # Dev
 ```js
@@ -134,17 +148,6 @@ For instances where we want to apply a style to a single element within an HTML 
     cursor: pointer;
 }
 ```
-<button id='btn'>
-0
-</button>
-<script type='text/javascript'>
-var buttonCounter = document.getElementById('btn');
-
-buttonCounter.addEventListener('click', function() {
-  this.innerHTML++;
-});
-</script>
-
 
 2. Using a Class Selector
 For instances where we want to apply the same styling to multiple elements, we define a CSS class using the syntax .className (where  is the name of our class). We then follow it with a pair of curly braces that contain the desired style constraints for all elements of that class. For example:

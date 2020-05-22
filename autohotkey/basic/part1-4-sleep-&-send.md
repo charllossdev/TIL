@@ -58,3 +58,24 @@ Send, {AA}
 Sleep, 1000
 ExitApp
 ```
+
+![](assets/part1-4-sleep-&-send-22b26628.png)
+
+
+```autohotkey
+;문제1.
+; ㄱ. 조합키는 항상 소문자이어야 한다.
+
+;문제2.
+;ㄱ: 따옴표로 감싸지 않아도 문자열 표현이 가능하다
+;ㄹ: 밀리초 단위이다.
+
+;문제3.
+F1::
+Sleep 1000
+SendRaw, 3 + 2 = 5이고
+Sleep 1000
+Send, {Enter}3 * 2 = 6이다.
+
+ExipApp
+```

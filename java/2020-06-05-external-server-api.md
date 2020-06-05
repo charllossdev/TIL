@@ -52,66 +52,66 @@ connect.setUseCaches(false);
 ```java
 String responseParam = connectionExternalApi(connect, paramBuilder, charSet);
 
-    public String connectionExternalApi(HttpURLConnection connect, StringBuilder param, String charSet) {
-    	
-    	String				result = null;
-        BufferedReader		reader = null;
-    	DataOutputStream	writer = null;
+public String connectionExternalApi(HttpURLConnection connect, StringBuilder param, String charSet) {
+	
+	String				result = null;
+	BufferedReader		reader = null;
+	DataOutputStream	writer = null;
 
-    	try {
-    		
-    		writer = new DataOutputStream(connect.getOutputStream());
-    		writer.writeBytes(param.toString());
-    		writer.flush();
-    		
-    		if (connectState(connect.getResponseCode())) {
+	try {
+		
+		writer = new DataOutputStream(connect.getOutputStream());
+		writer.writeBytes(param.toString());
+		writer.flush();
+		
+		if (connectState(connect.getResponseCode())) {
 
-    			String inputLine;
-    			StringBuffer response = new StringBuffer();
+			String inputLine;
+			StringBuffer response = new StringBuffer();
 
-    			reader = new BufferedReader(new InputStreamReader(connect.getInputStream(), charSet));
+			reader = new BufferedReader(new InputStreamReader(connect.getInputStream(), charSet));
 
-    			while((inputLine = reader.readLine()) != null) {
-    				response.append(inputLine);
-    			}
+			while((inputLine = reader.readLine()) != null) {
+				response.append(inputLine);
+			}
 
-    			result = response.toString();
-    			logger.debug("###API CONNECTION### IP = " + connect.getURL().getPath());
-    			logger.debug("###API CONNECTION### RESULT = " + result);
-    		}	
-			
-		} catch (Exception e) {
-			logger.debug("###API CONNECTION ERROR###:" +e.getMessage());
-		} finally {
-			if(writer != null ) try {writer.close();} 		catch(Exception ignore){}
-			if(reader != null ) try {reader.close();} 		catch(Exception ignore){}
-			if(connect!= null ) try {connect.disconnect();} catch(Exception ignore){}
-		}
-
-    	return result;
-    }
-
-        private boolean connectState(int responseCode) {
-    	
-    	boolean result = false;
-    	int responseState = responseCode/100;
-    	
-    	if (responseState == 1) {
-    		logger.debug("###API HTTP STATE### INFO=" + responseCode);
-    	} else if (responseState == 2) {
-    		result = true;
-    		logger.debug("###API HTTP STATE### SUCCES=" + responseCode); 
-    	} else if (responseState == 3) {
-    		logger.debug("###API HTTP STATE### REDIRECT=" + responseCode);
-    	} else if (responseState == 4) {
-    		logger.debug("###API HTTP STATE### CLIENT ERROR=" + responseCode);
-    	} else if (responseState == 5) {
-    		logger.debug("###API HTTP STATE### SERVER ERROR=" + responseCode);
-    	} else {
-    		logger.debug("###API HTTP STATE### =" + responseCode);
-    	}
-    	
-		return result;
+			result = response.toString();
+			logger.debug("###API CONNECTION### IP = " + connect.getURL().getPath());
+			logger.debug("###API CONNECTION### RESULT = " + result);
+		}	
+		
+	} catch (Exception e) {
+		logger.debug("###API CONNECTION ERROR###:" +e.getMessage());
+	} finally {
+		if(writer != null ) try {writer.close();} 		catch(Exception ignore){}
+		if(reader != null ) try {reader.close();} 		catch(Exception ignore){}
+		if(connect!= null ) try {connect.disconnect();} catch(Exception ignore){}
 	}
+
+	return result;
+}
+
+private boolean connectState(int responseCode) {
+	
+	boolean result = false;
+	int responseState = responseCode/100;
+	
+	if (responseState == 1) {
+		logger.debug("###API HTTP STATE### INFO=" + responseCode);
+	} else if (responseState == 2) {
+		result = true;
+		logger.debug("###API HTTP STATE### SUCCES=" + responseCode); 
+	} else if (responseState == 3) {
+		logger.debug("###API HTTP STATE### REDIRECT=" + responseCode);
+	} else if (responseState == 4) {
+		logger.debug("###API HTTP STATE### CLIENT ERROR=" + responseCode);
+	} else if (responseState == 5) {
+		logger.debug("###API HTTP STATE### SERVER ERROR=" + responseCode);
+	} else {
+		logger.debug("###API HTTP STATE### =" + responseCode);
+	}
+	
+	return result;
+}
 ```
 

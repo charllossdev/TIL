@@ -1,5 +1,9 @@
 # External Server API Connection 
+
 외부 서버와 연동화여, API 통신 공통 모듈
+
+## 2020-06-09
+> Spring에서 지원하는 HTTP 통신 관련 기술로 변경
 
 ## Param 생성
 
@@ -115,3 +119,64 @@ private boolean connectState(int responseCode) {
 }
 ```
 
+## RETRY 
+
+```java
+package ;
+ 
+@Component("httpUtil")
+public class HttpUtil {
+    
+    public String httpUrlConnection(~) throws Exception {
+               
+       //재시도 추가 190220
+       for(int i=0; i < (retry<1?1:retry); i++){
+               
+           try{
+               //파라미터 세팅
+               //호출 
+               //생략~               
+ 
+               if(conn.getResponseCode() != HttpStatus.OK){
+                    //응답코드가 실패인 경우 Exception 고의로 발생(catch 에서 continue 로 처리)
+                    throw new CustomException();    //customized exception 사용
+              }  
+              //성공은 for문 나감
+              break;
+             
+              //응답 값 파싱
+           } catch (SocketTimeoutException ste){
+               errMsg = ste.getMessage();
+               logger.debug(errMsg);
+           } catch (CustomExceptione ce){
+               errMsg = ce.getMessage();
+               logger.debug(errMsg);
+           } catch (Exception e){
+               
+           } finally {
+               //자원 해제
+               try {
+                   if (br != null) br.close();
+               } catch(Exception e){
+                   logger.warn("finally..br.close()", e);
+               }
+               br = null;
+               try {
+               if(conn!=null)
+                   conn.disconnect();
+               } catch(Exception e){
+                   logger.warn("finally..conn.disconnect()", e);
+               }
+               conn = null;
+           }
+       }
+       
+       if(jobj!=null){
+           return jobj.toString();
+       } else {
+           throw new APIException(errMsg, ConstantsAPI.APIResult.E_NETWORK.getCode());
+       }
+    }
+}
+
+```

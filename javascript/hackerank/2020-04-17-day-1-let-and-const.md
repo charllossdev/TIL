@@ -11,7 +11,7 @@
 A single integer $r$, denoting the radius of a circle
 
 ## Constraints
-* $ 0 < r < 100
+* $ 0 < r < 100$
 * $r$ is a floating-point number scaled to at most 3 decimal places.
 
 ## Output Format

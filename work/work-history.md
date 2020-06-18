@@ -1,12 +1,16 @@
 # Work
+# 2020-06-18
+**COMMIT**
+'#'7311 MG API 연동
 
 # 2020-06-10
 **COMMIT**
-`#`7311 PG_PAYMENT_ORDER PG결제 테이블 Mybatis generator 생성
+PG_PAYMENT_ORDER PG결제 테이블 Mybatis generator 생성
 
 # 2020-06-08
 **COMMIT**
-`#`7311 PG결제 최종 완료 화면 UI 테스트
+
+PG결제 최종 완료 화면 UI 테스트
 
 # 2020-06-04
 **COMMIT**

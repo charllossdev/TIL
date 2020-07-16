@@ -437,7 +437,7 @@ public class Inicis {
 <input type='hidden' 	name='P_OID' 		     value="<c:out value='${P_OID}'/>"/>
 <input type='hidden' 	name='P_AMT' 		     value="<c:out value='${P_AMT}'/>"/>
 <input type='hidden' 	name='P_UNAME' 		   value="<c:out value='${P_UNAME}'/>"/>
-<input type='hidden' 	name='P_MNAME' 		   value="<c:out value='${P_MNAME}'/>"/>
+<input type='hidden' 	name='P_MNAME' 		   value="<c:out val ue='${P_MNAME}'/>"/>
 <input type='hidden' 	name='P_NOTI' 		   value="<c:out value='${P_NOTI}'/>"/>
 <input type='hidden' 	name='P_EMAIL' 		   value="<c:out value='${P_EMAIL}'/>"/>
 </form>
@@ -450,4 +450,4 @@ $(function() {
 
 
 </script>
-```
+``` 

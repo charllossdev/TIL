@@ -1,7 +1,7 @@
 # PG Inicis
 Api Doc: https://manual.inicis.com/mobile/
 
-
+Import 연동 시도해보기: https://www.iamport.kr/getstarted
 ## Test User
 
 ```Java
@@ -450,4 +450,4 @@ $(function() {
 
 
 </script>
-``` 
+```

@@ -20,6 +20,8 @@ org.springframework.web.client.ResourceAccessException: I/O error on POST reques
 3. SSL/TLS 통신에 사용하려는 cipher suite가 오래되거나 지원핮 않음. (Ex: JDK 1.8 부터는 RC4를 사용하려고 하면 에러 발생)
 4. 웹 브러우저의 경우 인증서 경로 설정을 참고하여 웹 서버에 Intermediate CA certificate 를 설치한다.
 
+> 
+
 
 
 

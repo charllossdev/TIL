@@ -7,7 +7,8 @@
 
 * **URL**(Undefined)
 
-  `https://carplanner_host/dl/directcar/main/`
+  - Real: `https://app.richcarplanner.com/dl/directcar/`
+  - Dev: `https://app-dev.richcarplanner.com/dl/directcar/`
 
 * **Protocol**
 
@@ -21,12 +22,26 @@
 
   `POST`
 
+* **Accept Charset**
+
+  `UTF-8`
+
 *  **URL Params**
 
-  None
+    None
 
 * **Data Params**
 
   **Required:**
 
   `memberSeq=[string] or [integer]` (Undefined)
+
+* **Sample Call:**
+
+  ```html
+  <form  name="directCar" id="directCar" method="post" action="https://TARGET_HOST/dl/directcar/">
+    <input type='hidden' 	name='memberSeq'/>
+  </form>
+
+  $("#directCar").submit();
+  ```

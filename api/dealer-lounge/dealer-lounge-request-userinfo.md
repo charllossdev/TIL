@@ -13,6 +13,10 @@
 
   `POST`
 
+* **Accept Charset**
+
+  `UTF-8`
+
 * **Data Params**(json)
 
   **Required:**
@@ -23,7 +27,7 @@
 
   * **Code:** 200 <br />
       - **Content:**
-      ```ruby
+      ```perl
       {
         P_STATUS        : "00",           // 00: Success, 01: Fail
         P_UID           : [integer(11)],  // Null or Required (카플래너 회원 seq)
@@ -42,9 +46,9 @@
 
   * **Code:** 404 NOT FOUND <br />
       - **Content:**
-      ```ruby
+      ```perl
       {
-        p_STATUS  : "01",                 // 00: Success, 01: Fail
+        P_STATUS  : "01",                 // 00: Success, 01: Fail
         P_MSG     : "User doesn't exist"  // MSG
       }
       ```

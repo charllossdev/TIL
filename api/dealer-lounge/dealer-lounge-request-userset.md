@@ -13,6 +13,10 @@
 
   `POST`
 
+* **Accept Charset**
+
+  `UTF-8`
+
 * **Data Params**(json)
 
   **Required:**
@@ -26,8 +30,8 @@
     **Content:**
     ```py
     {
-      P_STATUS  = "00",
-      P_MSG     = "Success"
+      P_STATUS  = "00",      // 00: Success, 01: Fail
+      P_MSG     = "Success"  // MSG
     }`
     ```
 
@@ -37,8 +41,8 @@
     **Content:**
     ```py
     {
-      P_STATUS  = "01",
-      P_MSG     = "Fail"
+      P_STATUS  = "01",   // 00: Success, 01: Fail
+      P_MSG     = "Fail"  // MSG
     }`
     ```
 

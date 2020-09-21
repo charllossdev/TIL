@@ -3,13 +3,6 @@
 Apache Spark is a fast and general-purpose cluster computing system
 
 
-# Categories
-
-0. [Apache Spark](#apache-spark)
-0. [](#)
-0. [](#)
-
-
 ---
 
 ## 빅데이터

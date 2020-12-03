@@ -1,3 +1,22 @@
+# 2020.12.01
+딜러라운지 회원가입 관련 정보 추가
+
+```SQL
+ALTER TABLE member_ptn_join_hist ADD dealer_seq varchar(20) AFTER uid;
+
+
+UPDATE member_ptn_join_hist
+SET dealer_seq = (SELECT  hist.dealer_seq FROM dealer_lounge_in_hist hist WHERE hist.hist_seq = (SELECT MAX(dl.hist_seq)  FROM dealer_lounge_in_hist dl WHERE dl.uid = member_ptn_join_hist.uid))
+WHERE dealer_seq is null;
+```
+
+# 2020.11.17
+
+시승보험 관련 코드 추가
+```SQL
+ALTER TABLE member_add_info
+ADD COLUMN trial_company_code VARCHAR(10) NOT NULL default '2704197'  COMMENT "시승보험 상사 코드" AFTER employee_no;
+```
 
 # 2020.10.07
 다이렉트 포인트 즉시 출금 서비스 개발 관련 DB

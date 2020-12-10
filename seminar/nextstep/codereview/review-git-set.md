@@ -1,10 +1,17 @@
 # Review Git Settings
 
+## single branch 로 clone한 후 새로운 브랜치를 추가하는 경우
+
+git에서 브랜치가 너무 많아 특정 브랜치만 추적하도록 clone할 수 있다.
+
+```
+git clone -b <branch name> --single-branch <github url> <target directory>
+```
 
 클론
 ```
 git clone -b {본인_아이디} --single-branch https://github.com/{본인_아이디}/{저장소 아이디}
-ex) git clone -b javajigi --single-branch https://github.com/javajigi/java-racingcar
+ex) git clone -b javajigi --single-branch
 ```
 
 ```
@@ -12,6 +19,14 @@ ex) git clone -b javajigi --single-branch https://github.com/javajigi/java-racin
 cd {저장소 아이디}
 ex) cd java-racingcar
 ```
+
+> 위와 같이 clone한 후 새로운 브랜치를 추가하고 싶은 경우가 있으면 다음과 같이 새로운 브랜치를 추가할 수 있다.
+
+```
+git remote set-branches --add origin [remote-branch]
+git fetch origin [remote-branch]:[local-branch]
+```
+---
 
 * 터미널에서 다음 명령을 입력해 브랜치를 생성한다.
 

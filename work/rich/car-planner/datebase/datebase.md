@@ -35,7 +35,7 @@ ADD COLUMN trial_company_code VARCHAR(10) NOT NULL default '2704197'  COMMENT "�
     `ad_payment` int(11) DEFAULT NULL COMMENT '지급 광고료',
     `insure_file_seqno` varchar(30) NOT NULL COMMENT '보험 증권 파일 enc seq',
     `instant_type` char(2) NOT NULL COMMENT '즉시 출금 구분',
-    `instant_status` char(2) NOT NULL COMMENT '즉시 출금 상태',
+    `instant_status` char(2) NOT NULL COMMENT '즉시 출금 상태',      
     `reject_reason` varchar(100) DEFAULT NULL COMMENT '반려 사유',
     `mod_admin_id` varchar(30) DEFAULT NULL COMMENT '담당자',
     `reg_date` datetime NOT NULL COMMENT '등록일',

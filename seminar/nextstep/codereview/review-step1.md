@@ -2,6 +2,7 @@
 코드리뷰 1단계는 미션을 시작, 개발 환경을 구축, 1단계 미션 완료, push를 보내는 단계까지의 과정을 다룬다.
 
 ---
+
 1. 미션을 시작한다.
 * NextStep(https://edu.nextstep.camp) 에 접속해 진행하려는 미션으로 이동한다. **미션 시작** 버튼을 클릭한다.
 
@@ -21,9 +22,10 @@
 ![create branch](./images/create_branch.png)
 
 ---
+
 2. 프로젝트를 자신의 계정으로 fork한다. 저장소 우측 상단의 fork 버튼을 활용한다.
 > next-step 저장소는 권한이 없기 때문에 미션을 진행한 코드를 추가할 수 없다.
-> 
+>
 > fork는 next-step의 저장소를 자신의 계정으로 복사하는 기능이다. 앞으로 모든 미션은 자신의 계정 아래에 있는 저장소를 활용해 진행한다.
 
 * fork는 next-step 저장소 우측 상단의 fork 버튼을 활용한다.
@@ -35,6 +37,7 @@
 ![fork my repo](./images/fork_my_repo.png)
 
 ---
+
 3. fork한 저장소를 자신의 컴퓨터로 clone한 후 디렉토리로 이동한다.
 > fork한 저장소는 github.com에 존재하기 때문에 바로 작업할 수 있다.
 >
@@ -57,6 +60,7 @@ ex) cd java-racingcar
 ![clone repository](./images/clone_repository.png)
 
 ---
+
 4. 기능 구현을 위한 브랜치 생성
 > git은 서로 다른 작업을 하기 위한 별도의 공간을 생성할 때 브랜치를 생성할 수 있다.
 >

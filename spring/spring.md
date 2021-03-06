@@ -11,3 +11,6 @@ CS지식 및 면접 준비로 Spring 관련한 키워드 정리
 * Spring AOP
 * Proxy parttern
 * Spring PSA
+  + 생성자 단점: 순환 참조가 발생하여 에러가 발생 할 수 있다.
+* Spring MVC
+* Spring Transaction

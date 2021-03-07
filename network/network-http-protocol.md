@@ -1,5 +1,80 @@
-# Hypertext Transfer Protocol
-https://joshua1988.github.io/web-development/http-part1/
+# HTTP
+
+## 인터넷 네트워크
+
+* 인터넷 통신
+* IP(Internet Protocol)
+  + 지정한 IP 주소에 데이터 전달
+  + 패킷(Packet) 단위로 데이터 전달
+    - 패킷
+    - 요청IP, 응답IP, 전송 데이터로 구성
+  + IP 프로토콜의 한계
+    - 비연결성: 서버 상태, 서비스 불능
+    - 비신뢰성: 패킷 누실, 패킷 순서
+    - 프로그램 구분: 같은 IP를 사용하는 서버에서 다양한 어플리케션이 구동중일 경우, 타켓 어플리케이션을 알 수 없다.
+* 인터넷 프로토콜 스택 4 계층
+![](assets/network-http-protocol-15dda09d.png)
+  + 어플리케이션 계층: HTTP, HTTPS
+  + 전송 계층: TCP / UDP
+  + 인터넷 계층: IP
+  + 네트워크 인터페이스 계층: LAN Hardware
+* TCP(Transmission Control Protocol)
+  + 연결 지향: TCP 3 way handshacke(가상연결)
+  + 데이터 전달 보증(Request&Response)
+  + 순서 보장(신뢰성)
+* UPD(User Datagram Protocol)
+  + IP, Port, Checksum 기능
+  + 나머지는 유저의 어플리케이션에서 설계
+  + 속도
+* PORT
+  + 같은 IP 내에서 프로세스 구분 기준
+* DNS(Domain Name System)
+  + DNS서버에서 도메인 명으로 IP/Port 정보를 받는다.
+
+## URI
+URI: Uniform Resource Identifier
+![](assets/network-http-protocol-c03251fa.png)
+![](assets/network-http-protocol-70fef326.png)
+
+* URL
+![](assets/network-http-protocol-2c138db2.png)
+* scheme
+  + 통신 프로토콜 스키마 (HTTP, HTTPS, FTP 등,)
+* userinfo
+  + URL에 사용자정보를 포함하여 인증
+* host
+  + 호스트명
+  + 도메인명 또는 IP 주소를 직접사용
+* port
+  + wjqthr vhxm
+  + 일반적으로 생략 시 , HTTP:80, HTTPS:443 포트
+* path
+  + 리소스 경로
+  + 계층적 구조
+* query
+  + key = value 구조
+  + `?` 로 시작하며, `&` 추가가능 `ex)` `?keyA=value&keyB=value`
+  + 문자형태로 전송되어 쿼리스트링으로 불린다.
+* fragment
+  + html 내부 북마크 구조로 사용
+
+## HTTP
+HTTP(Hyper Text Transfer Protocol)
+![](assets/network-http-protocol-06ffeca0.png)
+
+### HTTP 메세지
+
+HTTP 메세지는 바이트로 이뤄진 모든 데이터를 전송가능
+* HTML, TEXT
+* IMAGE, VIDEO, VOICE, MUSIC
+* JSON, XML(API)
+* 거의 모든 형태의 데이터 전송가능
+* 서버간의 데이터를 주고 받을 때 대부분 HTTP 사용
+
+
+
+
+---
 
 HTTP(Hypertext Transfer Protocol)는 웹을 개발하는 사람이라면 누구나 다 알아야 하는 통신 프로토콜입니다. 프로토콜이란 상호 간에 정의한 규칙을 의미하며 특정 기기 간에 데이터를 주고받기 위해 정의되었습니다. 통신 프로토콜을 쉽게 풀어보면 “나는 이렇게 줄 테니 넌 이렇게 받고 난 너가 준거 그렇게 받을께” 정도가 되겠네요 :)
 

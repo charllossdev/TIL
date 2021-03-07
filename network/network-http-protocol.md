@@ -62,7 +62,7 @@ URI: Uniform Resource Identifier
 HTTP(Hyper Text Transfer Protocol)
 ![](assets/network-http-protocol-06ffeca0.png)
 
-### HTTP 메세지
+### HTTP 데이터
 
 HTTP 메세지는 바이트로 이뤄진 모든 데이터를 전송가능
 * HTML, TEXT
@@ -71,7 +71,52 @@ HTTP 메세지는 바이트로 이뤄진 모든 데이터를 전송가능
 * 거의 모든 형태의 데이터 전송가능
 * 서버간의 데이터를 주고 받을 때 대부분 HTTP 사용
 
+### HTTP 특징
 
+* 클라이언트 - 서버 구조
+  + Request & Response 구조
+  + 클라이언트가 서버에 요청을 보내구 응답대기
+  + 서버는 요청에 대한 결과를 만들어 응답
+* 무상태 프로토콜(stateless)
+  + 서버가 클라이언트 상태를 보존하지 않음
+    - 장점:서버 확장성 높음(스케일 아웃)
+    - 단점: 클라이언트가 추가적인 데이터 전송
+* 비연결성
+  + 장점: 서버 자원을 효율적으로 사용
+  + 단점: 반복적인 TCP/IP 연결(3way handshacke) 시간 추가 -> HTTP 지속 연결(Persistent Connections) 로 해결
+* 단순함, 확장가능
+
+### HTTP 메세지
+![](assets/network-http-protocol-d9aada2d.png)
+
+* HTTP 메세지 구조
+  * [HTTP 시작라인](#http_시작_라인)
+  * [HTTP 헤더](#http_헤더)
+  * 공백라인(CRLF)
+  * [HTTP 바디](#http_바디)
+
+#### HTTP 시작 라인
+* HTTP Request
+  + request-line: HTTP 메서드(GET, POST, PUT, PATCH, DELETE....)
+  + 요청 대상 경로
+    - 절대 경로 `/`
+    - 쿼리스트링 데이터 포함
+  + HTTP Version
+* HTTP Response
+  + HTTP Version
+  + HTTP 응답 상태 코드: 요청 성공, 요청 실패
+    * 2xx: 성공
+    * 4xx: 클라이언트 요청 오류
+    * 5xx: 서버 내부 오류
+  + 응상 상태 메세지
+
+#### HTTP 헤더
+* HTTP 전송에 필요한 모든 부가 정보
+* 필요시 임의의 헤더 데이터 추가 가능
+
+#### HTTP 바디
+* 실제 전송 데이터
+* HTML문서, 이미지, 영상, JSON등 Byte 로 표현할 수 있는 모든 데이터 전송 가능
 
 
 ---

@@ -1,6 +1,11 @@
-**Title**
+# Title
 ----
-  <_Additional information about your API call. Try to use verbs that match both request type (fetching vs modifying) and plurality (one vs multiple)._>
+<_Additional information about your API call. Try to use verbs that match both request type (fetching vs modifying) and plurality (one vs multiple)._>
+
+# SLATE
+[MAC OS API TOOL](https://github.com/slatedocs/slate)
+
+MAC에서 설치해서 사용해보기
 
 * **URL**
 

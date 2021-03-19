@@ -100,6 +100,6 @@ Inspired by
 
 # License
 
-© 2019-2020 charlloss.dev@gmail.com
+© 2019-2021 charlloss.dev@gmail.com
 
 This repository is licensed under the MIT license. See LICENSE for details.

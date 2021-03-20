@@ -172,13 +172,7 @@ Inspired by
 * [@channprj](https://github.com/channprj/TIL)
 * [@aweekj](https://github.com/aweekj/TIL)
 
-<<<<<<< HEAD
 ## 📝 License
-=======
-# License
-
-© 2019-2021 charlloss.dev@gmail.com
->>>>>>> a8909d95e919552f427bffecd611ae3260af7482
 
 Copyright © 2021 [charllossDev](https://github.com/charllossDev).<br />
 This project is [MIT](https://opensource.org/licenses/MIT) licensed.

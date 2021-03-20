@@ -1,7 +1,7 @@
+<center>
+
 # TIL
 > Today I Learned
-
-<center>
 
 [![Email](https://img.shields.io/badge/Email-charlloss.dev-blueviolet.svg)](mailto:charlloss.dev@gmail.com) [![License](https://img.shields.io/github/license/mashape/apistatus.svg)](./LICENSE)
 

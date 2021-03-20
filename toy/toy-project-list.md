@@ -7,6 +7,8 @@ https://www.slideshare.net/myeonginwoo/pptx-75959689
 
 # Research List
 
+0. TIL Create README Generator
+
 1. 네트워크의 기본기를 다질 수 있는 프로젝트이다. HTTP 서버를 구현하는 법은(https://ruslanspivak.com/lsbaws-part1/)에도 잘 나와있으니 참고할 수 있을 것 같다.
 
 

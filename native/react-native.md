@@ -99,4 +99,3 @@ blank 선택후, app의 이름을 원하는대로 적어주고 엔터를 눌러�
 
 # Expo Xde
 https://docs.expo.io/get-started/installation/?redirected
-

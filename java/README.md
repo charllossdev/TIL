@@ -21,6 +21,9 @@
   + java8
   + java11
 
+* 기능
+  + Reflection
+
 ## 장점
 
 1. 캡슐화
@@ -110,3 +113,119 @@ JRE는 자바 코드를 실행하기 위한 도구들로 구성된 패키지라�
 # 자바 개발도구(Java Development kit, JDK)
 JDK는 JRE + 개발을 위해 필요한 도구(javac, java등)들을 포함한다.
 JDK는 컴파일러와 클래스 라이브러리(Class Library)를 포함하는, 자바 플랫폼 사양서의 구현이다.
+
+# 기능
+
+## Reflection
+리플렉션은 구체적인 클래스 타입을 알지 못해도, 그 클래스의 메소드, 타입, 변수들에 접근할 수 있도록 해주는 자바 API
+
+자바의 Reflection은 JVM에서 실행되는 어플리케이션의 런타임 동작을 검사하거나 수정할 수 있는 기능이 필요한 프로그램에서 사용한다.
+
+> 쉽게 말하자면, 클래스의 구조를 개발자가 확인할 수 있고, 값을 가져오거나 메소드를 호출하는데 사용
+
+Reflection을 사용하는 기술을은 주로 ORM 기술인 하이버네이트가 있다.
+
+Reflection을 사용해 스프링에서는 런타임 시에 개발자가 등록한 빈을 어플리케이션에서 가져와 사용할 수 있게 된다.
+
+### Why?
+자바는 정적인 언어라 부족한 부분이 많은데 이 동적인 문제를 해결하기 위해서 리플렉션을 사용
+
+#### 정적 언어, 동적 언어 ?
+* 정적 언어: 컴파일 시점에 타입을 결정 ex) Java, C, C++ 등..
+* 동적 언어: 런타임 시점에 타입을 결정 ex) Javascript, Python, Ruby 등..
+
+리플렉션은 애플리케이션 개발에서보다는 프레임워크, 라이브러리에서 많이 사용됩니다.
+프레임워크, 라이브러리는 사용하는 사람이 어떤 클래스를 만들지 모릅니다. 이럴 때 동적으로 해결해주기 위해서 리플렉션을 사용합니다.
+대표적인 사용 예로는 스프링의 DI(dpendency injection), Proxy, ModelMapper 등이 있습니다.
+
+### 코드로 예를 볼까요?
+
+```java
+
+@Controller
+@RequestMapping("/articles")
+public class ArticleController {    
+
+    @Autowired    
+    private ArticleService articleService;       
+       ....
+
+    @PostMapping
+    public String write(UserSession userSession, ArticleDto.Request articleDto){
+       ...
+    }
+
+    @GetMapping("/{id}")
+    public String show(@PathVariable int id, Model model) {
+       ...
+    }
+}
+```
+
+스프링을 사용할 때 @Controller 를 넣어주면 인스턴스를 생성 하지 않아도 스프링이 알아서 생성해서 빈으로 관리해줍니다.
+
+* 스프링은 ArticleController의 존재를 어떻게 알고 만들어주는 것일까요?
+* ArticleService 라는 필드는 어떻게 주입해주는 걸까요?
+* 모든 메소드의 파라미터 개수, 타입이 다른데 어떻게 알고 해당하는 값을 바인딩 해줄까요?
+
+ArticleController을 작성한 개발자는 클래스의 정보를 알겠지만, 스프링은 모릅니다.
+이 문제를 해결하기 위해서 리플렉션을 사용합니다. (스프링이 ArticleController의 정보를 알아내기 위해서)
+
+대략 흐름을 보자면
+
+* @Controller 를 갖고있는 클래스를 스캔
+* 해당하는 클래스의 인스턴스 생성 및 필드 DI
+
+
+### 특징
+* 확장성 특징 : 애플리케이션은 정규화된 이름을 사용하여 확장성 객체의 인스턴스를 생성하여 외부 사용자 정의 클래스를 사용할 수 있습니다.
+* 클래스 브라우저 및 시각적 개발 환경을 제공합니다 : 클래스 브라우저는 클래스의 Method, Property, Constructor를 열거할 수 있어야 합니다. 시각적 개발 환경은 개발자가 올바른 코드를 작성하는데 도움이 되도록 Reflection에서 사용할 수 있는 형식 정보를 사용하면 도움이 됩니다.
+* 디버거 및 테스트 도구입니다 : 디버거는 개인 Property, Method, Constructor를 검사할 수 있어야 합니다. 테스트 장치는 Reflection을 사용하여 클래스에 정의된 발견 가능한 세트 API를 체계적으로 호출하여 테스트에서 높은 수준의 코드 커버리지를 보장합니다.
+
+
+### 단점
+Reflection은 강력한 도구이지만, 무분별하게 사용해서는 안됩니다. Reflection을 사용하지 않고 수행 가능하다면, 사용하지 않는 것이 좋습니다. Reflection을 통해 코드에 접근할 때는 다음 사항을 염두에 두어야 합니다.
+* Performance의 오버헤드 : Reflection에는 동적으로 해석되는 유형이 포함되므로, 특정 JVM 최적화를 수행할 수 없습니다. 따라서 Reflection 작업이 비 Reflection 작업보다 성능이 떨어지며, 성능에 민감한 애플리케이션에서 자주 호출되는 코드엔 사용하지 않아야 합니다.
+* 보안 제한 사항 : Reflection에는, 시큐리티 매니저의 실행 시에 존재하지 않는 실행 시 액세스 권한이 필요합니다. 이것은 애플릿과 같이 제한된 보안 컨텍스트에서 실행되어야 하는 코드에 대한 중요한 고려 사항입니다.
+* 캡슐화를 저해할 수 있습니다 : Reflection은 private한 Property및 Method에 액세스하는 것과 같이 비 Reflection 코드에서 작동하지 않는 코드를 수행할 수 있으므로, Reflection을 사용하면 예기치 않은 부작용이 발생하여 코드 기능이 저하되고 이식성이 손상될 수 있습니다. 또한 Reflection은 추상화를 깨뜨려 플랫폼 업그레이드 시 동작이 변경될 수 있습니다.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Test

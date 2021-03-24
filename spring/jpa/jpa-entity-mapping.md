@@ -76,17 +76,32 @@ hibernate ddl 설정
 > DDL 생성 기능은 DDL을 자동 생성할 때만 사용되고, JPA 실행 로직에는 영향 X
 
 
-### 기본 키 설정
+## 기본 키 설정
 * 직접 할당: @Id 만 사용
 * 자동 생성: @GeneratedValue
   + strategy 속성 설정
     - IDENTITY: DB에 키 생성 위임
     - SEQUENCE: DB 스퀀스 오브젝트 사용(@SequnceGenverator 필요)
     - TABLE: 키 생성용 테이블 사용
-    - AUTO
+    - AUTO: DB 방언에 따라 자동 지정
 
+## 권장하는 식별자 전략
+* 기본 키 제약 조건: Not null, unique, Not Change
+* 미래까지 이 조건을 만족하는 자연키는 찾기 어렵다.
+* **권장:  Long형, 대체키, 키 생성전략 사용**
 
+### IDENTITY
+* 기본 키 생성을 데이터베이스 위임
+* **JPA는 보통 트랜잭션 커밋 시 쿼리 실행**
+  + AUTO_INCREMENT 는 DB에 INSERT SQL을 실행 해야  KEY ID를 생성할 수 있음
+  + **IDENTITY 전략은 Persist() 시점에 즉시 INSERT 쿼리 실행하여 영속 상태 동기화**
 
+### SEQUENCE
+DB 스퀀스는 유일한 값을 순서대로 생성하는 특별한 오브젝트
+
+* 시퀀스 맵핑
+  ![](assets/jpa-entity-mapping-3f6ca6da.png)
+  ![](assets/jpa-entity-mapping-96efbd0a.png)
 
 
 # TABLE 전략

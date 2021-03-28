@@ -313,6 +313,9 @@ SpEL: Spring Expression Langugae
 
 ## AOP
 Spring AOP(Aspect Oriendted Programming): OOP를 보완하는 수단으로 모듈화 할 수 있는 프로그래밍 기법
+
+> [Filter, Intercepter AOP 차이](spring-filter-interceopter-aop.md)
+
 ![](assets/spring-c1af0a3a.png)
 ![](assets/spring-44ceb8ef.png)
 

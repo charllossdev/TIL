@@ -20,6 +20,7 @@ CS지식 및 면접 준비로 Spring 관련한 키워드 정리
 * [Spring AOP](#aop)
 * [Proxy](#proxy)
 * [Null safety](#null-safety)
+* [Spring Boot](#spring-boot)
 
 ## IoC
 IoC : Inversion of Control
@@ -392,3 +393,10 @@ Spring AOP(Aspect Oriendted Programming): OOP를 보완하는 수단으로 모�
   - @NonNullFields (패키지 전체 레벨 설정): 널 가능
 + 목적
   - 컴파일 시점에 최대한 NullPointException을 방기하기 위해
+
+
+# Spring Boot
+* 간편한 설정
+* 편리한 의존성 관리 & 자동 권장 버전 관리
+* 내장 톰켓 서버로 인한 간단한 배포 서버 구축
+* 스프링 Security, Data JPA 등의 다른 스프링 프레임워크 라이브러리 쉽게 사용

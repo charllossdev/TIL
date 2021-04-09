@@ -102,7 +102,7 @@ System.out.println(res);
 3. 프로그래머스: https://programmers.co.kr/
 
 ## 알고리즘 강의 동영상
-1. mycodeschool(youtube, 강추!!): https://www.youtube.com/user/mycodesc
+1. mycodeschool(youtube, 강추!!):https://www.youtube.com/mycodeschool
 2. 백준 강의(유료): https://code.plus/bundle/6
 3. 동빈나 알고리즘 강의(youtube): https://www.youtube.com/playlist?list
 

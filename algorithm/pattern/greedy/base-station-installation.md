@@ -23,3 +23,30 @@ N개의 아파트가 일렬로 쭉 늘어서 있습니다. 이 중에서 일부 
 * stations의 크기: 10,000 이하의 자연수
 * stations는 오름차순으로 정렬되어 있고, 배열에 담긴 수는 N보다 같거나 작은 자연수입니다.
 * W: 10,000 이하의 자연수
+
+
+## 해결
+
+```java
+import java.util.*;
+
+class Solution {
+    public int solution(int n, int[] stations, int w) {
+        int answer = 0;
+        int position = 1;
+        int index = 0;
+
+        while (position <= n) {
+            if (stations.length > index && stations[index] - w <= position) {
+                position = stations[index++] + w + 1;
+            } else {
+                position += w * 2 + 1;
+                answer++;
+            }
+        }
+
+
+        return answer;
+    }
+}
+```

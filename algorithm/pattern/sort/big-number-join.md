@@ -14,3 +14,26 @@
 
 ## 입출력 예
 ![](assets/big-number-join-f55e98df.png)
+
+## 해결
+
+```java
+import java.util.*;
+import java.util.stream.*;
+
+class Solution {
+    public String solution(int[] numbers) {
+		String answer = Arrays.stream(numbers)
+			.mapToObj(String::valueOf)
+			.sorted((s1, s2) -> (s2 + s1).compareTo(s1 + s2))
+			.collect(Collectors.joining());
+
+    if (answer.startsWith("0")) return "0";
+		return answer;
+    }
+}
+```
+
+* 간단하게 스트림으로 정렬
+  - 문자열로 변환시켜 숫자를 더하고, 내림차순으로 정렬
+* 마지막으로, 0으로 연속된 숫자가 들어올 경우 `ex) 000000`, 0으로 리턴해준다.

@@ -18,3 +18,35 @@
 # 입출력 예
 
 ![](assets/national-budget-c8630103.png)
+
+# 풀이
+
+```java
+import java.util.*;
+
+class Solution {
+    public int solution(int[] budgets, int M) {
+        int answer = 0;
+        int min = 0;
+        int max = Arrays.stream(budgets).max().orElse(0);
+
+        while (min <= max) {
+
+            final int mid = (min + max) / 2;
+
+            int sum = Arrays.stream(budgets)
+                .map(n -> Math.min(n, mid))
+                .sum();
+
+            if (sum <= M) {
+                min = mid + 1;
+                answer = mid;
+            } else {
+                max = mid - 1;
+            }
+        }
+
+        return answer;
+    }
+}
+```

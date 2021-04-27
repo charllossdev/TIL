@@ -94,12 +94,13 @@ System.out.println(res);
 
 ## 입출력
 
-• Java는 입력은 Scanner, 출력은 System.out을 사용한다.
+### Java
+* Java는 입력은 Scanner, 출력은 System.out을 사용한다.
 Scanner sc = new Scanner(System.in);
-• 입력이 많은 경우에는 속도가 느리기 때문에, BufferedReader를 사용한다.
+* 입력이 많은 경우에는 속도가 느리기 때문에, BufferedReader를 사용한다.
 BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-• 출력이 많은 경우에는 StringBuilder를 사용해서 한 문자열로 만들어서 출력을 한 번만 사용하거나
-• BufferedWriter를 사용한다.
+* 출력이 많은 경우에는 StringBuilder를 사용해서 한 문자열로 만들어서 출력을 한 번만 사용하거나
+* BufferedWriter를 사용한다.
 
 
 ### 정렬

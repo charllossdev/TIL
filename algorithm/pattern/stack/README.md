@@ -3,18 +3,18 @@
 ![](assets/README-127029dd.png)
 
 * 스택은 한쪽 끝에서만 자료를 넣고 뺄 수 있는 자료구조
-* 마지막으로 넣은 것이 가장 먼저 나오기 때문에, Last In First Out(LIFO)
-* 스택용어
+* Last In First Out(LIFO) 구조: 마지막으로 넣은 것이 가장 먼저 나오는 구조
+* 스택 메서드
   - push: 스택에 자료를 넣은 연산
   - pop: 스택에 자료를 빼는 연산
   - top: 스택의 가장 위에 있는 데이터를 가져오는 연산
   - empty: 스택이 비어있는지 확인하는 연산
   - size: 스택에 저장되있는 자료의 개수를 조회하는 연산
 
-# Create Stack Code
+# Create a Stack use java
 
 ```java
-private static class StackCus {
+private static class manualStack {
 		private final int[] arr;
 		private int size;
 

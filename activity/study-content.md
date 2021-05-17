@@ -7,6 +7,9 @@
 
 
 # 대용량 트래픽 처리
+
+https://n1tjrgns.tistory.com/156
+
 최소한의 아키텍처 구성
 API-Server 2개
 실제 비즈니스 로직 처리

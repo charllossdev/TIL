@@ -23,5 +23,4 @@
   - 주기적으로 배포하는 서비스에 적합
   - 가장 유명한 전략인 만큼 많은 IDE 가 지원
 
-
-## github-flow
+참고 - [우아한형제들 git-flow 적용기](https://woowabros.github.io/experience/2017/10/30/baemin-mobile-git-branch-strategy.html)

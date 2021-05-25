@@ -3,6 +3,11 @@
 - https://docs.spring.io/spring-boot/docs/current/reference/html/howto.html#howto.testing
 - https://docs.spring.io/spring-boot/docs/1.5.2.RELEASE/reference/html/boot-features-testing.html
 
+* 단위 테스트: 메소드 단위 테스트
+* 통합 테스트: 여러 작업 단위가 연계된 워크 플로우 테스트(객체 간, 서비스 간, 시스템 간)
+* 기능 테스트: 공개된 API의 가장 바깥쪽에 해당하는 코드 테스트(Controller, Security, http)
+* 부하 테스트: 주어진 단위 시간 동안 어플리케이션이 얼마나 많은 요청을 처리할 수 있는지 검사
+* 인수 테스트: 고객 또는 대리인이 정의되어진 모든 목적에 부합되는지 확인하는 테스트
 
 ## @WebMvcTest
 * MVC를 위한 테스트, 컨트롤러가 예상되로 동작하는지 테스트

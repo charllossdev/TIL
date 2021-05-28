@@ -1,26 +1,94 @@
-# Git branch management strategy
+# Review Git Settings
 
-브랜치 전략이란?
+## single branch 로 clone한 후 새로운 브랜치를 추가하는 경우
 
-* 여러 개발자가 협업하는 환경에서 git 저장소를 효과적으로 활용하기 위한 work-flow
-* 브랜치의 생성,삭제,병합이 자유로운 git의 유연한 구조를 활용하여 다양한 방식으로 소스 관리
+git에서 브랜치가 너무 많아 특정 브랜치만 추적하도록 clone할 수 있다.
 
-![](assets/git-branch-8c29ed18.png)
+클론
+```
+git clone -b {본인_아이디} --single-branch https://github.com/{본인_아이디}/{저장소 아이디}
+ex) git clone -b javajigi --single-branch
+```
 
-![](assets/git-branch-5c19c1f4.png)
+## 원격 저장소 브런치 제어
+> 위와 같이 clone한 후 새로운 브랜치를 추가하고 싶은 경우가 있으면 다음과 같이 새로운 브랜치를 추가할 수 있다.
 
+```
+git remote set-branches --add origin [remote-branch]
+git fetch origin [remote-branch]:[local-branch]
+```
+---
 
-## git-flow
+* 터미널에서 다음 명령을 입력해 브랜치를 생성한다.
 
-* 메인 브랜치: 항상 유지
-  - master: 제품으로 출시될 수 있는 브랜치
-  - devepop: 다음 출시 버전을 개발하는 브랜치
-* 보조 브랜치: merge되면 제거
-  - feature: 기능을 개발하는 브랜치
-  - release: 이번 출시 버전을 준비하는 브랜치
-  - hotfix: 출시 버전에서 발생한 버그를 수정하는 브랜치
-* 장점
-  - 주기적으로 배포하는 서비스에 적합
-  - 가장 유명한 전략인 만큼 많은 IDE 가 지원
+```
+git checkout -b 브랜치이름
+ex) git checkout -b step1
+```
 
-참고 - [우아한형제들 git-flow 적용기](https://woowabros.github.io/experience/2017/10/30/baemin-mobile-git-branch-strategy.html)
+* 본인 원격 저장소에 올리기
+
+> 로컬에서 commit 명령을 실행하면 로컬 저장소에만 반영되고, 원격 github.com의 저장소에는 반영되지 않는다.
+
+```
+git push origin 브랜치이름
+ex) git push origin step1
+```
+
+* merge를 완료했다는 통보를 받으면 브랜치 변경 및 작업 브랜치 삭제(option)한다.
+
+> 강사에게 승인 후 merge를 완료했다는 통보를 받으면 해당 미션은 완료한 상태가 된다.
+>
+> 현재 미션을 완료했기 때문에 미션을 진행한 브랜치를 삭제하고 다음 미션을 위한 새로운 브랜치를 생성해야 한다.
+
+```
+git checkout 본인_아이디
+git branch -D 삭제할_브랜치이름 // -D 강제삭제
+ex) git checkout javajigi
+ex) git branch -D step1
+```
+
+* 통합(merge)한 next-step 저장소와 동기화하기 위해 next-step 저장소 추가(최초 한번만)
+
+> 계정 브랜치에서 다음 미션을 이어서 진행하기 위해 브랜치를 생성하려고 한다.
+>
+> 그런데 로컬 PC의 현재 상태는 최신 코드가 아니기 때문에 미션을 이어서 진행할 수 없다. 따라서 **next-step에 통합(merge)된 코드와 동기화하는 작업을 진행**해야 한다.
+
+```
+git remote add {저장소_별칭} base_저장소_url
+ex) git remote add upstream https://github.com/next-step/java-racingcar.git
+// 위와 같이 next-step 저장소를 추가한 후 전체 remote 저장소 목록을 본다.
+git remote -v
+```
+
+* next-step 저장소에서 자기 브랜치 가져오기(또는 갱신하기)
+
+> 앞 단계의 `remote add` 명령은 로컬 PC에서 next-step 저장소에 접근할 수 있도록 이름을 부여한 것이다. 앞 단계의 예제는 upstream이라는 이름을 부여했다.
+>
+> 앞 단계에서 next-step 저장소에 이름을 부여했다면 이번 단계는 fetch 명령으로 동기화하고 싶은 next-step 저장소의 브랜치를 가져오기 해야 한다.
+
+```
+git fetch upstream {본인_아이디}
+ex) git fetch upstream javajigi
+```
+
+* next-step 저장소 브랜치와 동기화하기
+
+> 현재 상태는 next-step 저장소 브랜치를 가져오기는 했지만 아직까지 로컬 저장소에 최신 버전의 코드가 반영된 것은 아니다.
+>
+> rebase 명령을 실행해 next-step 저장소와 로컬 저장소의 브랜치를 동기화한다.
+
+```
+git rebase upstream/본인_아이디
+ex) git rebase upstream/javajigi
+```
+
+* 새로운 미션을 진행하기 위한 브랜치 생성
+> 지금까지 과정을 통해 새로운 작업을 시작하기 위한 준비 작업을 마쳤다.
+>
+> 다음 단계는 [코드리뷰 요청 1단계](./review-step1.md)의 4번 항목의 checkout 명령으로 새로운 브랜치를 생성한다.
+
+```
+git checkout -b 브랜치이름
+ex) git checkout -b step2
+```

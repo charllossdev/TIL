@@ -1,4 +1,4 @@
-# Spring Boot Test
+# TDD
 
 - https://docs.spring.io/spring-boot/docs/current/reference/html/howto.html#howto.testing
 - https://docs.spring.io/spring-boot/docs/1.5.2.RELEASE/reference/html/boot-features-testing.html
@@ -8,6 +8,14 @@
 * 기능 테스트: 공개된 API의 가장 바깥쪽에 해당하는 코드 테스트(Controller, Security, http)
 * 부하 테스트: 주어진 단위 시간 동안 어플리케이션이 얼마나 많은 요청을 처리할 수 있는지 검사
 * 인수 테스트: 고객 또는 대리인이 정의되어진 모든 목적에 부합되는지 확인하는 테스트
+
+# TDD 장점
+
+* 변화에 대한 두려움을 줄여줌 (리펙토링)
+* 디버깅 시간 절약
+* 동작하는 문서 역활
+* 오버 엔지니어링 방지
+* 설계에 대한 피드백이 빠름 -> 설계 수정 용이
 
 ## @WebMvcTest
 * MVC를 위한 테스트, 컨트롤러가 예상되로 동작하는지 테스트
@@ -30,7 +38,6 @@
 
 ## @WebFluxTest
 * 비동기-논블록킹 리액티브 개발에 사용되며 서비스간 호출이 많은 마이크로 아키텍처에 적합
-
 
 ## @DataJpaTest
 * JPA 관련된 설정만 로드

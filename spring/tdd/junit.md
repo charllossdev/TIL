@@ -5,9 +5,8 @@
 * 스프링 부트 2.2 버전 이상부터 기본적으로 의존성이 주입되어 사용가능
 * JUnit 외에 다양한 테스트 프레임워크
 
-# JUnit5
+# JUnit 기본 구성
 
-기본 구성
 ![](assets/junit-baa0657f.png)
 
 * Platform: 테스트를 실행해주는 런처 제공 (TestEngine API 제공)

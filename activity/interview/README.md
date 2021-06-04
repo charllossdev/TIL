@@ -10,6 +10,8 @@
   - http://honeymon.io/tech/2019/05/30/java-memory-leak-analysis.html
   - https://jupiny.com/2019/07/15/java-heap-dump-analysis/
 * 우테캠 상세 후기
+  - 개발에 대한 정리 필요
+  - 앞으로의 발전
 
 # 블랙홀릭
 > 2021.04.26
@@ -38,3 +40,5 @@
 * 진지한 목표와 방향성 그리기
   - 향후 1년 뒤, 3년 뒤, 5년 뒤 방향성에 대해서 고민
 * 진지한 목표 가지기
+* 정리하는 슨관 필요
+* 환경 파악 및 devops 

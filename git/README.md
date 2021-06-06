@@ -368,3 +368,10 @@ git config --global core.safecrlf false
 
 4. GitLab을 위한 SSH Key 생성
 ![](assets/Git-Content-79d59eb1.png)
+
+---
+
+gist config settings
+
+access Token:
+id:

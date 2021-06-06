@@ -373,5 +373,5 @@ git config --global core.safecrlf false
 
 gist config settings
 
-access Token:
-id:
+access Token: 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
+id: 6007555e457f4a9aee476e75f3245808

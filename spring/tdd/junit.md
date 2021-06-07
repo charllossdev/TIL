@@ -1,5 +1,5 @@
 # JUnit Framework
-* Java깨발자 93%가 사용하는 테스트 프레임워크
+* Java 개발자 93%가 사용하는 테스트 프레임워크
   + [JetBrains 통계](https://www.jetbrains.com/lp/devecosystem-2019/java/)
 * 현재 버전 JUnit5
 * 스프링 부트 2.2 버전 이상부터 기본적으로 의존성이 주입되어 사용가능

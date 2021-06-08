@@ -44,8 +44,13 @@
   ```
 * 표현
   + @DisplayName: 어떤 테스트인지 쉽게 표현 or 설명
+  ![](assets/test-code-convention-56f65ffd.png)
+    - 테스트 실행 시 결과 (DisplayName 기준으로 출력)
+    ![](assets/test-code-convention-529bd44e.png)
+
 * 반복테스트
-  + @RepeatedTest: 반복하는 테스트
+  + @RepeatedTest
+    - 특정 테스트를 원하는 회수만큼 반복시키고 싶을 때 사용
   + @ParameterizedTest: 여러 매개변수를 대입해가며 반복 실행 테스트
 * 테스트 결과 판별
   + Assertions

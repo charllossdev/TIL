@@ -15,7 +15,7 @@
 
 ## 테스트 케이스 작성 팁
 
-* 실패하는 테스트 케이스 먼저 작성
+* **실패하는 테스트 케이스 먼저 작성**
   - 로직상 일어나는 에러 케이스
   - 테스트가 예상과 다른 식으로 실패하면 뭔가를 잘못 이해했거나 테스트 코드의 미완성
 * 간단한 성공 케이스 작성
@@ -34,11 +34,33 @@
 * 유닛 테스트 메서드 명명 규칙
   1. 영어
   ![](assets/test-code-convention-bac14395.png)
-  2. 한글
-  ![](assets/test-code-convention-b5f111cc.png)
 
 * bdd
   ![](assets/test-code-convention-a3c5a185.png)
+* 사용하지 않는 테스트
+  ![](assets/test-code-convention-a5354c99.png)
+  ![](assets/test-code-convention-905b1ad7.png)
+* 반복 테스트
+  + @ReapeatedTest
+    - 속성이 없을 때
+    ![](assets/test-code-convention-5fc3d414.png)
+    ![](assets/test-code-convention-941c2902.png)
+    - value, name 속성 설정
+    ![](assets/test-code-convention-b6b1bf83.png)
+    ![](assets/test-code-convention-efe1754c.png)
+  + @ParameterizedTest
+    - @ValueSource
+    ![](assets/test-code-convention-0e0cae20.png)
+    ![](assets/test-code-convention-d739a232.png)
+    - @CsvSource
+    ![](assets/test-code-convention-887625a3.png)
+    ![](assets/test-code-convention-5e7ce4e1.png)
+    - @EnumSource
+    ![](assets/test-code-convention-d1065609.png)
+    ![](assets/test-code-convention-8c3d2179.png)
+* Null & Empty Test
+  ![](assets/test-code-convention-d6588646.png)
+
 
 
 ## 자동 생성 설정

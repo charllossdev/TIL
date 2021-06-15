@@ -56,3 +56,50 @@
   + Assertions
     - `assertAll()`
     - 추가로 assertJ의 다양한 assert 메소드를 사용
+
+
+---
+
+## Delay Test
+
+```java
+TimeUnit.HOURS.sleep(1):    // delay 1 hours
+TimeUnit.MINUTES.sleep(10); // delay 10 minute
+TimeUnit.SECONDS.sleep(2);  // delay 2 second
+```
+
+* Options
+  ```java
+  public enum TimeUnit {
+    /**
+     * Time unit representing one thousandth of a microsecond.
+     */
+    NANOSECONDS(TimeUnit.NANO_SCALE),
+    /**
+     * Time unit representing one thousandth of a millisecond.
+     */
+    MICROSECONDS(TimeUnit.MICRO_SCALE),
+    /**
+     * Time unit representing one thousandth of a second.
+     */
+    MILLISECONDS(TimeUnit.MILLI_SCALE),
+    /**
+     * Time unit representing one second.
+     */
+    SECONDS(TimeUnit.SECOND_SCALE),
+    /**
+     * Time unit representing sixty seconds.
+     * @since 1.6
+     */
+    MINUTES(TimeUnit.MINUTE_SCALE),
+    /**
+     * Time unit representing sixty minutes.
+     * @since 1.6
+     */
+    HOURS(TimeUnit.HOUR_SCALE),
+    /**
+     * Time unit representing twenty four hours.
+     * @since 1.6
+     */
+    DAYS(TimeUnit.DAY_SCALE);
+    ```

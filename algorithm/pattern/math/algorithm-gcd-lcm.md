@@ -46,24 +46,3 @@
   int gcd = getGcd(num1, num2);
   int lcm = gcd * (num1/gcd) * (num2/gcd);
   ```
-
-## Prime algorithm
-소수: 약수가 1과 자기 자신밖에 없는 수
-
-* N이 소수가 되려면, 2보다 크거나 같고, N-1 보다 작거나 같은 수와 나누어 떨어지면 안됨
-* N의 소수 구하는 방법
-  + 2부터 N-1 까지 수를 나눠서 확인
-  * N/2 보다 작거나 같은 수로 나누어 떨어지면 안됨
-  * **루트 N 보다 작거나 같은 자연수로 나누어 떨어지면 안됨**
-  ```java
-  private int isPrime(int n) {
-    if (n < 2) {
-      return 0;
-    }
-    for (int i = 2; i*i <= n; i++) {
-      if (n % i == 0)
-        return 0;
-    }
-    return 1;
-  }
-  ```

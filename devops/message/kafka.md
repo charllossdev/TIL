@@ -81,10 +81,36 @@ Zookeeper : Kafka를 운용하기 위한 Coordination * service(zookeeper 소개
     - 모든 파티션에 데이터 전달 유무를 확인하여, 데이터 유실되지 않음
     - 모든 파티션을 확인하기 떄문에 속도가 느리다.
 
-### Kafka Replication
+### Kafka Partitioner
+프로듀서가 데이터를 보낼 때, 파티셔너를 통해서 브로커에 데이터를 전달
+![](assets/kafka-d59fbb22.png)
+* 프로듀서를 사용할 때, 특정한 파티션을 설정하지 않으면 default: UniformStickyPartitioner 로 설정
+  + 메세지 Key가 있을때:
+  ![](assets/kafka-8835d24d.png)
+    - 메세지를 전달 할 때, Key를 기준으로 해쉬값을 구하여, 이 해쉬값 기준으로 저장되는 파티션을 설정
+    - 동일한 메세지 Key를 통해 해쉬값을 구하면, 항상 동일한 파티션에 순서대로 저장(큐 이기 떄문에)
+    ![](assets/kafka-3174bc72.png)
+  + 메세지 Key가 없을때:
+    - 메세지 Key가 없을 경우 RR(Round-Robin) 방식으 분배 저장
+    - 프로듀서에서 배치로 모을 수 있는 레코드를 모아서 파티셔너로 데이터 전달(이 방식이 라운드 로빈 방식으로 적용) -> 데이터가 파티션에 적절하게 분배됨
 
 
-### Kafka
+
+### Kafka Consumer Lag
+![](assets/kafka-c48075fe.png)
+프로듀서가 넣은 데이터들 마지막 순번의 offset과 컨슈머가 순대대로 읽은 offset 의 차이를 **consumer lag** 이다.
+* 해당 토픽에 대한 파이프라인에 대한 컨슈머 or 프로듀서의 상태 파악
+* Partition이 여러개라면, `Lag`은 여러개가 있을 수 있다.
+  + 그 중에 가장 큰 값을 확인하면, 상태 파악에 더 도움이 된다.
+* 컨슈머 단위 `Lag` 을 확인하려면, 컨슈머에서 확인하는 것은 바람직하지 않음
+  + 컨슈머에서 장애가 발생해 비정상적으로 종료된다면 더이상 컨슈머 `Lag` 을 측정할 수 없는 위험요소 발생
+  + 컨슈머가 개발될 때마다 `Lag` 관리 기능을 추가해야하는 번거로움
++ **효과적으로 모니터링 할 수 있도록 `Burrow` 출시**
+  + 독립적으로 카프카 lag 모니터링
+  + 멀티 카프카 클러스터 지원
+  + Sliding window를 통해 컨슈머의 status 체크
+  + Http api 를 제공해 다양한 추가 생태계 조성 가능
+
 
 
 
@@ -107,3 +133,6 @@ Zookeeper : Kafka를 운용하기 위한 Coordination * service(zookeeper 소개
 * 복수의 Consumer로 이루어진 Consumer group을 구성하여 1 topic의 데이터를 분산하여 처리 가능
 * Topic partition number >= Consumer Group number 일 경우만 가능
   + (Topic partition number < Consumer Group number일 경우 1개 이상의 consumer는 유휴 상태가 됨)
+
+
+https://blog.voidmainvoid.net/category/%EB%B9%85%EB%8D%B0%EC%9D%B4%ED%84%B0/Kafka

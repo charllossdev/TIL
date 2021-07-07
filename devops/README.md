@@ -4,7 +4,8 @@
   + IT 인프라란 애플리케이션을 가동시키기 위해 필요한 하드웨어나 OS, 미들웨어, 네트워크 등 시세틈 기반 환경
 * 비기능적인 요구사항
   + 시스템 성능
-  + 안정성
+  + 안정성(가용성)
+  + 이중화
   + 확장성
   + 보안
 
@@ -25,3 +26,31 @@
   + 클라이언트 os: 사용자가 사용하기 쉬운 환경 중점(Windows, macOS, mobile 등)
   + 서버 os: 시스템을 빠르고 안정으로 운영하기 위한 환경 중점(Linux, Unix, Windows Server등)
 * 미들웨어
+
+
+* Saas: Software
+* Pass: Plaform
+* Iaas: Infra
+
+---
+
+# 이중화
+
+* Hot Standby
+* Warm Standy
+* Cold Standy
+
+
+## 프로비저닝
+* Scale-out: 서버의 대수를 늘림
+* Scale-up: 서버의 용량을 늘림
+
+
+# 감시
+* Nagios
+* Zabbiy
+
+
+# CI/CD
+
+* [k8s 인프라 CI/CD 처리](https://saramin.github.io/2020-05-01-k8s-cicd/)

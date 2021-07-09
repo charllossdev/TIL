@@ -9,6 +9,14 @@
   docker -v
   ```
 * Docker Image Download
-  ```chmod
+  ```cmd
   docker pull {image-name}:{tag}
+  ```
+* Docker Image View
+  ```cmd
+  docker images
+  ```
+* Create Docker Container
+  ```cmd
+  docker create {option} {image-name}:{tag}
   ```

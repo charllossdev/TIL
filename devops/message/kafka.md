@@ -94,8 +94,6 @@ Zookeeper : Kafka를 운용하기 위한 Coordination * service(zookeeper 소개
     - 메세지 Key가 없을 경우 RR(Round-Robin) 방식으 분배 저장
     - 프로듀서에서 배치로 모을 수 있는 레코드를 모아서 파티셔너로 데이터 전달(이 방식이 라운드 로빈 방식으로 적용) -> 데이터가 파티션에 적절하게 분배됨
 
-
-
 ### Kafka Consumer Lag
 ![](assets/kafka-c48075fe.png)
 프로듀서가 넣은 데이터들 마지막 순번의 offset과 컨슈머가 순대대로 읽은 offset 의 차이를 **consumer lag** 이다.
@@ -110,10 +108,6 @@ Zookeeper : Kafka를 운용하기 위한 Coordination * service(zookeeper 소개
   + 멀티 카프카 클러스터 지원
   + Sliding window를 통해 컨슈머의 status 체크
   + Http api 를 제공해 다양한 추가 생태계 조성 가능
-
-
-
-
 
 
 # Kafka 데이터 쓰기, 복제, 저장
@@ -136,3 +130,55 @@ Zookeeper : Kafka를 운용하기 위한 Coordination * service(zookeeper 소개
 
 
 https://blog.voidmainvoid.net/category/%EB%B9%85%EB%8D%B0%EC%9D%B4%ED%84%B0/Kafka
+
+# Kafka Producer Application(client)
+* Topic에 해당하는 메세지 생성
+* 특정 Topic으로 데이터를 publish
+* 처리 실패/재시도 여부
+
+### Add Dependency
+
+```xml
+// maven
+<dependency>
+    <groupId>org.apache.kafka</groupId>
+    <artifactId>kafka-clients</artifactId>
+    <version>2.8.0</version>
+</dependency>
+```
+```ruby
+// gradle
+implementation group: 'org.apache.kafka', name: 'kafka-clients', version: '2.8.0'
+```
+* 의존성 추가할 때 주의해야할 점은 버전을 잘 확인해야 한다.
+* 카프카(broker) 서버 버전과 카프카 클라이언트(producer, consumer) 버전의 호환을 확인해야한다.
+
+
+
+
+
+# Kafka 환경
+
+### ZooKeeper 설정
+* [ZooKeeper 설치](https://twofootdog.tistory.com/89)
+* ZooKeeper 환경설정
+  /usr/local/zookeeper/conf/zoo.cfg(설치경로) :
+  ```ruby
+  tickTime=2000
+  initLimit=10
+  syncLimit=5
+  dataDir=/data
+  clientPort=2181
+  server.1=zk01:2888:3888
+  server.2=zk02:2888:3888
+  server.3=zk03:2888:3888
+  ```
+  - tickTime : 주키퍼가 사용하는 시간에 대한 기본 측정 단위(밀리초)
+  - initLimit : 팔로워가 리더와 초기에 연결하는 시간에 대한 타임아웃 tick의 수
+  - syncLimit : 팔로워가 리더와 동기화 하는 시간에 대한 타임아웃 tick의 수(주키퍼에 저장된 데이터가 크면 더 크게 잡아야 함)
+  - dataDir : 주키퍼의 트랜잭션 로그와 스냅샷이 저장되는 저장경로. 이 글에서는 /data로 생성했었기 때문에 zoo.cfg에서도 /data로 지정함
+  - clientPort : 주키퍼 사용 TCP 포트
+  - server.x : 주키퍼 앙상블 구성을 위한 서버 설정. server.myid 형식으로 사용. 2888:3888은 기본 포트이며, 앙상블 내 노드끼리 연결 & 리더 선출에 사용
+
+* [Linux JVM 메모리 부족 해결](https://gre-eny.tistory.com/177)
+* [Kafka 주요 운영 및 설정](https://getto215.github.io/kafka-architecture-2/)

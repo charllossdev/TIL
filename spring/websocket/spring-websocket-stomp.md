@@ -12,3 +12,4 @@
 * [Stomp Client Test Code Example](https://medium.com/@MelvinBlokhuijzen/spring-websocket-endpoints-integration-testing-180357b4f24c)
 * [Spring Boot + Stomp Example](https://daddyprogrammer.org/post/4691/spring-websocket-chatting-server-stomp-server/)
 * [Spring Boot + Stomp Example](https://dev-gorany.tistory.com/235)
+* [Stomp load test about create 500+ Sockets](https://m.blog.naver.com/ppuagirls/221403026777)

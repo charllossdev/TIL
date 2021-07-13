@@ -120,18 +120,104 @@ LinkedIn에서 최초로 만들고 opensource화 한 확장성이 뛰어난 분�
 ![](assets/kafka-cfdd58ac.png)
 * 만약 컨슈머그룹1과 컨슈머 그룹2는 서로 다른 Offset을 관리함으로, 각자 원하는대로 데이터 처리가 가능
 
-## Kafka Partitioner
-프로듀서가 데이터를 보낼 때, 파티셔너를 통해서 브로커에 데이터를 전달
+# Kafka Partitioner
+파티셔너는 2가지 종류
+* Kafka Producer Partitioner
+* Kafka Consumer Partitioner
+
+## Kafka Producer Partitioner
+카프카 프로듀서는 레코드를 전송하기 위해 파티셔너를 제공합니다.
+
 ![](assets/kafka-d59fbb22.png)
+* 프로듀서가 데이터를 보낼 때, 파티셔너를 통해서 브로커에 데이터를 전달
+* 파티셔너를 매칭하는 기준은 프로듀서 파티셔너 인터페이스에 따른다.
+  + [Producer-Partitioner-interface](https://kafka.apache.org/25/javadoc/?org/apache/kafka/clients/producer/Partitioner.html)
 * 프로듀서를 사용할 때, 특정한 파티션을 설정하지 않으면 default: UniformStickyPartitioner 로 설정
-  + 메세지 Key가 있을때:
-  ![](assets/kafka-8835d24d.png)
-    - 메세지를 전달 할 때, Key를 기준으로 해쉬값을 구하여, 이 해쉬값 기준으로 저장되는 파티션을 설정
-    - 동일한 메세지 Key를 통해 해쉬값을 구하면, 항상 동일한 파티션에 순서대로 저장(큐 이기 떄문에)
+* Topic에 데이터를 전달할 때, key의 유무에 따라 파티셔너의 역활이 달라진다.
+* 메세지 Key가 있을때:
+![](assets/kafka-8835d24d.png)
+  - 메시지 키가 있을 경우에는 파티셔너의 종류와 관계없이 동일하게 동작
+  - 메시지 키의 해쉬값을 구해서 해당 해쉬값과 파티션을 매칭하여 적재
+  - 메세지를 전달 할 때, Key를 기준으로 해쉬값을 구하여, 이 해쉬값 기준으로 저장되는 파티션을 설정
+  - 동일한 메세지 Key를 통해 해쉬값을 구하면, 항상 동일한 파티션에 순서대로 저장(큐 이기 떄문에)
     ![](assets/kafka-3174bc72.png)
-  + 메세지 Key가 없을때:
-    - 메세지 Key가 없을 경우 RR(Round-Robin) 방식으 분배 저장
-    - 프로듀서에서 배치로 모을 수 있는 레코드를 모아서 파티셔너로 데이터 전달(이 방식이 라운드 로빈 방식으로 적용) -> 데이터가 파티션에 적절하게 분배됨
+  - 다만 주의할 점은 파티션 개수가 늘어날 때 입니다.
+  - 파티션 개수가 늘어나면 메시지 키 해시값과 파티션 매칭이 틀어지게 되어 파티션 증가 전후로 동일한 메시지 키더라도 다른 파티션에 레코드가 들어갈 수 있으므로 주의해야 합니다.
++ 메세지 Key가 없을때: 2가지 방법
+  - UniformStickyPartitioner
+  - RoundRobinPartitioner
+  - 프로듀서에서 배치로 모을 수 있는 레코드를 모아서 파티셔너로 데이터 전달(이 방식이 라운드 로빈 방식으로 적용) -> 데이터가 파티션에 적절하게 분배됨
+
+### UniformStickyPartitioner
+유니폼 스티키 파티션은 2.4.0 부터 기본 설정으로 사용되는 파티셔너
+
+* 스티키 파티션은 라운드-로빈 파티셔너와 다르게 프로듀서 내부동작에 특화되어 있습니다.
+* 특히 배치전송에 특화되어 있는데요. 프로듀서는 파티션에 데이터를 전송하기 전에 어큐뮤레이터(Accumulator)에 데이터를 버퍼로 쌓아 놓고 발송합니다.
+* 스티키 파티셔너를 사용할 경우 어큐뮤레이터의 버퍼를 채워서 보내기 때문에 성능향상에서 유리합니다.
+
+![](assets/kafka-04efb863.png)
+
+### RoundRobinPartitioner
+메시지 키가 없을 경우, 라운드-로빈 방식으로 데이터가 들어오는대로 파티션을 순회하면서 레코드를 넣습니다.
+* 파티션 개수가 늘어날때도 마찬가지로 순회하면서 지속적으로 데이터를 분배하면서 넣습니다.
+
+![](assets/kafka-74a7505f.png)
+
+
+## Kafka Consumer Partitioner
+카프카 컨슈먼은 토픽의 파티션과 매칭하여 레코드를 가져온다.
+
+* 파티션을 매칭하는 기준은 컨슈머 파티션 어사이너 기준을 따른다.
+  + [Consumer-Partition-Assignor](https://kafka.apache.org/25/javadoc/org/apache/kafka/clients/consumer/ConsumerPartitionAssignor.html)
+* 파티션 어사이너 종류(파티셔너 종류) 4가지
+  + RangeAssignor
+  + RoundRobinAssignor
+  + StickyAssignor
+  + CooperativeStickyAssignor
+
+###  RangeAssignor
+* 기본 설정되는 파티션 어사이너
+* 토픽의 파티션을 숫자기준으로 나열하고, 컨슈머의 이름을 사전순으로 나열한 뒤에 배정하는 정확히 반으로 나누어 배정
+* 만약 딱 반으로 안나뉘어지는 홀수개의 파티션을 나눌 경우에는 앞쪽 순서의 컨슈머가 파티션을 더 많이 할당
+
+![](assets/kafka-3cbd3f03.png)
+* 예를들어 파티션이 3개인 토픽(p0, p1, p2)과 컨슈머가 2개(c0, c1)가 있다고 가정
+* 파티션 3개를 컨슈머에 분배하려면 2개와 1개를 배분
+* 앞쪽 순서의 컨슈머는 파티션을 2개 가지게 됩니다.
+
+### RoundRobinAssignor
+* 라운드-로빈 어사이너는 파티션을 컨슈머에 번갈아가며 할당하는 방식
+![](assets/kafka-37347e1a.png)
+* 파티션이 3개인 토픽(p0, p1, p2)과 컨슈머 2개(c0, c1)가 있다고 가정
+* 파티션 3개를 컨슈머에 분배하는데 파티션 순서를 번갈아 가면서 할당하게 되어 아래와 같이 매칭됩니다.
+
+![](assets/kafka-a6e509d0.png)
+* 라운드-로빈 어사이너를 사용할 경우 특정 상황에서는 일부 컨슈머에 파티션이 몰릴 수도 있습니다.
+* 예를들어 파티션이 1개인 토픽, 2개인 토픽, 3개인 토픽이 있고 3개의 컨슈머가 각각 토픽 1번, 토픽 2번, 토픽 3번을 매칭하면 아래와 같이 라운드-로빈 로직으로 인해 일부 컨슈머에 파티션이 몰릴 수 있으므로 주의해야 합니다.
+
+### StickyAssignor
+스티키 어사이너는 두가지 목적으로 사용
+1. 최대한 파티션을 균등하게 매칭하기 위함
+    - 균등하게 매칭이라고 뜻하는것은 아래와 같은 정책을 내포
+    - 컨슈머에 매칭된 파티션의 개수가 최대 1개 이상을 넘지 않도록 합니다.
+    - each consumer that has 2+ fewer topic partitions than some other consumer cannot get any of those topic partitions transferred to it.
+2. 리밸런싱이 일어날 경우 최대한 파티션의 이동을 줄이는데 목적
+    - 파티션 매칭 이동을 줄이면, 리밸런싱 발생시 오버헤드를 줄일 수 있다.
+
+* 스티키 어사이너를 사용할 경우 최대한 균등하게 파티션을 컨슈머에 나눕니다.
+* 라운드로빈과 비슷하다고 생각할수도 있지만 실제로 동작은 그렇지 않습니다.
+* 그리고 리밸런싱 발생시에 동작이 다름을 확인할 수 있습니다.
+![](assets/kafka-052f610f.png)
+
+* 예를 들어 3개의 컨슈머가 있고 3개의 토픽(각각 1개, 2개, 3개 파티션 보유)이 있다고 가정
+* 라운드 로빈 어사이너로 분배했을 경우에는 이전 예시와 같이 몰리는 현상이 발생할 수 있지만 스티키 파티셔너의 경우 다르게 동작하여 아래와 같이 매칭되는 것을 확인할 수 있습니다.
+* 추가적으로 스티키 어사이너를 사용할 경우 이미할당된 파티션의 대부분이 남아있다는 특징을 리밸런스 리스너에서 활용할 수 있습니다.
+  + [관련 내용은 링크에서 확인할 수 있습니다](https://kafka.apache.org/25/javadoc/org/apache/kafka/clients/consumer/StickyAssignor.html)
+
+### CooperativeStickyAssignor
+* 코퍼레이티브 스티키 어사이너는 스티키 어사이너와 유사하지만 coopertive rebalancing을 지원합니다.
+* 이 어사이너를 사용하려면 2.3 이상의 브로커와 클라이언트를 사용해야 합니다.
+  + [관련 상세 내용은 링크에서 확인할 수 있습니다](https://kafka.apache.org/25/javadoc/org/apache/kafka/clients/consumer/CooperativeStickyAssignor.html)
 
 
 ## Kafka Consumer Lag

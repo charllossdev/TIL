@@ -307,5 +307,8 @@ implementation group: 'org.apache.kafka', name: 'kafka-clients', version: '2.8.0
   - clientPort : 주키퍼 사용 TCP 포트
   - server.x : 주키퍼 앙상블 구성을 위한 서버 설정. server.myid 형식으로 사용. 2888:3888은 기본 포트이며, 앙상블 내 노드끼리 연결 & 리더 선출에 사용
 
+# 참고 리소스
+* **[Docker로 kafka 테스트 환경 만들기](https://www.joinc.co.kr/w/man/12/Kafka/docker)**
 * [Linux JVM 메모리 부족 해결](https://gre-eny.tistory.com/177)
 * [Kafka 주요 운영 및 설정](https://getto215.github.io/kafka-architecture-2/)
+* [로컬에서 Docker를 이용하여 kafka 서버 환경 구축](https://jobc.tistory.com/213)

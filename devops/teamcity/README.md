@@ -5,10 +5,13 @@
 
 # Linux Setting
 
-
 1. 환경확인
 팀시티는 자바 기반 소프트웨어로 자바 8버전 이상 설치되 있어야 한다.
+
+
 ```cmd
+sudo yum install -y java-1.8.0-openjdk-devel.x86_64
+---
 java -version
 ---
 openjdk version "1.8.0_282"

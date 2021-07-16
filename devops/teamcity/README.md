@@ -181,7 +181,8 @@ sudo service teamcity start
 * 외부의 데이터베이스나 같은 서버에 설치된 데이터베이스 모두를 사용할 수 있기 때문에 데이터의 백업과 관리에 좋다
 * 테스트 용도기 때문에, TeamCity에서 내장형으로 제공하는 HSQLDB를 사용
 
-
+# 테스트 빌드
+![](assets/README-ee8a9f2a.png)
 
 # Study
 

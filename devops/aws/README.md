@@ -9,7 +9,7 @@
 
 - ssh -i 'c:\Users\yourusername\.ssh\MyKeyPair.pem' ec2-user@{IP_Address}
 
-- ssh -i '/Users/joongkeunlee/work/dev/config/aws/airi-key.pem' ec2-user@13.125.220.117
+- ssh -i '/Users/joongkeunlee/work/dev/config/aws/airi-key.pem' ec2-user@52.79.129.44
 ```
 
 ### AWS에서 제공하는 접속 가이드 에서 이러한 항목이 있다.

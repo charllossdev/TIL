@@ -195,7 +195,7 @@ python3 test_server.py
 nc 127.0.0.1 12345
 ```
 
-## 11.2 도커 파일 생성
+## 도커 파일 생성
 
 별도의 디렉토리를 생성하고 dockfile과 위에서 생성한 python파일을 새 디렉토리에 배치한다.
 
@@ -252,6 +252,63 @@ docker run -d --name docker-registry -p 5000:5000 registry
 
 * 인증 관련 참고 링크: [https://docs.docker.com/registry/configuration/#auth](https://docs.docker.com/registry/configuration/#auth)
 
+---
+# 워드프레스 도커 이미지 만들기 프로젝트
+
+---
+
+도커에서 제공하는 워드프레스와 MySQL은 따로 떨어진 형태로 존재한다. 여기서는 하나의 컨테이너에서 워드프레스와 MySQL을 동작시킬 수 있도록 만들어본다. 일단 가장 먼저 할 일은 PHP와 DB가 공존하는 환경을 찾는 것이다. 다양한 솔루션들이 있는데 그중에 XAMPP는 도커로 이미 만들어져있어 유용하게 사용할 수 있다. xampp는 apache, MariaDB, php가 설치돼 있다. 여기에 워드프레스만 올리면 바로 컨테이너를 만들 수 있다.
+
+먼저 도커 허브에서 다음 사이트를 찾아내자.
+
+[https://hub.docker.com/r/tomsik68/xampp](https://hub.docker.com/r/tomsik68/xampp)
+
+이 사이트의 컨테이너를 불러온 뒤 워드프레스 설치 과정을 진행하도록 한다. 컨테이너에서 SSH와 다앙한 포트를 지원하지만 우리는 80포트만 사용할 예정이다.
+
+```bash
+sudo docker run --name WP -p 80:80 -d tomsik68/xampp
+```
+
+이제 가상환경은 준비됐으니 워드프레스를 설치하는 작업만 남았다. "워드프레스 다운로드"를 검색하자.
+
+워드프레스 바로가기: [https://ko.wordpress.org/download/](https://ko.wordpress.org/download/)
+
+wget을 사용해 다운로드하고 압축을 푼다.
+
+```bash
+wget https://ko.wordpress.org/latest-ko_KR.tar.gz
+tar -xf latest-ko_KR.tar.gz
+
+```
+
+컨테이너 내의 웹 파일 정리
+
+```bash
+sudo docker exec -it WP bash
+chown daemon. /opt/lampp/htdocs
+cd /opt/lampp/htdocs/
+mkdir backup
+mv * ./backup/
+exit
+
+```
+
+워드프레스 파일을 컨테이너에  복사하고 웹 루트 디렉토리에 배치
+
+```python
+sudo docker cp wordpress WP:/opt/lampp/htdocs
+sudo docker exec -it WP bash
+mv /opt/lampp/htdocs/wordpress/* /opt/lampp/htdocs/
+exit
+sudo docker restart WP
+
+```
+
+127.0.0.1/phpmyadmin으로 접속해서 wordpress 데이터베이스 생성한다.
+
+![](assets/README-7fcb6131.png)
+
+마지막으로 127.0.0.1로 접속하여 워드프레스 설치를 웹 브라우저 화면으로 진행하면 된다.
 
 
 ---

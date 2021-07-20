@@ -165,7 +165,96 @@ docker info # 설치된 도커의 상세 정보 확인
     - layer-db 는 `overlay2`폴더의 관련된 정보를 가지고 있다
   + 실질적으로 컨테이너를 생성하고, 관련된 데이터를 가지고 있는것은 `overlay2` 폴더 안에 파일 시스템을 가지고 있다
 
+# Docker 이미지 생성 및 빌드
+python를 사용해 단순한 서비스를 시작 작성한다. 다음 파일을 작성하여 test_server.py로 저장한다.
 
+```py
+# test_server.py
+import socket
+
+with socket.socket() as s:
+  s.bind(("0.0.0.0", 12345))
+  s.listen()
+  print("server is started")
+  conn, addr = s.accept()
+  # conn 클라이언트와 통신할 소켓
+  # addr 클라이언트의 정보가 들어있음
+  with conn:
+    print("Connected by", addr)
+    while True:
+      data = conn.recv(1024)
+      if not data: break
+      conn.sendall(data)
+```
+
+```bash
+python3 test_server.py
+
+---
+
+nc 127.0.0.1 12345
+```
+
+## 11.2 도커 파일 생성
+
+별도의 디렉토리를 생성하고 dockfile과 위에서 생성한 python파일을 새 디렉토리에 배치한다.
+
+```bash
+mkdir my_first_project
+mv test_server.py ./my_first_project/
+cd my_first_project/
+gedit dockerfile
+```
+
+dockerfile
+
+```docker
+FROM python:3.7
+
+RUN mkdir /echo
+COPY test_server.py /echo
+
+CMD ["python", "/echo/test_server.py"]
+```
+
+빌드 후 테스트
+
+```bash
+ls
+dockerfile test_server.py
+
+sudo docker build -t ehco_test .
+sudo docker images
+sudo docker run -t -p 12345:12345 --name et --rm echo_test
+```
+
+```bash
+nc 127.0.0.1 12345
+```
+
+# Docker private image registry
+프로젝트 개발로 생성한 이미지를 Docker-Hub에 올리지 않고, 프라이빗하게 사용하는 방법
+
+```bash
+docker run -d --name docker-registry -p 5000:5000 registry
+```
+
+* docker run을 통해 이미지를 생성
+* 브라우저를 통해 registry 확인
+  ![](assets/README-8b3238ac.png)
+* private registry 이미지 푸쉬
+  ```bash
+  sudo docker tag echo_test 127.0.0.1:5000/echo_test
+  sudo docker push 127.0.0.1:5000/echo_test
+  ```
+
+* 도커 API 관련 링크: [https://docs.docker.com/registry/spec/api/](https://docs.docker.com/registry/spec/api/)
+
+* 인증 관련 참고 링크: [https://docs.docker.com/registry/configuration/#auth](https://docs.docker.com/registry/configuration/#auth)
+
+
+
+---
 
 # Docker Command
 
@@ -196,6 +285,22 @@ docker rmi {image-name}:{tag}
 ```bash
 docker images
 ```
+
+### Docker Image Push
+도커 이미지를 Docker-Hub에 업로드 하려면 회원가입 및 로그인이 되있어야 한다
+```bash
+docker login # Docker-Hub ID/PW
+docker tag {image:name} [DOCKER-HUB-LOGIN:ID]/{image:name} # 새로운 태그 생성
+docker images # 새로 생성한 테그 이미지 조회
+docker push [DOCKER-HUB-LOGIN:ID]/{image:name}
+```
+
+### Docker Image History
+도커 이미지 버전 별로 커밋 히스토리를 확인 가능
+```bash
+docker history {image:name}:[version]
+```
+
 
 ## Docker Container Create
 ```bash

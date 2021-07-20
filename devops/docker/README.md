@@ -111,42 +111,158 @@
 * 기존의 분리된 소프트웨어 개발팀과 IT운영팀의 협업으로 전체 라이프사이클을 함꼐 안전하고 쉽게 관리할 수 있는 환경
 * 개발과 릴리즈가 편해지므로 안정성이 확보, 협업 강화
 
+---
 
 
+# Docker Install
+```bash
+apt install docker.io
+```
+
+# Docker 레지스트리
+![](assets/README-4614df74.png)
+* github 처럼 도커 이미지를 자유롭게 배포하고, 받을 수 있는 환경
+  + [Docker-Hub](https://hub.docker.com/)
+    - `/` 경로가 있는경우, 일반 유저가 올린 이미지이며,
+    - `/` 경로가 없는경우, 공식 이미지라고 생각하면 됨
+  + 검색을 통해 쉽게 이미지를 받을 수 있다.
+  + 명령어로 검색하는 경우
+    ```bash
+    sudo docker search tomcat
+    sudo docker search {search-image}
+
+    sudo docker pull tomcat //download
+
+    sudo docker images //로컬 시스템에 있는 도커 이미지 검색
+    ```
+
+# Docker 라이프사이클 이해하기
+![](assets/README-1a15d70f.png)
+* `RUN` : `CREATE` + `START` + [`IMAGE PULL`]:optional
+  + `RUN` 은 일종의 간편 명령어로 사용
+  + 실행하려는 이미지가 없는 경우 docker-hub에서 이미지를 pull
+  + 실행하려는 이미지가 있는 경우, image `CREATE` -> `START` 한번에 실행
+  + <span style="color:red">같은 이미지를 `RUN` 할 경우, 컨테이너에서 새로운 이미지를 생성하고 실행</span>
+    - `RUN` 명령어와 `START` 명령어를 잘 구분해서 사용
+* `PULL`
+* `PUSH`
 
 
+# Docker 이미지의 레이어
+![](assets/README-447568c8.png)
+* 왼쪽: 이미지 A를 지워도, 이미지 B에서 레이어 A,B,C를 사용하고 있어, 실제로 지워지지 않음
+* 오른쪽: 이미 존재하는 레이어 A,B는 동일하게 사용하기 때문에, 새로 다운받을 필요가 없음
 
-
+```bash
+docker info # 설치된 도커의 상세 정보 확인
+```
+* 도커 루트 경로 확인
+![](assets/README-fca55f81.png)
+  + 경로 구성 파일
+  ![](assets/README-13caa810.png)
+  + image 폴더 안에는 image-db, layer-db 에 관한 정보
+    - image-db 에는 layer-db에 관련한 정보를 가지고 있다
+    - layer-db 는 `overlay2`폴더의 관련된 정보를 가지고 있다
+  + 실질적으로 컨테이너를 생성하고, 관련된 데이터를 가지고 있는것은 `overlay2` 폴더 안에 파일 시스템을 가지고 있다
 
 
 
 # Docker Command
 
-### Docker version check
-```cmd
+## Docker version check
+```bash
 docker -v
+
+docker info # 설치된 도커의 상세 정보
 ```
-### Docker Image Download
-```cmd
+* 도커 버전
+![](assets/README-1592dda1.png)
+
+* 도커 루트 경로 확인
+![](assets/README-fca55f81.png)
+
+## Docekr Image Search
+```bash
+docker search {image:name}
+```
+
+## Docker Image Download & Delete
+```bash
 docker pull {image-name}:{tag}
+docker rmi {image-name}:{tag}
 ```
-### Docker Image View
-```cmd
+
+## Docker Image View
+```bash
 docker images
 ```
-### Create Docker Container
-```cmd
+
+## Docker Container Create
+```bash
 docker create {option} {image-name}:{tag}
 ```
 
-### Docker Container Running
-```cmd
+## Docker Container Running
+```bash
 docker run {option} IMAGE{:tag|@digest} {command} {arg...}
 ```
 
+* `RUN` 명령어는 이미지가 없다면 이미지를 자동으로 pull 받아온다
+* 추가로 가져온 이미지를 컨테이너에 `CREATE` + `START` 를 실행한다.
+* `RUN` 명령어는 컨테이너를 계속 생성하는 것이기 떄문에, 같은 이미지로 중복되게 생성할 위험이 있다.
 * -d:	데몬으로 실행(뒤에서 - 안 보이는 곳(백그라운드)에서 알아서 돌라고 하기)
 * -it:	컨테이너로 들어갔을 때 bash로 CLI 입출력을 사용할 수 있도록 해 줍니다.
 * --name: {이름}	컨테이너 이름 지정
-* -p: {호스트의 포트 번호}:{컨테이너의 포트 번호}	호스트와 컨테이너의 포트를 연결합니다.
+* -p: {호스트의 포트 번호}:{컨테이너의 포트 번호}	호스트와 컨테이너의 포트를 연결합니다. -> 포트 포워딩
 * --rm:	컨테이너가 종료되면{내부에서 돌아가는 작업이 끝나면} 컨테이너를 제거합니다.
 * -v: {호스트의 디렉토리}:{컨테이너의 디렉토리}	호스트와 컨테이너의 디렉토리를 연결합니다.
+* -e: 환경 변수를 설정할 수 있다.
+  ```bash
+  docker run -d --name nx -e env_name=test1234 nginx # printenv env_name
+
+  > sudo docker exec -it nx bash
+
+  printenv # 환경변수 확인
+  printenv {env:name} # 특정 환경변수 네임 확인
+  ```
+
+### Docker Container Check
+```bash
+docker ps #모든 컨테이너 조회
+
+docker ps -a #실행중인 컨테이너 조회
+```
+
+![](assets/README-625668c2.png)
+
+### Docker Container Inner Shell
+```bash
+docker exec -tc {container:name | container:id} /bin/bash
+```
+
+### Dcoker Container File Copy
+```bash
+sudo docker cp <path> <to container>:<path>   # 로컬에서 컨테이나로
+sudo docker cp <from container>:<path> <path> # 컨테이너 에서 로컬로
+sudo docker cp <from container>:<path> <to container>:<path> # 컨테이너에서 컨테이너로
+```
+
+### Docker Container logs
+```bash
+docker logs {container:name | container:id} # stdout, stderr
+```
+
+## Docker Container Stop
+```bash
+docker stop {container:name | container:id}
+```
+
+* 도커이미지를 통해 생성된 컨테이너의 고유 ID or Names 로 종료
+
+## Docker Container Delete
+```bash
+docker rm {container-name | container:id}
+
+sudo docker stop `sudo docker ps -a -q` # 모두 정리
+sudo docker rm `sudo docker ps -a -q`   # 모두 삭제
+```

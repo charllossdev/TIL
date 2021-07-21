@@ -165,7 +165,153 @@ docker info # 설치된 도커의 상세 정보 확인
     - layer-db 는 `overlay2`폴더의 관련된 정보를 가지고 있다
   + 실질적으로 컨테이너를 생성하고, 관련된 데이터를 가지고 있는것은 `overlay2` 폴더 안에 파일 시스템을 가지고 있다
 
+# Docker 이미지 생성 및 빌드
+python를 사용해 단순한 서비스를 시작 작성한다. 다음 파일을 작성하여 test_server.py로 저장한다.
 
+```py
+# test_server.py
+import socket
+
+with socket.socket() as s:
+  s.bind(("0.0.0.0", 12345))
+  s.listen()
+  print("server is started")
+  conn, addr = s.accept()
+  # conn 클라이언트와 통신할 소켓
+  # addr 클라이언트의 정보가 들어있음
+  with conn:
+    print("Connected by", addr)
+    while True:
+      data = conn.recv(1024)
+      if not data: break
+      conn.sendall(data)
+```
+
+```bash
+python3 test_server.py
+
+---
+
+nc 127.0.0.1 12345
+```
+
+## 도커 파일 생성
+
+별도의 디렉토리를 생성하고 dockfile과 위에서 생성한 python파일을 새 디렉토리에 배치한다.
+
+```bash
+mkdir my_first_project
+mv test_server.py ./my_first_project/
+cd my_first_project/
+gedit dockerfile
+```
+
+dockerfile
+
+```docker
+FROM python:3.7
+
+RUN mkdir /echo
+COPY test_server.py /echo
+
+CMD ["python", "/echo/test_server.py"]
+```
+
+빌드 후 테스트
+
+```bash
+ls
+dockerfile test_server.py
+
+sudo docker build -t ehco_test .
+sudo docker images
+sudo docker run -t -p 12345:12345 --name et --rm echo_test
+```
+
+```bash
+nc 127.0.0.1 12345
+```
+
+# Docker private image registry
+프로젝트 개발로 생성한 이미지를 Docker-Hub에 올리지 않고, 프라이빗하게 사용하는 방법
+
+```bash
+docker run -d --name docker-registry -p 5000:5000 registry
+```
+
+* docker run을 통해 이미지를 생성
+* 브라우저를 통해 registry 확인
+  ![](assets/README-8b3238ac.png)
+* private registry 이미지 푸쉬
+  ```bash
+  sudo docker tag echo_test 127.0.0.1:5000/echo_test
+  sudo docker push 127.0.0.1:5000/echo_test
+  ```
+
+* 도커 API 관련 링크: [https://docs.docker.com/registry/spec/api/](https://docs.docker.com/registry/spec/api/)
+
+* 인증 관련 참고 링크: [https://docs.docker.com/registry/configuration/#auth](https://docs.docker.com/registry/configuration/#auth)
+
+---
+# 워드프레스 도커 이미지 만들기 프로젝트
+
+---
+
+도커에서 제공하는 워드프레스와 MySQL은 따로 떨어진 형태로 존재한다. 여기서는 하나의 컨테이너에서 워드프레스와 MySQL을 동작시킬 수 있도록 만들어본다. 일단 가장 먼저 할 일은 PHP와 DB가 공존하는 환경을 찾는 것이다. 다양한 솔루션들이 있는데 그중에 XAMPP는 도커로 이미 만들어져있어 유용하게 사용할 수 있다. xampp는 apache, MariaDB, php가 설치돼 있다. 여기에 워드프레스만 올리면 바로 컨테이너를 만들 수 있다.
+
+먼저 도커 허브에서 다음 사이트를 찾아내자.
+
+[https://hub.docker.com/r/tomsik68/xampp](https://hub.docker.com/r/tomsik68/xampp)
+
+이 사이트의 컨테이너를 불러온 뒤 워드프레스 설치 과정을 진행하도록 한다. 컨테이너에서 SSH와 다앙한 포트를 지원하지만 우리는 80포트만 사용할 예정이다.
+
+```bash
+sudo docker run --name WP -p 80:80 -d tomsik68/xampp
+```
+
+이제 가상환경은 준비됐으니 워드프레스를 설치하는 작업만 남았다. "워드프레스 다운로드"를 검색하자.
+
+워드프레스 바로가기: [https://ko.wordpress.org/download/](https://ko.wordpress.org/download/)
+
+wget을 사용해 다운로드하고 압축을 푼다.
+
+```bash
+wget https://ko.wordpress.org/latest-ko_KR.tar.gz
+tar -xf latest-ko_KR.tar.gz
+
+```
+
+컨테이너 내의 웹 파일 정리
+
+```bash
+sudo docker exec -it WP bash
+chown daemon. /opt/lampp/htdocs
+cd /opt/lampp/htdocs/
+mkdir backup
+mv * ./backup/
+exit
+
+```
+
+워드프레스 파일을 컨테이너에  복사하고 웹 루트 디렉토리에 배치
+
+```python
+sudo docker cp wordpress WP:/opt/lampp/htdocs
+sudo docker exec -it WP bash
+mv /opt/lampp/htdocs/wordpress/* /opt/lampp/htdocs/
+exit
+sudo docker restart WP
+
+```
+
+127.0.0.1/phpmyadmin으로 접속해서 wordpress 데이터베이스 생성한다.
+
+![](assets/README-7fcb6131.png)
+
+마지막으로 127.0.0.1로 접속하여 워드프레스 설치를 웹 브라우저 화면으로 진행하면 된다.
+
+
+---
 
 # Docker Command
 
@@ -196,6 +342,22 @@ docker rmi {image-name}:{tag}
 ```bash
 docker images
 ```
+
+### Docker Image Push
+도커 이미지를 Docker-Hub에 업로드 하려면 회원가입 및 로그인이 되있어야 한다
+```bash
+docker login # Docker-Hub ID/PW
+docker tag {image:name} [DOCKER-HUB-LOGIN:ID]/{image:name} # 새로운 태그 생성
+docker images # 새로 생성한 테그 이미지 조회
+docker push [DOCKER-HUB-LOGIN:ID]/{image:name}
+```
+
+### Docker Image History
+도커 이미지 버전 별로 커밋 히스토리를 확인 가능
+```bash
+docker history {image:name}:[version]
+```
+
 
 ## Docker Container Create
 ```bash

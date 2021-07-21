@@ -24,6 +24,7 @@ Makefile.in
 /missing
 /stamp-h1
 /activity/work
+/activity/work/*
 
 # https://www.gnu.org/software/libtool/
 

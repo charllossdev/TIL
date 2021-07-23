@@ -4,6 +4,11 @@
 
 Key: `Pa$$w0rdm3173051`
 
+
+# Setting
+
+[리눅스 터미널 셋팅 Oh my Zsh with powerlevel10k theme](https://velog.io/@yujo/Ubuntu-20.04%EC%9A%B0%EB%B6%84%ED%88%AC-Terminal-%EC%84%B8%ED%8C%85)
+
 0. 명심할것
 	- 질문하는 상대는 선배입니다.
 		가끔, 반말이나 통신체등으로 질문하는걸 보는 경우가 있는데, 이것은 예의에 어긋나는 행동입니다.

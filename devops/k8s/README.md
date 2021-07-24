@@ -260,11 +260,50 @@ The kubeadm tool is good if you need:
   ![](assets/README-60535c6d.png)
 3. k8s 노드들의 status 가 `Not-Ready` -> `Ready` 라면 설정 완료
 
+---
+# GKE 활용한 k8s 사용
+Google cloud의 관려형 k8s 서비스인 GKE(Google Kubernetes Engine)
+* GKE는 k8s 를 쉽게 사용자가 활용할 수 있도록 관리형으로 제공
+* 규모에 맞춘 컨테이너식 어플리케이션 관리
+* 다양한 어플리케이션 배포
+* 고가용성을 통한 원활한 운영
+* 수요에 맞게 간편하게 확장
+* Google 네트워크에서의 안전한 실행
+* 온프레미스 및 클라우드 간의 자유로운 이동
+
+
+
+
+
+---
+# 쿠버네티스 관리자 인증 시험(CKA)
+Certified Kubernetes Administrator (CKA)
+* 리눅스 재단과 협력하여 쿠버네티스 생태계 개발을 돕기 위해 CNC(Cloud Native Computing)
+* CNC 재단은 쿠버네티스 관리자 커뮤니티를 성장시키기 위해 노력
+* 쿠버네티스를 사용하는 광범위한 회사 및 조직에서 지속적으로 성장
+* $300 비용으로 온라인 시험(쿠폰 검색하면 쿠폰 나옴)
+* WebCam을 통해 수험자를 모니터링하고 크롬으로 시험 진행
+* 재시험 1회 무료 응시
+
+## CKA 출제 범위
+* Application Lifecycle Management - 8%
+* Installation, Configuration, Validation - 12%
+* Core Concepts - 19%
+* Networking - 11%
+* Scheduling - 5%
+* Security - 12%
+* Cluster Maintenance - 11%
+* Logging / Monitoring - 5%
+* Storage - 7%
+* Trubleshooting - 10%
+
+![](assets/README-42ca6a20.png)
+![](assets/README-4278717c.png)
+
+
 
 ---
 
 # 강의
 * [k8s 기초 강의](https://www.youtube.com/watch?v=X48VuDVv0do)
-
-
 * [k8s 인프라 CI/CD 처리](https://saramin.github.io/2020-05-01-k8s-cicd/)

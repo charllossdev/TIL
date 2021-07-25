@@ -271,7 +271,34 @@ Google cloud의 관려형 k8s 서비스인 GKE(Google Kubernetes Engine)
 * Google 네트워크에서의 안전한 실행
 * 온프레미스 및 클라우드 간의 자유로운 이동
 
+---
 
+# AWS EKS
+Amazon Elastic Container Service for Kubernetes(Amazon EKS)
+* AWS에서 쿠버네티스를 손쉽게 실행하도록 하는 관리형 서비스
+* 여러 가용 영역에서 쿠버네티스 제어 플레인 인스턴스를 실행하여 고가용성을 보장
+* 비정상 제어 플레인 인스턴스를 자동으로 감지하고 교체
+* 자동화된 버전 업그레이드 제공
+* 여러 AWS 서비스와 통합되여 다음을 포함한 어플리케이션에 대한 확장성과 보안을 제공
+  - 컨테이너 이미지용 Amazon ECR
+  - 로드 배포용 Elastic Load Balancing
+  - 인증용 IAM
+  - 격리용 Amazon VPC
+
+![](assets/README-1b8503fb.png)
+
+## EKS 이용 방법 2가지
+1. eksctl 로 시작
+    + Amazon EKS를 시작하기 가장 빠르고 쉬운 방법
+    + 클러스터를 생성 및 관리하기 위한 간단한 명령중 유틸리티 eksclt 제공
+    + 필요한 모든 리소스 설치
+    + kubectl 명령 줄 유틸리티
+2. AWS Management
+    + AWS Management 콘솔 사용
+    + Amazon EKS를 시작할 떄 필요한 모든 리소스를 생성 가능
+    + Amazon EKS Ehsms AWS CloudFormation 콘솔을 사용하여 각 리소스를 수동으로 생성
+    + 각 리소스의 생성 방법 및 리소스 간의 상호 작용을 완벽하게 파악 가능
+    + Amazon EKS를 시작하는 방법으로는 더 복잡하고 시간도 많이 걸림
 
 
 
@@ -299,8 +326,6 @@ Certified Kubernetes Administrator (CKA)
 
 ![](assets/README-42ca6a20.png)
 ![](assets/README-4278717c.png)
-
-
 
 ---
 

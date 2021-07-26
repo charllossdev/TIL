@@ -66,6 +66,44 @@
 ![](assets/README-7883bc8f.png)
 
 
+## Pod
+* 쿠버네티스는 kubectl get container와 같이 컨테이너를 취급하지 않는다.
+* 대신 여러 위치에 배치된 컨테이너 개념인 컨테이너 그룹을 포드(Pod) 개녕으로 사용
+* Pod는 하나 또는 다수의 컨테이너를 가진다.(하나의 컨테이너를 권장)
+  - 하나 이상의 밀접하게 관련된 컨테이너로 구성된 그룹
+* Pod는 독립적인 하나의 IP를 부여 받아, 다른 Pod와 통신이 가능
+  - 동일한 리눅스 네임스페이스와 동일한 워커노드에서 항상 함께 실행
+  - 각 포드는 애플리케이션을 실행하는 자체 IP, 호스트이름, 프로세스 드잉 있는 별도의 논리적 시스템
+![](assets/README-172c097b.png)
+
+> Pod는 실제 직접 생성하는 것이 아닌, Deployment로 부터 만들어 진다.
+
+## Deployment
+* 실제 Pod를 생성하는 것이 아닌, Deployment를 생성하면 설정에 의해 Pod가 생성된다.
+* `kubectl create deploy` 명령어로 Deployment 생성
+* 해당 Deployment가 관리하는 포드의 포트를 노출해야하는 명령이 필요
+* `Deployment`는 `Replicas Set`을 생성
+  - `Replicas Set`은 수를 지정하면 그 수만큼 `Pod` 를 유지
+  - 어떤 이유로든 Pod가 사리자면, `Replicas Set`은 누락된 Pod를 대체할 새로운 Pod를 생성
+
+![](assets/README-9a176d0d.png)
+
+> Deployment 를 생성하여, Replicas Set 설정으로 Pod가 생성되고, 이를 외부 서비스로 사용하려면 서비스 설정이 필요
+
+## Service
+* Pod는 일시적이므로 언제든지 사라질 가능성이 존재
+* Pod가 다시 시작되는 경우, 언제든 IP와 ID가 변경됨
+* 서비스는 변화하는 포드 IP 주소의 문제를 해결하고, 단일 IP 및 포트 쌍에서 여러 개의 포드 노출
+* `kubectl expose deployment` 명령어로 Service 생성
+* 서비스가 생성되면 정적 IP를 얻게 되고, 서비스의 수명 내에서는 변하지 않음
+* 클라이언트는 포드에 직접 연결하는 대신 서비스의 IP를 통해 포드 안에 컨테이너 서비스를 이용
+* 서비스는 포드 중 하나로 연결을 포트포워딩 역활
+* 로드 밸런서 역활을 하여, 만약 3개의 Pod이 있다면, 외부의 유입으로 부터 적절하게 분배
+
+```bash
+kubectl expose deployment http-go --name http-go-svc --port=8080 --type=LoadBalancer
+```
+
 ---
 
 # k8s ubuntu install
@@ -324,11 +362,108 @@ Certified Kubernetes Administrator (CKA)
 * Storage - 7%
 * Trubleshooting - 10%
 
-![](assets/README-42ca6a20.png)
-![](assets/README-4278717c.png)
+# CKA Tips
+
+* [시험에 자주 나오는 유형들](https://www.notion.so/kCKA-Kubectl-070fc3ece01848f2b8d32ae3fe310819)
+* [kubernetes cheat sheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
+* [CKA udemy 필수 강의](https://www.udemy.com/course/certified-kubernetes-administrator-with-practice-tests/)
+
+---
+
+# Kubectl autocomplete command
+
+BASH
+```bash
+source <(kubectl completion bash) # setup autocomplete in bash into the current shell, bash-completion package should be installed first.
+echo "source <(kubectl completion bash)" >> ~/.bashrc # add autocomplete permanently to your bash shell.
+```
+
+You can also use a shorthand alias for kubectl that also works with completion:
+```bash
+alias k=kubectl
+complete -F __start_kubectl k
+```
+
+ZSH
+```bash
+source <(kubectl completion zsh)  # setup autocomplete in zsh into the current shell
+echo "[[ $commands[kubectl] ]] && source <(kubectl completion zsh)" >> ~/.zshrc # add autocomplete permanently to your zsh shell
+```
+
+
 
 ---
 
 # 강의
 * [k8s 기초 강의](https://www.youtube.com/watch?v=X48VuDVv0do)
 * [k8s 인프라 CI/CD 처리](https://saramin.github.io/2020-05-01-k8s-cicd/)
+
+
+---
+
+# Kubernetes Command
+Kubernetes Command 정리 및 모음
+
+# Create
+
+* deployment 생성
+  ```bash
+  kubectl create deploy {set:deployment-name} --image={docker-hum-image-name}
+  ```
+* service 생성
+  ```bash
+  kubectl expose deploy {get:old-deployment-name} --name {set:service-name} --port {set:port-number}
+  ```
+
+
+# Select
+조회 관련 Command
+```bash
+kubectl get
+```
+
+* -w : 옵션을 주면 지속적으로 상태 변화를 감지 가능
+
+---
+* pod 조회
+  ```bash
+  kubectl get pod
+  ```
+* deployment 조회
+  ```bash
+  kubectl get deploy
+  ```
+* service 조회
+  ```bash
+  kubectl get svc
+  ```
+
+
+
+기본적인 조회 외에도 상세하게 조회도 가능
+* pod의 위치 확인
+  ```bash
+  kubectl get pod -o wide
+  ```
+![](assets/README-ce18099b.png)
+
+* **pod의 상세한 내용 살펴보기: 예정된 노드, 시작시간, 실행 중인 이미지 등 유용한 정보 포함**
+  ```bash
+  kubectl describe pod {pod-name}
+  ```
+  ![](assets/README-94939ab5.png)
+
+
+## 수평 스케일링
+쿠버네티스를 사용해 얻을 수 있는 큰 이점 중 하나는 간단하게 컨테이너 확장이 가능
+* Pod 개수를 쉽게 확장 가능
+
+```bash
+kubectl scale deploy {deploymsnt-name} --replicas={reflicas-set-number}
+```
+
+## 모든 서비스 삭제
+k8s 모든 서비스 삭제
+```bash
+kubectl delete all --all
+```

@@ -322,3 +322,5 @@ implementation group: 'org.apache.kafka', name: 'kafka-clients', version: '2.8.0
 * [Spring boot에서 kafka 사용시 application.yaml 설정](https://blog.voidmainvoid.net/169?category=698302)
 * [Spring boot scheduler를 활용한 kafka producer/consumer 예제](https://blog.voidmainvoid.net/168?category=698302)
 * [스파크 스트리밍 + 카프카( Spark streaming + Kafka)](https://tommypagy.tistory.com/155)
+
+* [Strping for apach kafka docs](https://docs.spring.io/spring-kafka/reference/html/#preface)

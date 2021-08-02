@@ -69,6 +69,18 @@
 * 큐브 API 서버
 * 큐브 컨트롤러 매니저
 * 큐브 스케줄러
+* etcd
+
+> 컨트롤 플레인 구성을 하는 api서버, 컨트롤러 매니저, 스케줄러, etcd는 결국 팟으로 구성되어 서비스 된다.
+
+## k8s 시스템 구성 확인
+`$ kubectl get pod -n kube-system`
+![](assets/README-9449315e.png)
+* 마스터 노드 구성이 팟으로 구성
+* 커스터마이징 또는 설정 확인 가능
+  + ![](assets/README-c7f4f27e.png)
+  + api 서버, 컨트롤러매니저, 스케줄러 모두 설정 확인 및 커스터마이징 가능
+
 
 ## 큐브 API 서버(kube-apiserver)
 * 쿠버네티스 시스템 컴포넌트는 오직 API서버와 통신
@@ -101,11 +113,14 @@
 * 현재 노드의 상태를 점검하고 최상의 노드를 찾아 배치
 * 다수의 포드를 배치하는 경우에는 라운드로빈(LB)을 사용하여 분산
 
+---
+
+
+
+
+# Pod
 
 ![](assets/README-7883bc8f.png)
-
-
-## Pod
 * 쿠버네티스는 kubectl get container와 같이 컨테이너를 취급하지 않는다.
 * 대신 여러 위치에 배치된 컨테이너 개념인 컨테이너 그룹을 포드(Pod) 개녕으로 사용
 * Pod는 하나 또는 다수의 컨테이너를 가진다.(하나의 컨테이너를 권장)
@@ -338,6 +353,111 @@ The kubeadm tool is good if you need:
 3. k8s 노드들의 status 가 `Not-Ready` -> `Ready` 라면 설정 완료
 
 ---
+
+# Kubernetes Setting
+k8s settings
+
+## Kubectl autocomplete command
+
+BASH
+```bash
+source <(kubectl completion bash) # setup autocomplete in bash into the current shell, bash-completion package should be installed first.
+echo "source <(kubectl completion bash)" >> ~/.bashrc # add autocomplete permanently to your bash shell.
+```
+
+You can also use a shorthand alias for kubectl that also works with completion:
+```bash
+alias k=kubectl
+complete -F __start_kubectl k
+```
+
+ZSH
+```bash
+source <(kubectl completion zsh)  # setup autocomplete in zsh into the current shell
+echo "[[ $commands[kubectl] ]] && source <(kubectl completion zsh)" >> ~/.zshrc # add autocomplete permanently to your zsh shell
+```
+
+---
+
+
+# Kubernetes Command
+Kubernetes Command 정리 및 모음
+
+# Create
+
+* deployment 생성
+  ```bash
+  kubectl create deploy {set:deployment-name} --image={docker-hum-image-name}
+  ```
+* service 생성
+  ```bash
+  kubectl expose deploy {get:old-deployment-name} --name {set:service-name} --port {set:port-number}
+  ```
+
+
+# Select
+조회 관련 Command
+```bash
+kubectl get
+```
+
+* -w : 옵션을 주면 지속적으로 상태 변화를 감지 가능
+
+---
+* pod 조회
+  ```bash
+  kubectl get pod
+  ```
+  + 특정 네임스페이스 팟 조회
+    ```bash
+    kubectl get pod -n {namespace}
+
+    ex) kubectl get pod -n kube-system # 시스템 컴포넌트 네임스페이스 팟 조회
+    ```
+    ![](assets/README-9449315e.png)
+
+    > k8s 노드가 3개라서 프록시 팟이 3개
+
+* deployment 조회
+  ```bash
+  kubectl get deploy
+  ```
+* service 조회
+  ```bash
+  kubectl get svc
+  ```
+
+기본적인 조회 외에도 상세하게 조회도 가능
+* pod의 위치 확인
+  ```bash
+  kubectl get pod -o wide
+  ```
+![](assets/README-ce18099b.png)
+
+* **pod의 상세한 내용 살펴보기: 예정된 노드, 시작시간, 실행 중인 이미지 등 유용한 정보 포함**
+  ```bash
+  kubectl describe pod {pod-name}
+  ```
+  ![](assets/README-94939ab5.png)
+
+
+
+## 수평 스케일링
+쿠버네티스를 사용해 얻을 수 있는 큰 이점 중 하나는 간단하게 컨테이너 확장이 가능
+* Pod 개수를 쉽게 확장 가능
+
+```bash
+kubectl scale deploy {deploymsnt-name} --replicas={reflicas-set-number}
+```
+
+## 모든 서비스 삭제
+k8s 모든 서비스 삭제
+```bash
+kubectl delete all --all
+```
+
+---
+
 # GKE 활용한 k8s 사용
 Google cloud의 관려형 k8s 서비스인 GKE(Google Kubernetes Engine)
 * GKE는 k8s 를 쉽게 사용자가 활용할 수 있도록 관리형으로 제공
@@ -377,8 +497,6 @@ Amazon Elastic Container Service for Kubernetes(Amazon EKS)
     + 각 리소스의 생성 방법 및 리소스 간의 상호 작용을 완벽하게 파악 가능
     + Amazon EKS를 시작하는 방법으로는 더 복잡하고 시간도 많이 걸림
 
-
-
 ---
 # 쿠버네티스 관리자 인증 시험(CKA)
 Certified Kubernetes Administrator (CKA)
@@ -409,100 +527,9 @@ Certified Kubernetes Administrator (CKA)
 
 ---
 
-# Kubectl autocomplete command
-
-BASH
-```bash
-source <(kubectl completion bash) # setup autocomplete in bash into the current shell, bash-completion package should be installed first.
-echo "source <(kubectl completion bash)" >> ~/.bashrc # add autocomplete permanently to your bash shell.
-```
-
-You can also use a shorthand alias for kubectl that also works with completion:
-```bash
-alias k=kubectl
-complete -F __start_kubectl k
-```
-
-ZSH
-```bash
-source <(kubectl completion zsh)  # setup autocomplete in zsh into the current shell
-echo "[[ $commands[kubectl] ]] && source <(kubectl completion zsh)" >> ~/.zshrc # add autocomplete permanently to your zsh shell
-```
-
-
-
----
-
 # 강의
 * [k8s 기초 강의](https://www.youtube.com/watch?v=X48VuDVv0do)
 * [k8s 인프라 CI/CD 처리](https://saramin.github.io/2020-05-01-k8s-cicd/)
 
 
 ---
-
-# Kubernetes Command
-Kubernetes Command 정리 및 모음
-
-# Create
-
-* deployment 생성
-  ```bash
-  kubectl create deploy {set:deployment-name} --image={docker-hum-image-name}
-  ```
-* service 생성
-  ```bash
-  kubectl expose deploy {get:old-deployment-name} --name {set:service-name} --port {set:port-number}
-  ```
-
-
-# Select
-조회 관련 Command
-```bash
-kubectl get
-```
-
-* -w : 옵션을 주면 지속적으로 상태 변화를 감지 가능
-
----
-* pod 조회
-  ```bash
-  kubectl get pod
-  ```
-* deployment 조회
-  ```bash
-  kubectl get deploy
-  ```
-* service 조회
-  ```bash
-  kubectl get svc
-  ```
-
-
-
-기본적인 조회 외에도 상세하게 조회도 가능
-* pod의 위치 확인
-  ```bash
-  kubectl get pod -o wide
-  ```
-![](assets/README-ce18099b.png)
-
-* **pod의 상세한 내용 살펴보기: 예정된 노드, 시작시간, 실행 중인 이미지 등 유용한 정보 포함**
-  ```bash
-  kubectl describe pod {pod-name}
-  ```
-  ![](assets/README-94939ab5.png)
-
-
-## 수평 스케일링
-쿠버네티스를 사용해 얻을 수 있는 큰 이점 중 하나는 간단하게 컨테이너 확장이 가능
-* Pod 개수를 쉽게 확장 가능
-
-```bash
-kubectl scale deploy {deploymsnt-name} --replicas={reflicas-set-number}
-```
-
-## 모든 서비스 삭제
-k8s 모든 서비스 삭제
-```bash
-kubectl delete all --all
-```

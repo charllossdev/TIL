@@ -113,24 +113,102 @@
 * 현재 노드의 상태를 점검하고 최상의 노드를 찾아 배치
 * 다수의 포드를 배치하는 경우에는 라운드로빈(LB)을 사용하여 분산
 
+
+## ETCD
+![](assets/README-c3b95ec2.png)
+* Key-Value 데이터 셋으로 구성
+  + 다중 Key를 가질수 있어서 일반적인 RDB처럼 사용이 가능
+* 쿠버네티스의 전체 설정 정보를 ETCD에 저장
+  + 구조
+  ![](assets/README-0da8e9ee.png)
+* ETCD 접근(CRUD Setting) 설정
+  + [etcdctl-github](https://github.com/etcd-io/etcd/releases)
+    ```bash
+    $ wget https://github.com/etcd-io/etcd/releases/download/v3.3.13/etcd-v3.3.13-linux-arm64.tar.gz # 파일 다운로드
+    $ tar -xf etcd-v3.3.13-linux-arm64.tar.gz # 압축 해제
+    $ cd ./etcd-v3.3.13-linux-arm64 # 파일 안에 etcdctl 명령이 존재
+
+    # 모든 key 설정 조회
+    $ sudo ETCDCTL_API=3 ./etcdctl --endpoints 127.0.0.1:2379 --cacert /etc/kubernetes/pki/etcd/ca.crt --cert /etc/kubernetes/pki/etcd/server.crt --key /etc/kubernetes/pki/etcd/server.key get / --prefix --keys-only
+    ```
+  + `key` 와 `value` 설정 밑 조회
+    ```bash
+    $ sudo ETCDCTL_API=3 ./etcdctl --endpoints 127.0.0.1:2379 --cacert /etc/kubernetes/pki/etcd/ca.crt --cert /etc/kubernetes/pki/etcd/server.crt --key /etc/kubernetes/pki/etcd/server.key put key1 value1 # key value 넣기
+    OK
+    $ sudo ETCDCTL_API=3 ./etcdctl --endpoints 127.0.0.1:2379 --cacert /etc/kubernetes/pki/etcd/ca.crt --cert /etc/kubernetes/pki/etcd/server.crt --key /etc/kubernetes/pki/etcd/server.key get key1 # key를 사용해 value 얻기
+    key1
+    value1
+    ```
+
 ---
-
-
-
 
 # Pod
 
-![](assets/README-7883bc8f.png)
-* 쿠버네티스는 kubectl get container와 같이 컨테이너를 취급하지 않는다.
+![](assets/README-4828ef27.png)
+* 쿠버네티스는 `kubectl get container` 같은 컨테이너를 취급안함
 * 대신 여러 위치에 배치된 컨테이너 개념인 컨테이너 그룹을 포드(Pod) 개녕으로 사용
 * Pod는 하나 또는 다수의 컨테이너를 가진다.(하나의 컨테이너를 권장)
   - 하나 이상의 밀접하게 관련된 컨테이너로 구성된 그룹
+  - 컨테이너의 공동 배포된 그룹으로, 쿠버네티스의 기본 빌딩 블록을 대표
+  - 컨테이너를 개별적으로 배포하는 것이 아닌, 컨테이너를 포함한 포드를 배포하여 운영
+  - 포드는 다수의 노드에 생성되지 않고 단일 노드에서만 실행
+  - 여러 프로세스를 실행하기 위해서는 컨테이너 당 단일 프로세스가 적합
+  - 다수의 프로세스를 제어하려면 -> 다수의 컨테이너를 다룰 수 있는 그룹이 필요
 * Pod는 독립적인 하나의 IP를 부여 받아, 다른 Pod와 통신이 가능
   - 동일한 리눅스 네임스페이스와 동일한 워커노드에서 항상 함께 실행
   - 각 포드는 애플리케이션을 실행하는 자체 IP, 호스트이름, 프로세스 드잉 있는 별도의 논리적 시스템
+* 장점:
+  +  포드를 통해 밀접하게 연관된 프로세스를 함께 실행하고, 마치 하나의 환경에서 동작하는 것처럼 운영 및 실행
+    - 포드의 모든 컨테이너는 동일한 네트워크 및 UTS 네임스페이스 사용 및 실행
+    - 같은 호스트 이름 및 네트워크 인터페이스를 공유(포트 충돌 가능성 있음)
+    - 포드의 모든 컨테이너는 동일한 IPC 네임스페이스 아래에서 실행되며 IPC를 통해 통신 가능
+  + 그러나, 동일한 환경을 제공하면서도, 다소 격리된 상태로 유지 가능
+
+* POD의 네트워크 구조
+  ![](assets/README-0f1ba6a9.png)
+  + Pod 사이에는 NAT 게이트웨이가 존재 하지 않음 -> Pod IP를 통해서 외부에서 접근 불가
+  + 외부 서비스를 통해여 접근 가능
+
+
+---
+
 ![](assets/README-172c097b.png)
 
 > Pod는 실제 직접 생성하는 것이 아닌, Deployment로 부터 만들어 진다.
+
+## Pod create descriptor
+`kubectl` 실행 명령으로 간단한 리소스 작성 방법도 가능하지만 일부 항목에 대해서만 가능하며 저장이 용의하지 않음
+* 모든 쿠버네티스 객체를 YAML로 정의하여, 버전 제어 시스템에 저장 가능
+* 모든 API에 대한 내용은 [k8s cheatsheet 참조](http://kubernetes.io/docs/reference/)
+
+* **Pod 정의 YAML 구성 요소**
+  + apiVersion: 쿠버네티스 api버전 정보
+  + kind: 어떤 리소스 유형인지 결정(포드 레플리카컨트롤러, 서비스등)
+  + meta-data: pod와 관련된 이름, 네임스페이스, 레이블, 그 밖의 정보
+  + spec: 컨테이너, 볼륨 등의 정보
+  + status: 포드의 상태, 각 컨테이너의 설명 및 상태, 포드 내부의 IP 및 그밖의 기존 정보들(k8s가 자동 상태 체크)
+* default Pod yaml:
+  ```ruby
+  # 이 디스크립터는 쿠버네티스 API v1를 사용
+  apiVersion: v1
+  # 리소스 포드에 대한 설명
+  kind: Pod
+  metadata:
+  # 포드의 이름
+    name: http-go
+  spec:
+    containers:
+  # 생성할 컨테이너의 컨테이너 이미지
+    - image: gasbugs/http-go
+      name: http-go
+      ports:
+  # 응답 대기할 애플리케이션 포트
+      - containerPort: 8080
+        protocol: TCP
+  ```
+
+
+---
 
 ## Deployment
 * 실제 Pod를 생성하는 것이 아닌, Deployment를 생성하면 설정에 의해 Pod가 생성된다.
@@ -145,6 +223,8 @@
 > Deployment 를 생성하여, Replicas Set 설정으로 Pod가 생성되고, 이를 외부 서비스로 사용하려면 서비스 설정이 필요
 
 ## Service
+![](assets/README-7883bc8f.png)
+
 * Pod는 일시적이므로 언제든지 사라질 가능성이 존재
 * Pod가 다시 시작되는 경우, 언제든 IP와 ID가 변경됨
 * 서비스는 변화하는 포드 IP 주소의 문제를 해결하고, 단일 IP 및 포트 쌍에서 여러 개의 포드 노출
@@ -356,6 +436,8 @@ The kubeadm tool is good if you need:
 
 # Kubernetes Setting
 k8s settings
+* kubectl autocomplete command
+* etcdctl command setting
 
 ## Kubectl autocomplete command
 
@@ -377,6 +459,25 @@ source <(kubectl completion zsh)  # setup autocomplete in zsh into the current s
 echo "[[ $commands[kubectl] ]] && source <(kubectl completion zsh)" >> ~/.zshrc # add autocomplete permanently to your zsh shell
 ```
 
+## etcdctl command setting
+ETCD 접근(CRUD Setting) 설정
++ [etcdctl-github](https://github.com/etcd-io/etcd/releases)
+  ```bash
+  $ wget https://github.com/etcd-io/etcd/releases/download/v3.3.13/etcd-v3.3.13-linux-arm64.tar.gz # 파일 다운로드
+  $ tar -xf etcd-v3.3.13-linux-arm64.tar.gz # 압축 해제
+  $ cd ./etcd-v3.3.13-linux-arm64 # 파일 안에 etcdctl 명령이 존재
+
+  # 모든 key 설정 조회
+  $ sudo ETCDCTL_API=3 ./etcdctl --endpoints 127.0.0.1:2379 --cacert /etc/kubernetes/pki/etcd/ca.crt --cert /etc/kubernetes/pki/etcd/server.crt --key /etc/kubernetes/pki/etcd/server.key get / --prefix --keys-only
+  ```
++ `key` 와 `value` 설정 밑 조회
+  ```bash
+  $ sudo ETCDCTL_API=3 ./etcdctl --endpoints 127.0.0.1:2379 --cacert /etc/kubernetes/pki/etcd/ca.crt --cert /etc/kubernetes/pki/etcd/server.crt --key /etc/kubernetes/pki/etcd/server.key put key1 value1 # key value 넣기
+  OK
+  $ sudo ETCDCTL_API=3 ./etcdctl --endpoints 127.0.0.1:2379 --cacert /etc/kubernetes/pki/etcd/ca.crt --cert /etc/kubernetes/pki/etcd/server.crt --key /etc/kubernetes/pki/etcd/server.key get key1 # key를 사용해 value 얻기
+  key1
+  value1
+  ```
 ---
 
 
@@ -440,6 +541,63 @@ kubectl get
   ```
   ![](assets/README-94939ab5.png)
 
+
+---
+# Pod 관련 command
+Pod 생성, 삭제 및 관련 모든 커맨드 정리
+
+* Pod 디스크립터 작성 요령 확인:
+  ```bash
+  $ kubectl explain pods
+  ```
+  ![](assets/README-bee13c19.png)
+
+* Pod 디스크립터 생성:
+  ```bash
+  $ kubectl create -f {yaml-file-name}
+  ```
+
+* Pod 로그 확인:
+  ```bash
+  $ kubectl logs {pod-name}
+  ```
+
+* Pod 상태 확인:
+  ```bash
+  $ kubectl get pod
+
+  $ kubectl get pod -w # watch 속성으로 상태 변화를 계속 확인
+
+  $ kubectl get pod -o wide
+  $ kubectl get pod -o yaml
+  $ kubectl get pod -o json
+  ```
+
+* **컨테이너에서 호스트로 포트 포워딩**
+  + 디버깅 혹은 다른 이유로 서비스를 거치지 않고 특정 포드와 통신하고 싶을 떄 사용
+  ```bash
+  $ kubectl port-forward {pod-name} {forward-port-number}:{target-port-number}
+
+   # Example
+  $ kubectl port-forward jenkins 8888:8080 # jenkins Pod을 8888:8080 포트포워드 설정
+  ```
+    - 마지막에 `&`을 넣으면 `background` 에서 실행
+
+* Pod 주석 추가(yaml 속성 추가)
+  + 각 포드나 API rorcp tjfauddl cnrk
+  + 클러스터를 사용하는 모든 사람이 각 객체의 정보를 빠르게 확인 가능
+  + 총 `256KB` 까지 포함 가능
+  ```bash
+  $ kubectl annotate pod {pod-name} key="value"
+  ```
+  + 설정한 주석 조회는 `$ kubectl get pod {pod-name} -o yaml` 로 속성 확인
+
+* Pod 삭제
+  ```bash
+  $ kubectl delete pod {pod-name}
+  ```
+
+---
 
 
 ## 수평 스케일링

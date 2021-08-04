@@ -210,6 +210,8 @@
 ## Pod Probe
 Pod Probe 는 3가지 종류 `Liveness Probe`, `Readiness Probe`, `Startup Probe` 로 구성
 
+[Configure Liveness, Readiness and Startup Probes](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
+
 * `Liveness Probe`
   + 컨테이너의 상태를 스스로 판단하여 교착 상태에 빠진 컨테이너를 재시작
   + 컨테이너가 살아있는지 판단하고, 만약 죽어있다면 다시 시작하는 기능
@@ -221,16 +223,166 @@ Pod Probe 는 3가지 종류 `Liveness Probe`, `Readiness Probe`, `Startup Probe
   + 애플리케이션 시작 시기를 확인하여 가용성을 높이는 기능
   + `Liveness` 와 `Readiness` 기능을 비활성화하여, 서비스 가동 시간을 단축
   + 애플리케이션이 시작되면 `Liveness`, `Readiness` 가동 가능
+  + Pod이 시작할 떄까지 검사를 수행
+  + `ex)`: 30번을 검사하며, 10초 간격으로 수행 등 설정 가능
+    - 300초(30초 * 10번) 후에도 Pod가 정상 동작하지 않을 경우 종료
 
-### Liveness Probe
+
+### Example Probe
+
 `Liveness` 커맨드 설정: 파일 존재 여부 확인
 * 리눅스 환경에서 커맨드 실행 성공시 `0` 리턴
 * 실패하면 그 외의 값을 출력 -> 컨테이너 재시작
+* 웹 설정으로 http request를 보내 상태 확인
+  + 정상작동: Pod의 서버 응답 코드가 200 ~ 400 사이
 
-`Liveness` 임의의 테스트 환경 설정
+파일 상태로 Pod을 관리하는 `Liveness` 설정
+```YAML
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    test: liveness
+  name: liveness-exec
+spec:
+  containers:
+  - name: liveness
+    image: k8s.gcr.io/busybox
+    args:
+    - /bin/sh
+    - -c
+    - touch /tmp/healthy; sleep 30; rm -rf /tmp/healthy; sleep 600 # touch로 파일생성, 30초 뒤에 파일 삭제
+    livenessProbe:
+      exec:
+        command:
+        - cat
+        - /tmp/healthy        # cat 으로 파일을 확인 // # 파일이 없으면 Pod 재시작
+      initialDelaySeconds: 5  # Pod 생성 후 5초 뒤 실행
+      periodSeconds: 5        # 5초 간격으로 Liveness Probe 확인
+```
 
+Http 요청으로 상태를 파악하는 `Liveness` 설정
+```YAML
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    test: liveness
+  name: liveness-http
+spec:
+  containers:
+  - name: liveness
+    image: k8s.gcr.io/liveness
+    args:
+    - /server
+    livenessProbe:
+      httpGet:
+        path: /healthz
+        port: 8080
+        httpHeaders:
+        - name: Custom-Header
+          value: Awesome
+      initialDelaySeconds: 3
+      periodSeconds: 3
+```
+
+위의 이미지는 go server 코드로,
+```go
+http.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
+    duration := time.Now().Sub(started)
+    if duration.Seconds() > 10 {
+        w.WriteHeader(500)
+        w.Write([]byte(fmt.Sprintf("error: %v", duration.Seconds())))
+    } else {
+        w.WriteHeader(200)
+        w.Write([]byte("ok"))
+    }
+})
+```
+* 이미지 서버가 실행되면,
+  + 10초 전에는 응답 200을 리턴
+  + 10초 후에는 응답 500을 리턴
+* 500을 리턴하면, http 장애로 Liveness에 의해 Pod가 재실행 된다.
+
+
+Define a TCP liveness probe
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: goproxy
+  labels:
+    app: goproxy
+spec:
+  containers:
+  - name: goproxy
+    image: k8s.gcr.io/goproxy:0.1
+    ports:
+    - containerPort: 8080
+    readinessProbe:
+      tcpSocket:
+        port: 8080
+      initialDelaySeconds: 5
+      periodSeconds: 10
+    livenessProbe:
+      tcpSocket:
+        port: 8080
+      initialDelaySeconds: 15
+      periodSeconds: 20
+```
+* `$ kubectl apply -f https://k8s.io/examples/pods/probe/tcp-liveness-readiness.yaml`
+* `$ kubectl describe pod goproxy`
 
 ---
+
+# Lable
+* 모든 리소스를 구성하는 매우 간단하면서도 강력한 k8s 기능
+* 리소스에 첨부하는 임의의 키/값 쌍(`ex)` `app`: `kubernetes-app`)
+* 레이블 셀렉터를 사용하면 각종 리소스를 필터링하여 선택 가능
+* 리소스는 한개 이상의 레이블을 가질 수 있음
+* 리소스를 만드는 시점에 레이블을 첨부
+* 기존 리소스에도 레이블의 값을 수정 및 추가 기능
+* 모든 사람이 쉽게 이해할 수 있는 체계적인 시스템을 구축 가능
+  + app: 애플리케이션 구성요소, 마이크로서비스 유형 지정
+  + rel: 애플리케이션 버전 지정(releases 약자)
+---
+* `Lable` 확인 명령어
+  + 전체 조회
+    ```bash
+    $ kubectl get pod --show-labels
+    ```
+      ![](assets/README-0f6c77dc.png)
+  + 특정 레이블 조회
+    ```bash
+    $ kubectl get pod -L app,rel
+    ```
+      ![](assets/README-79fc5c8e.png)
+  + 레이블로 필터링하여 조회
+    ```bash
+    $ kubectl get pod --show-labels -l {filter-config}
+    ```
+      ![](assets/README-586a1000.png)
+* `Lable` 추가 및 수정, 삭제
+  + 추가하는 방법
+    ```bashrc
+    $ kubectl label pod {pod-name} key=value
+    ```
+  + 기존의 레이블을 수정할 때 `--overwrite` option 추가
+    ```bash
+    $ kubectl label pod {pod-name} key=value --overwrite
+    ```
+  + 레이블 삭제
+    ```bash
+    $ kubectl labe pod {pod-name} key- # delete 하려는 key - 입력하면 레이블 삭제
+    ```
+
+
+
+레이블을 이용한 포드 구성 설정 예제
+![](assets/README-0888cfb8.png)
+
+
+
 
 ## Deployment
 * 실제 Pod를 생성하는 것이 아닌, Deployment를 생성하면 설정에 의해 Pod가 생성된다.
@@ -380,6 +532,22 @@ Pod 생성, 삭제 및 관련 모든 커맨드 정리
   ```
 
 ---
+
+# Label
+
+* `Lable` 추가 및 수정, 삭제
+  + 추가하는 방법
+    ```bashrc
+    $ kubectl label pod {pod-name} key=value
+    ```
+  + 기존의 레이블을 수정할 때 `--overwrite` option 추가
+    ```bash
+    $ kubectl label pod {pod-name} key=value --overwrite
+    ```
+  + 레이블 삭제
+    ```bash
+    $ kubectl labe pod {pod-name} key- # delete 하려는 key - 입력하면 레이블 삭제
+    ```
 
 
 ## 수평 스케일링

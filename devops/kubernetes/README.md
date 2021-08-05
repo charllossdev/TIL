@@ -345,6 +345,9 @@ spec:
 * 모든 사람이 쉽게 이해할 수 있는 체계적인 시스템을 구축 가능
   + app: 애플리케이션 구성요소, 마이크로서비스 유형 지정
   + rel: 애플리케이션 버전 지정(releases 약자)
+* Lable 배치 전략(확장 가능한 쿠버네티스 레이블 예제)
+  ![](assets/README-3b6a4fd6.png)
+  + [레이블 배치 전략 9가지](https://www.replex.io/blog/9-best-practices-and-examples-for-working-with-kubernetes-labels?fbclid=IwAR0S2tT3iw8FIkVYWwyjL8OW6IWi_gXfk0fDkAk57o6re1rRnoSRRzFVXiM)
 ---
 * `Lable` 확인 명령어
   + 전체 조회
@@ -375,8 +378,6 @@ spec:
     ```bash
     $ kubectl labe pod {pod-name} key- # delete 하려는 key - 입력하면 레이블 삭제
     ```
-
-
 
 레이블을 이용한 포드 구성 설정 예제
 ![](assets/README-0888cfb8.png)

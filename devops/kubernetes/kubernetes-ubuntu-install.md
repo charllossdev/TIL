@@ -1,7 +1,7 @@
 # Kubernetes ubuntu install
 
 * k8s 구성 사항
-  + Master node: k8s 마스터 노드 설정될 호스트(마스터 노드 혼자 워커도느 역확도 가능하긴함 -> 권장 X)
+  + Master node: k8s 마스터 노드 설정될 호스트(마스터 노드 혼자 워커도느 역활도 가능하긴함 -> 권장 X)
   + Work node(2): 필수 사항은 아니지만, work노드를 클러스터
 
 VM 설정
@@ -20,31 +20,6 @@ VM 설정
   + kubectl: 커맨드 라인 util은 당신의 클러스터와 대화
     - 클라이언트 프로그램
 
-## Master 노드 초기화
-```bash
-sudo kubeadm init
-```
-* 스왑 에러 발생 시 스왑 기능 제거
-  ```bash
-  sudo swapoff -a   # 현재 커널에서 스왑 기능 끄기
-  sudo sed -i `/swap/s/^\(.*\)$#\1/g` /etc/fstab # 리붓 후에도 스왑 기능 유지
-  reboot
-  ```
-  + k8s 에서 스왑 기능을 비활성하는 이유
-      - k8s 1.8 버전 이후, 노드에서 스왑을 비활성해야함
-      - k8s의 아이디어는 인스턴스를 최대한 100%에 가깝게 성능을 발휘하는 것
-      - 모든 배포는 CPU/메모리 제한을 고정하는 것이 필요
-      - 다라서 스케줄러가 포드를 머신에 보내면 스왑을 사용하지 않는 것이 필요하기 떄문에
-      - 스왑 발생 시 속도가 느려지는 이유 발생
-      - 성능을 위해 스왑 기능을 비활성화
-* 클러스터 사용 설정
-  + 사용자 계정으로 실행
-  + Pod Network 추가
-* 슬레이브 노드 추가
-* 연결된 노드들의 연결 상태 확인
-
-![](assets/README-d1682534.png)
-![](assets/README-374cd619.png)
 
 ---
 
@@ -87,15 +62,15 @@ kubeadm은 kubelet 또는 kubectl 을 설치하거나 관리하지 않으므로,
 
 ## Install Command
 1. apt 패키지 색인을 업데이트하고, 쿠버네티스 apt 리포지터리를 사용하는 데 필요한 패키지를 설치한다.
-```basn
-sudo apt-get update
-sudo apt-get install -y apt-transport-https ca-certificates curl
+```bash
+$sudo apt-get update
+$sudo apt-get install -y apt-transport-https ca-certificates curl
 ```
 
 2. 구글 클라우드의 공개 사이닝 키를 다운로드 한다.
 
 ```bash
-sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+$sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
 ```
 
 3. 쿠버네티스 apt 리포지터리를 추가한다.
@@ -106,13 +81,39 @@ echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https:/
 4. apt 패키지 색인을 업데이트하고, kubelet, kubeadm, kubectl을 설치하고 해당 버전을 고정한다.
 
 ```bash
-sudo apt-get update
-sudo apt-get install -y kubelet kubeadm kubectl
-sudo apt-mark hold kubelet kubeadm kubectl
+$sudo apt-get update
+$sudo apt-get install -y kubelet kubeadm kubectl
+$sudo apt-mark hold kubelet kubeadm kubectl
 ```
 
 # Install after
 설치를 마치고 나면, K8s 클러스터 구성대로 `Master node` 와 `Work node` 로 구분하여 구성:
+
+## Master 노드 초기화
+```bash
+sudo kubeadm init
+```
+* 스왑 에러 발생 시 스왑 기능 제거
+  ```bash
+  $sudo swapoff -a   # 현재 커널에서 스왑 기능 끄기
+  $sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab # 리붓 후에도 스왑 기능 유지
+  reboot
+  ```
+  + k8s 에서 스왑 기능을 비활성하는 이유
+      - k8s 1.8 버전 이후, 노드에서 스왑을 비활성해야함
+      - k8s의 아이디어는 인스턴스를 최대한 100%에 가깝게 성능을 발휘하는 것
+      - 모든 배포는 CPU/메모리 제한을 고정하는 것이 필요
+      - 다라서 스케줄러가 포드를 머신에 보내면 스왑을 사용하지 않는 것이 필요하기 떄문에
+      - 스왑 발생 시 속도가 느려지는 이유 발생
+      - 성능을 위해 스왑 기능을 비활성화
+* 클러스터 사용 설정
+  + 사용자 계정으로 실행
+  + Pod Network 추가
+* 슬레이브 노드 추가
+* 연결된 노드들의 연결 상태 확인
+
+![](assets/README-d1682534.png)
+![](assets/README-374cd619.png)
 
 1. `Master Node` Setting:
 

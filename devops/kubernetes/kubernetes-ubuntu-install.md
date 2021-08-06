@@ -19,9 +19,21 @@ VM 설정
     - 데몬이 항상 동작하고 있기 떄문에, 서비스 형태로 구성
   + kubectl: 커맨드 라인 util은 당신의 클러스터와 대화
     - 클라이언트 프로그램
+---
 
+# Install
+1. [install-docker](https://docs.docker.com/engine/install/ubuntu/)
+2. [container.io - container runtimes setting](https://kubernetes.io/ko/docs/setup/production-environment/container-runtimes/)
+3. [install - kubeadm, kubectl, kubelet](https://kubernetes.io/ko/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
+4. [kubeadm init - configuring the kubelet cgroup driver](https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)
+5. [kubeadm cluster setting](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#version-skew-policy)
+6. [check k8s version check](https://kubernetes.io/ko/releases/version-skew-policy/)
 
 ---
+번외
+* [블로그 설치 정리](https://psnote.tistory.com/183)
+* [호스트 어뎁터 네트워크 섫정](https://blog.hkwon.me/virtualbox-hoseuteu-jeonyong-eodaebteo-seoljeong-2/)
+
 
 # k8s ubuntu install detail
 
@@ -94,6 +106,7 @@ $sudo apt-mark hold kubelet kubeadm kubectl
 sudo kubeadm init
 ```
 * 스왑 에러 발생 시 스왑 기능 제거
+  마스터노드와 워커노드 모두 설정
   ```bash
   $sudo swapoff -a   # 현재 커널에서 스왑 기능 끄기
   $sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab # 리붓 후에도 스왑 기능 유지
@@ -114,6 +127,11 @@ sudo kubeadm init
 
 ![](assets/README-d1682534.png)
 ![](assets/README-374cd619.png)
+
+---
+
+# Container Error Setting
+[container-runtimes-setting](https://kubernetes.io/docs/setup/production-environment/container-runtimes/#docker)
 
 1. `Master Node` Setting:
 

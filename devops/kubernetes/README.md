@@ -549,6 +549,8 @@ Pod 생성, 삭제 및 관련 모든 커맨드 정리
     ```bash
     $ kubectl labe pod {pod-name} key- # delete 하려는 key - 입력하면 레이블 삭제
     ```
+  + 레이블 필터링 조회: 레이블 관련된 속성으로 필터링하여 팟을 조회
+    ![](assets/README-d4816856.png)
 
 
 ## 수평 스케일링

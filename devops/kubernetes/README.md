@@ -334,6 +334,35 @@ spec:
 * `$ kubectl describe pod goproxy`
 
 ---
+## Deployment
+* 실제 Pod를 생성하는 것이 아닌, Deployment를 생성하면 설정에 의해 Pod가 생성된다.
+* `kubectl create deploy` 명령어로 Deployment 생성
+* 해당 Deployment가 관리하는 포드의 포트를 노출해야하는 명령이 필요
+* `Deployment`는 `Replicas Set`을 생성
+  - `Replicas Set`은 수를 지정하면 그 수만큼 `Pod` 를 유지
+  - 어떤 이유로든 Pod가 사리자면, `Replicas Set`은 누락된 Pod를 대체할 새로운 Pod를 생성
+
+![](assets/README-9a176d0d.png)
+
+> Deployment 를 생성하여, Replicas Set 설정으로 Pod가 생성되고, 이를 외부 서비스로 사용하려면 서비스 설정이 필요
+
+## Service
+![](assets/README-7883bc8f.png)
+
+* Pod는 일시적이므로 언제든지 사라질 가능성이 존재
+* Pod가 다시 시작되는 경우, 언제든 IP와 ID가 변경됨
+* 서비스는 변화하는 포드 IP 주소의 문제를 해결하고, 단일 IP 및 포트 쌍에서 여러 개의 포드 노출
+* `kubectl expose deployment` 명령어로 Service 생성
+* 서비스가 생성되면 정적 IP를 얻게 되고, 서비스의 수명 내에서는 변하지 않음
+* 클라이언트는 포드에 직접 연결하는 대신 서비스의 IP를 통해 포드 안에 컨테이너 서비스를 이용
+* 서비스는 포드 중 하나로 연결을 포트포워딩 역활
+* 로드 밸런서 역활을 하여, 만약 3개의 Pod이 있다면, 외부의 유입으로 부터 적절하게 분배
+
+```bash
+kubectl expose deployment http-go --name http-go-svc --port=8080 --type=LoadBalancer
+```
+
+---
 
 # Lable
 * 모든 리소스를 구성하는 매우 간단하면서도 강력한 k8s 기능
@@ -382,36 +411,62 @@ spec:
 레이블을 이용한 포드 구성 설정 예제
 ![](assets/README-0888cfb8.png)
 
+---
+
+# Replication Controller
+레플리케이션 컨트롤러(k8s 구버전에서 사용)
+* 포드가 항상 실행되도록 유지하는 쿠버네티스 리소스
+* 노드가 클러스터에서 사라지는 경우 해당 포드를 감지하고 대체 포드 생성
+* 실행 중인 포드의 목록을 지속적으로 모니터링하고, `유형`의 실제 포드 수가 원하는 수와 항상 일치하도록 관리
+* 각 포드의 레이블을 통해 상태를 관리
+  + 특정 포드를 레플리케이션 관리를 받지 않으려면, 레이블 속성을 변경하면 된다
+* default 설정은 5분으로, 장애 발생 후 5분뒤에 레블리케이션을 통해 다른 노드로 복제
+* 레플리케이션을 삭제하면, 하위에 관리하던 모든 포드들도 함꼐 삭제된다.
+  + 포드를 유지하려면, 삭제할때, `--cascade` 옵션 사용: `$kubectl delete rc {rc-name} --cascade=false`
+
+![](assets/README-b9bc3d99.png)
+
+레플리케이션 컨트롤러 3가지 요소
+1. 레플리케이션 컨트롤러가 관리하는 포드 범위를 결정하는 `Label setlector`
+2. 실행해야 하는 포드의 수를 결정하는 `포드의 복제본 수`
+3. 새로운 포드의 유형 및 이미지를 설정하는 `포드 템플릿`
+
+레플리케이션 컨트롤러의 장점
+* 포드가 없는 경우 새 포드를 항상 실행
+* 노드에 장애 발생 시 다른 노드에 복제본 생성
+* 수종, 자동으로 수평 스케일링
 
 
+## Create Replication Controller
+![](assets/README-84a0c923.png)
+* `spec.selector.app` 과 `spec.template.metadata.labels.app` 명은 반드시 동일해야한다
 
-## Deployment
-* 실제 Pod를 생성하는 것이 아닌, Deployment를 생성하면 설정에 의해 Pod가 생성된다.
-* `kubectl create deploy` 명령어로 Deployment 생성
-* 해당 Deployment가 관리하는 포드의 포트를 노출해야하는 명령이 필요
-* `Deployment`는 `Replicas Set`을 생성
-  - `Replicas Set`은 수를 지정하면 그 수만큼 `Pod` 를 유지
-  - 어떤 이유로든 Pod가 사리자면, `Replicas Set`은 누락된 Pod를 대체할 새로운 Pod를 생성
 
-![](assets/README-9a176d0d.png)
+![](assets/README-64c90ea1.png)
 
-> Deployment 를 생성하여, Replicas Set 설정으로 Pod가 생성되고, 이를 외부 서비스로 사용하려면 서비스 설정이 필요
+* 실행중인 Replication Controller 확인
+  ```bash
+  $kubectl get rc #Replication Controller
+  ```
+  ![](assets/README-1342e164.png)
+* 레플리케이션 정보 확인
+  ```bash
+  $kubectl describe rc {rc-name}
+  ```
+  ![](assets/README-b3d5da4a.png)
+* 레플리에키션 직접 설정 변경(에디터로 설정 열어서 직접 설정변경)
+  ```bash
+  $kubectl edit rc {rc-name}
+  ```
+* 레플리케이션 컨트롤러 스케일 변경
+  ```bash
+  $kubectl scale rc {rc-name} --replicas=10 # 포드 복제본 10개로 관리하도록 변경
+  ```
+* 레플리케이션 컨트롤러 삭제
+  ```bash
+  $kubectl delete rc {rc-name}
+  ```
 
-## Service
-![](assets/README-7883bc8f.png)
-
-* Pod는 일시적이므로 언제든지 사라질 가능성이 존재
-* Pod가 다시 시작되는 경우, 언제든 IP와 ID가 변경됨
-* 서비스는 변화하는 포드 IP 주소의 문제를 해결하고, 단일 IP 및 포트 쌍에서 여러 개의 포드 노출
-* `kubectl expose deployment` 명령어로 Service 생성
-* 서비스가 생성되면 정적 IP를 얻게 되고, 서비스의 수명 내에서는 변하지 않음
-* 클라이언트는 포드에 직접 연결하는 대신 서비스의 IP를 통해 포드 안에 컨테이너 서비스를 이용
-* 서비스는 포드 중 하나로 연결을 포트포워딩 역활
-* 로드 밸런서 역활을 하여, 만약 3개의 Pod이 있다면, 외부의 유입으로 부터 적절하게 분배
-
-```bash
-kubectl expose deployment http-go --name http-go-svc --port=8080 --type=LoadBalancer
-```
 
 ---
 
@@ -552,6 +607,27 @@ Pod 생성, 삭제 및 관련 모든 커맨드 정리
   + 레이블 필터링 조회: 레이블 관련된 속성으로 필터링하여 팟을 조회
     ![](assets/README-d4816856.png)
 
+# Replication Controller
+* 실행중인 Replication Controller 확인
+  ```bash
+  $kubectl get rc #Replication Controller
+  ```
+* 레플리케이션 정보 확인
+  ```bash
+  $kubectl describe rc {rc-name}
+  ```
+* 레플리에키션 설정 변경
+  ```bash
+  $kubectl edit rc {rc-name}
+  ```
+* 레플리케이션 컨트롤러 스케일 변경
+  ```bash
+  $kubectl scale rc {rc-name} --replicas=10 # 포드 복제본 10개로 관리하도록 변경
+  ```
+* 레플리케이션 컨트롤러 삭제
+  ```bash
+  $kubectl delete rc {rc-name}
+  ```
 
 ## 수평 스케일링
 쿠버네티스를 사용해 얻을 수 있는 큰 이점 중 하나는 간단하게 컨테이너 확장이 가능

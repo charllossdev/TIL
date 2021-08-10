@@ -436,7 +436,6 @@ kubectl expose deployment http-go --name http-go-svc --port=8080 --type=LoadBala
 * 노드에 장애 발생 시 다른 노드에 복제본 생성
 * 수종, 자동으로 수평 스케일링
 
-
 ## Create Replication Controller
 ![](assets/README-84a0c923.png)
 * `spec.selector.app` 과 `spec.template.metadata.labels.app` 명은 반드시 동일해야한다
@@ -454,8 +453,7 @@ kubectl expose deployment http-go --name http-go-svc --port=8080 --type=LoadBala
   $kubectl describe rc {rc-name}
   ```
   ![](assets/README-b3d5da4a.png)
-* 레플리에키션 직접 설정 변경(에디터로 설정 열어서 직접 설정변경)
-  ```bash
+* 레플리에키션 직접 설정 변경(에디터로 설정 열어서 직접 설정변경) ```bash
   $kubectl edit rc {rc-name}
   ```
 * 레플리케이션 컨트롤러 스케일 변경
@@ -466,6 +464,12 @@ kubectl expose deployment http-go --name http-go-svc --port=8080 --type=LoadBala
   ```bash
   $kubectl delete rc {rc-name}
   ```
+---
+
+# ReplicaSet
+`쿠버네티스 1.8 버전`부터 `Deployment`, `DaemonSet`, `ReplicaSet`, `SatetfulSet` 4개의 API가 베타로 업데이트
+
+`쿠버네티스 1.9 버전`부터 정식 버전으로 업데이트
 
 
 ---

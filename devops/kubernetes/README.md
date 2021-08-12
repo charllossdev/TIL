@@ -334,6 +334,35 @@ spec:
 * `$ kubectl describe pod goproxy`
 
 ---
+## Deployment
+* 실제 Pod를 생성하는 것이 아닌, Deployment를 생성하면 설정에 의해 Pod가 생성된다.
+* `kubectl create deploy` 명령어로 Deployment 생성
+* 해당 Deployment가 관리하는 포드의 포트를 노출해야하는 명령이 필요
+* `Deployment`는 `Replicas Set`을 생성
+  - `Replicas Set`은 수를 지정하면 그 수만큼 `Pod` 를 유지
+  - 어떤 이유로든 Pod가 사리자면, `Replicas Set`은 누락된 Pod를 대체할 새로운 Pod를 생성
+
+![](assets/README-9a176d0d.png)
+
+> Deployment 를 생성하여, Replicas Set 설정으로 Pod가 생성되고, 이를 외부 서비스로 사용하려면 서비스 설정이 필요
+
+## Service
+![](assets/README-7883bc8f.png)
+
+* Pod는 일시적이므로 언제든지 사라질 가능성이 존재
+* Pod가 다시 시작되는 경우, 언제든 IP와 ID가 변경됨
+* 서비스는 변화하는 포드 IP 주소의 문제를 해결하고, 단일 IP 및 포트 쌍에서 여러 개의 포드 노출
+* `kubectl expose deployment` 명령어로 Service 생성
+* 서비스가 생성되면 정적 IP를 얻게 되고, 서비스의 수명 내에서는 변하지 않음
+* 클라이언트는 포드에 직접 연결하는 대신 서비스의 IP를 통해 포드 안에 컨테이너 서비스를 이용
+* 서비스는 포드 중 하나로 연결을 포트포워딩 역활
+* 로드 밸런서 역활을 하여, 만약 3개의 Pod이 있다면, 외부의 유입으로 부터 적절하게 분배
+
+```bash
+kubectl expose deployment http-go --name http-go-svc --port=8080 --type=LoadBalancer
+```
+
+---
 
 # Lable
 * 모든 리소스를 구성하는 매우 간단하면서도 강력한 k8s 기능
@@ -382,36 +411,128 @@ spec:
 레이블을 이용한 포드 구성 설정 예제
 ![](assets/README-0888cfb8.png)
 
+---
+
+# Replication Controller
+레플리케이션 컨트롤러(k8s 구버전에서 사용)
+* 포드가 항상 실행되도록 유지하는 쿠버네티스 리소스
+* 노드가 클러스터에서 사라지는 경우 해당 포드를 감지하고 대체 포드 생성
+* 실행 중인 포드의 목록을 지속적으로 모니터링하고, `유형`의 실제 포드 수가 원하는 수와 항상 일치하도록 관리
+* 각 포드의 레이블을 통해 상태를 관리
+  + 특정 포드를 레플리케이션 관리를 받지 않으려면, 레이블 속성을 변경하면 된다
+* default 설정은 5분으로, 장애 발생 후 5분뒤에 레블리케이션을 통해 다른 노드로 복제
+* 레플리케이션을 삭제하면, 하위에 관리하던 모든 포드들도 함꼐 삭제된다.
+  + 포드를 유지하려면, 삭제할때, `--cascade` 옵션 사용: `$kubectl delete rc {rc-name} --cascade=false`
+
+![](assets/README-b9bc3d99.png)
+
+레플리케이션 컨트롤러 3가지 요소
+1. 레플리케이션 컨트롤러가 관리하는 포드 범위를 결정하는 `Label setlector`
+2. 실행해야 하는 포드의 수를 결정하는 `포드의 복제본 수`
+3. 새로운 포드의 유형 및 이미지를 설정하는 `포드 템플릿`
+
+레플리케이션 컨트롤러의 장점
+* 포드가 없는 경우 새 포드를 항상 실행
+* 노드에 장애 발생 시 다른 노드에 복제본 생성
+* 수종, 자동으로 수평 스케일링
+
+## Create Replication Controller
+![](assets/README-84a0c923.png)
+* `spec.selector.app` 과 `spec.template.metadata.labels.app` 명은 반드시 동일해야한다
 
 
+![](assets/README-64c90ea1.png)
 
-## Deployment
-* 실제 Pod를 생성하는 것이 아닌, Deployment를 생성하면 설정에 의해 Pod가 생성된다.
-* `kubectl create deploy` 명령어로 Deployment 생성
-* 해당 Deployment가 관리하는 포드의 포트를 노출해야하는 명령이 필요
-* `Deployment`는 `Replicas Set`을 생성
-  - `Replicas Set`은 수를 지정하면 그 수만큼 `Pod` 를 유지
-  - 어떤 이유로든 Pod가 사리자면, `Replicas Set`은 누락된 Pod를 대체할 새로운 Pod를 생성
+* 실행중인 Replication Controller 확인
+  ```bash
+  $kubectl get rc #Replication Controller
+  ```
+  ![](assets/README-1342e164.png)
+* 레플리케이션 정보 확인
+  ```bash
+  $kubectl describe rc {rc-name}
+  ```
+  ![](assets/README-b3d5da4a.png)
+* 레플리에키션 직접 설정 변경(에디터로 설정 열어서 직접 설정변경) ```bash
+  $kubectl edit rc {rc-name}
+  ```
+* 레플리케이션 컨트롤러 스케일 변경
+  ```bash
+  $kubectl scale rc {rc-name} --replicas=10 # 포드 복제본 10개로 관리하도록 변경
+  ```
+* 레플리케이션 컨트롤러 삭제
+  ```bash
+  $kubectl delete rc {rc-name}
+  ```
+---
 
-![](assets/README-9a176d0d.png)
+# ReplicaSet
+`쿠버네티스 1.8 버전`부터 `Deployment`, `DaemonSet`, `ReplicaSet`, `SatetfulSet` 4개의 API가 베타로 업데이트
 
-> Deployment 를 생성하여, Replicas Set 설정으로 Pod가 생성되고, 이를 외부 서비스로 사용하려면 서비스 설정이 필요
+`쿠버네티스 1.9 버전`부터 정식 버전으로 업데이트
 
-## Service
-![](assets/README-7883bc8f.png)
+`ReplicaSet` 은 차세대 `Replication Controller`로서, 완전히 대체 가능
+* [ReplicaSet-Docs](https://kubernetes.io/ko/docs/concepts/workloads/controllers/replicaset/)
+* 레플리카셋의 목적은 레플리카 파드 집합의 실행을 항상 안정적으로 유지하는 것
+* 이처럼 레플리카셋은 보통 명시된 동일 파드 개수에 대한 가용성을 보증하는데 사용
+* 레플리카셋을 정의하는 필드는 획득 가능한 파드를 식별하는 방법이 명시된 셀렉터, 유지해야 하는 파드 개수를 명시하는 레플리카의 개수, 그리고 레플리카 수 유지를 위해 생성하는 신규 파드에 대한 데이터를 명시하는 파드 템플릿을 포함
+  + 레플리카셋은 필드에 지정된 설정을 충족하기 위해 필요한 만큼 파드를 만들고 삭제
+* 레플리카셋은 셀렉터를 이용해서 필요한 새 파드를 식별
+* 만약 파드에 OwnerReference이 없거나 OwnerReference가 컨트롤러(Controller) 가 아니고 레플리카셋의 셀렉터와 일치한다면 레플리카셋이 즉각 파드를 가지게 될 것
+* 레플리카셋은 지정된 수의 파드 레플리카가 항상 실행되도록 보장
+* 디플로이먼트는 레플리카셋을 관리하고 다른 유용한 기능과 함께 파드에 대한 선언적 업데이트를 제공하는 상위 개념
+* 사용자 지정 오케스트레이션이 필요하거나 업데이트가 전혀 필요하지 않은 경우라면 레플리카셋을 직접적으로 사용하기 보다는 디플로이먼트를 사용하는 것을 권장
 
-* Pod는 일시적이므로 언제든지 사라질 가능성이 존재
-* Pod가 다시 시작되는 경우, 언제든 IP와 ID가 변경됨
-* 서비스는 변화하는 포드 IP 주소의 문제를 해결하고, 단일 IP 및 포트 쌍에서 여러 개의 포드 노출
-* `kubectl expose deployment` 명령어로 Service 생성
-* 서비스가 생성되면 정적 IP를 얻게 되고, 서비스의 수명 내에서는 변하지 않음
-* 클라이언트는 포드에 직접 연결하는 대신 서비스의 IP를 통해 포드 안에 컨테이너 서비스를 이용
-* 서비스는 포드 중 하나로 연결을 포트포워딩 역활
-* 로드 밸런서 역활을 하여, 만약 3개의 Pod이 있다면, 외부의 유입으로 부터 적절하게 분배
 
-```bash
-kubectl expose deployment http-go --name http-go-svc --port=8080 --type=LoadBalancer
+## 레플리카셋의 대안 -> 디플로이먼트(권장)
+* 디플로이먼트는 레플리카셋을 소유하거나 업데이트를 하고, 파드의 선언적인 업데이트와 서버측 롤링 업데이트를 할 수 있는 오브젝트이다.
+* 레플리카셋은 단독으로 사용할 수 있지만, 오늘날에는 주로 디플로이먼트로 파드의 생성과 삭제 그리고 업데이트를 오케스트레이션하는 메커니즘으로 사용한다.
+* 디플로이먼트를 이용해서 배포할 때 생성되는 레플리카셋을 관리하는 것에 대해 걱정하지 않아도 된다.
+* 디플로이먼트는 레플리카셋을 소유하거나 관리한다.
+* 따라서 레플리카셋을 원한다면 디플로이먼트를 사용하는 것을 권장한다.
+
+
+## ReplicaSet vs Replication Controller
+`ReplicaSet`과 `ReplicaController` 는 거의 동일하게 동작
+* `ReplicaSet`이 더 풍부한 표현식 포드 셀렉터 사용 가능
+  + `Replication Controller`: 특정 레이블을 포함하는 포드가 일치하는지 확인
+  + `ReplicaSet`: 특정 레이블이 없거나 해당 값과 관계없이 특정 레이블 키를 포함하는 포드를 매치하는지 확인
+  ![](assets/README-a2f08e12.png)
+
+## Create ReplicaSet
+
+```yaml
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: http-go
+  # 레플리카셋의 Label 설정이기 떄문에, 생성되는 팟에는 영향 X
+  labels:
+    app: guestbook
+    tier: frontend
+spec:
+  # 케이스에 따라 레플리카를 수정한다.
+  replicas: 3
+  selector:
+    matchLabels:
+      tier: frontend
+    matchExpressions:
+      - key: app
+        operator: In
+        values:
+        - http-go
+  template:
+    metadata:
+      labels:
+        app: http-go
+    spec:
+      containers:
+      - name: http-go
+        image: gasbugs/http-go
+        ports:
+        - containerPort: 8080
 ```
+
 
 ---
 
@@ -549,7 +670,30 @@ Pod 생성, 삭제 및 관련 모든 커맨드 정리
     ```bash
     $ kubectl labe pod {pod-name} key- # delete 하려는 key - 입력하면 레이블 삭제
     ```
+  + 레이블 필터링 조회: 레이블 관련된 속성으로 필터링하여 팟을 조회
+    ![](assets/README-d4816856.png)
 
+# Replication Controller
+* 실행중인 Replication Controller 확인
+  ```bash
+  $kubectl get rc #Replication Controller
+  ```
+* 레플리케이션 정보 확인
+  ```bash
+  $kubectl describe rc {rc-name}
+  ```
+* 레플리에키션 설정 변경
+  ```bash
+  $kubectl edit rc {rc-name}
+  ```
+* 레플리케이션 컨트롤러 스케일 변경
+  ```bash
+  $kubectl scale rc {rc-name} --replicas=10 # 포드 복제본 10개로 관리하도록 변경
+  ```
+* 레플리케이션 컨트롤러 삭제
+  ```bash
+  $kubectl delete rc {rc-name}
+  ```
 
 ## 수평 스케일링
 쿠버네티스를 사용해 얻을 수 있는 큰 이점 중 하나는 간단하게 컨테이너 확장이 가능

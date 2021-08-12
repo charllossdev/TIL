@@ -695,6 +695,28 @@ Pod 생성, 삭제 및 관련 모든 커맨드 정리
   $kubectl delete rc {rc-name}
   ```
 
+# Replica Set
+* 실행중인 Replication Controller 확인
+  ```bash
+  $kubectl get rs #Replica Set
+  ```
+* 레플리케이션 정보 확인
+  ```bash
+  $kubectl describe rs {rs-name}
+  ```
+* 레플리에키션 설정 변경
+  ```bash
+  $kubectl edit rs {rs-name}
+  ```
+* 레플리케이션 컨트롤러 스케일 변경
+  ```bash
+  $kubectl scale rs {rs-name} --replicas=10 # 포드 복제본 10개로 관리하도록 변경
+  ```
+* 레플리케이션 컨트롤러 삭제
+  ```bash
+  $kubectl delete rs {rs-name}
+  ```
+
 ## 수평 스케일링
 쿠버네티스를 사용해 얻을 수 있는 큰 이점 중 하나는 간단하게 컨테이너 확장이 가능
 * Pod 개수를 쉽게 확장 가능

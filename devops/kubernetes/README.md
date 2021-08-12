@@ -471,6 +471,68 @@ kubectl expose deployment http-go --name http-go-svc --port=8080 --type=LoadBala
 
 `쿠버네티스 1.9 버전`부터 정식 버전으로 업데이트
 
+`ReplicaSet` 은 차세대 `Replication Controller`로서, 완전히 대체 가능
+* [ReplicaSet-Docs](https://kubernetes.io/ko/docs/concepts/workloads/controllers/replicaset/)
+* 레플리카셋의 목적은 레플리카 파드 집합의 실행을 항상 안정적으로 유지하는 것
+* 이처럼 레플리카셋은 보통 명시된 동일 파드 개수에 대한 가용성을 보증하는데 사용
+* 레플리카셋을 정의하는 필드는 획득 가능한 파드를 식별하는 방법이 명시된 셀렉터, 유지해야 하는 파드 개수를 명시하는 레플리카의 개수, 그리고 레플리카 수 유지를 위해 생성하는 신규 파드에 대한 데이터를 명시하는 파드 템플릿을 포함
+  + 레플리카셋은 필드에 지정된 설정을 충족하기 위해 필요한 만큼 파드를 만들고 삭제
+* 레플리카셋은 셀렉터를 이용해서 필요한 새 파드를 식별
+* 만약 파드에 OwnerReference이 없거나 OwnerReference가 컨트롤러(Controller) 가 아니고 레플리카셋의 셀렉터와 일치한다면 레플리카셋이 즉각 파드를 가지게 될 것
+* 레플리카셋은 지정된 수의 파드 레플리카가 항상 실행되도록 보장
+* 디플로이먼트는 레플리카셋을 관리하고 다른 유용한 기능과 함께 파드에 대한 선언적 업데이트를 제공하는 상위 개념
+* 사용자 지정 오케스트레이션이 필요하거나 업데이트가 전혀 필요하지 않은 경우라면 레플리카셋을 직접적으로 사용하기 보다는 디플로이먼트를 사용하는 것을 권장
+
+
+## 레플리카셋의 대안 -> 디플로이먼트(권장)
+* 디플로이먼트는 레플리카셋을 소유하거나 업데이트를 하고, 파드의 선언적인 업데이트와 서버측 롤링 업데이트를 할 수 있는 오브젝트이다.
+* 레플리카셋은 단독으로 사용할 수 있지만, 오늘날에는 주로 디플로이먼트로 파드의 생성과 삭제 그리고 업데이트를 오케스트레이션하는 메커니즘으로 사용한다.
+* 디플로이먼트를 이용해서 배포할 때 생성되는 레플리카셋을 관리하는 것에 대해 걱정하지 않아도 된다.
+* 디플로이먼트는 레플리카셋을 소유하거나 관리한다.
+* 따라서 레플리카셋을 원한다면 디플로이먼트를 사용하는 것을 권장한다.
+
+
+## ReplicaSet vs Replication Controller
+`ReplicaSet`과 `ReplicaController` 는 거의 동일하게 동작
+* `ReplicaSet`이 더 풍부한 표현식 포드 셀렉터 사용 가능
+  + `Replication Controller`: 특정 레이블을 포함하는 포드가 일치하는지 확인
+  + `ReplicaSet`: 특정 레이블이 없거나 해당 값과 관계없이 특정 레이블 키를 포함하는 포드를 매치하는지 확인
+  ![](assets/README-a2f08e12.png)
+
+## Create ReplicaSet
+
+```yaml
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: http-go
+  # 레플리카셋의 Label 설정이기 떄문에, 생성되는 팟에는 영향 X
+  labels:
+    app: guestbook
+    tier: frontend
+spec:
+  # 케이스에 따라 레플리카를 수정한다.
+  replicas: 3
+  selector:
+    matchLabels:
+      tier: frontend
+    matchExpressions:
+      - key: app
+        operator: In
+        values:
+        - http-go
+  template:
+    metadata:
+      labels:
+        app: http-go
+    spec:
+      containers:
+      - name: http-go
+        image: gasbugs/http-go
+        ports:
+        - containerPort: 8080
+```
+
 
 ---
 

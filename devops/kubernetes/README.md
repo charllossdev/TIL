@@ -534,7 +534,10 @@ spec:
 ```
 
 # Deployment
+[Deployment-Docs](https://kubernetes.io/ko/docs/concepts/workloads/controllers/deployment/)
 어플리케이션을 다운 타입 없이 업데이트 가능하도록 도와주는 리소스로 레플리카셋과 레플리케이션컨트롤러 상위에 배포되는 리소스
+
+
 
 ![](assets/README-d61d4db7.png)
 

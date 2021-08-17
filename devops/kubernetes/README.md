@@ -536,11 +536,38 @@ spec:
 # Deployment
 [Deployment-Docs](https://kubernetes.io/ko/docs/concepts/workloads/controllers/deployment/)
 어플리케이션을 다운 타입 없이 업데이트 가능하도록 도와주는 리소스로 레플리카셋과 레플리케이션컨트롤러 상위에 배포되는 리소스
-
-
-
 ![](assets/README-d61d4db7.png)
 
+디플로이먼트에서 의도하는 상태 를 설명하고, 디플로이먼트 컨트롤러(Controller)는 현재 상태에서 의도하는 상태로 비율을 조정하며 변경한다. 새 레플리카셋을 생성하는 디플로이먼트를 정의하거나 기존 디플로이먼트를 제거하고, 모든 리소스를 새 디플로이먼트에 적용할 수 있다.
+
+> 디플로이먼트가 소유하는 레플리카셋은 관리하지 말아야 한다. 사용자의 유스케이스가 다음에 포함되지 않는 경우 쿠버네티스 리포지터리에 이슈를 올릴 수 있다.
+
+
+## Create Deployment
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+```
 
 ---
 

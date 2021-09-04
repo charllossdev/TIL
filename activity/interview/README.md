@@ -232,6 +232,21 @@
   + 스레드는 한 프로세스 내에서 동작되는 여러 실행의 흐름으로, 프로세스 내의 주소 공간이나 자원들(힙공간)을 스레드끼리 공유하며 실행
   + 한 스레드가 프로세스 자원을 별경한다면, 다른 스레드도 그 변경 결과가 즉시 반영
 
+## Context Switching
+
+* `Context Switching`
+  + 한 Task가 끝날 때까지 기다리는 것이 아니라, 여러 작업을 번갈아가면서 실행하여, 동시에 처리될 수 있도록 하는 방법
+  + 주로 `Context Swithcing`은 `Interrupt`에 의해 발생되는데, 하드웨어를 통한 I/O 요청이나, OS/Driver 레벨의 Timer 기반 Scheduling에 의해 발생
+  + 디테일하게, CPU가 한 개의 Task(Process/Thread)를 실행하고 있는 상태에서 인터럽트 요청에 의해 다른 Task로 실행이 전환되는 과정에서 기존의 Task 상태 및 Register 값들에 대한 정보(Context)를 저장하고 새로운 Task의 Context 정보로 교체하는 작업
+  + 여기서 Process/Thread 처리하는 `Context Swithcing`은 조금 다르다.
+    - `Process` : `Context Switching` 가 OS에서 스케줄링되는 PCB(Process control Block)에서 관리
+    - `Thread` : `Context Switching` 가 `Process` 내부의 TCB(Task Control Block)에서 관리
+  + Task의 PCB 정보는 Process Stack, Ready Queue 라는 자료구조로 관리가 되며 `CS`시 ㅖ츄 정보를 바탕으로 이전에 수행하던 작업  혹은 신규 작업의 수행이 가능하게 된다.
+  + `Context Switching`시 `Context Switching` 수행하는 CPU는 Cache를 초기화하고, Memory Mapping을 초기화 하는 작업을 거치는 등 아무 작업을 하지 못하므로 잦은 `Context Switching`은 성능 저하를 가져온다.
+    - `Process Context Switching`: 프로세스는 각각의 독립된 메모리 영역을 할달받았기 때문에, 캐쉬 메모리 초기화 등 무거운 작업이 진행
+    - `Thread Context Switching`: 쓰레드 사이의 공유된 자원외에 스택영역만 초기화하면 되므로, 프로세스에 비해 훨신 속도가 빠르다.
+
+
 ## 멀티 프로세스와 멀티 스레드
 
 ### 멀티 프로세스
@@ -270,7 +285,7 @@
   + 프로세스 간의 `Context Switching`시 많은 오버헤드가 발생하는데 비해 스레드 `Context Switching`은 Stack 영역만 처리하기 떄문에 매우 빠르다.
   + 스레드 간의 통신비용이 적게 들어간다.
 * 주의할 점
-  + 동기화 문제
+  + 동기화 문제(Synchronization Issue)
   + 스레드 간의 자원 공유는 전역 변수를 이용하므로, 함께 사용할 때, 충돌이 발생할 수 있다.
 
 ## 자바 스레드

@@ -116,9 +116,14 @@
 
 # RESTful API
 
-* `REST`란, REpresentational State Transfer 의 약자
-* 여기서 `~ful` 이라는 형용사형 어미를 붙여 ~한 API 라는 표현으로 사용
-* 즉 REST의 기본 원칙을 성실히 지킨 서비스 디자인은 `RESTful` 하다고 표현
+* `REST`란
+  + REpresentational State Transfer 의 약자
+  + 여기서 `~ful` 이라는 형용사형 어미를 붙여 ~한 API 라는 표현으로 사용
+  + 즉 REST의 기본 원칙을 성실히 지킨 서비스 디자인은 `RESTful` 하다고 표현
+* `REST` 구성
+  + 자원(Resource) - URL
+  + 행위(Verb) - HTTP Method
+  + 표현(Representations)
 * `REST`가 디자인 패턴으로, 아키텍쳐다.
   + 좀더 정확하게 표현하면, `REST`는 `Resource Oriented Architecture`로, API 설계 중심에 자원(Resource)이 있고, `HTTP Method`를 통해 자원을 처리하도록 설계
 
@@ -137,6 +142,20 @@
 4. 서버와 클라이언트가 같은 방식을 사용해서 요청
   + 브라우저 또는 모바일 환경 등 다양한 클라이언트 환경을 고려해, 서버와 클라이언트 간의 데이터 교환 타입을 json, form-data 등 같이 한가지 방식으로 통일
   + `URI`가 플랫폼 중립적으로 구성
+
+## HTTP 응답 상태 코드
+* 1xx (정보): 요청을 받았으며 프로세스를 계속 진행합니다.
+* 2xx (성공): 요청을 성공적으로 받았으며 인식했고 수용하였습니다.
+* 3xx (리다이렉션): 요청 완료를 위해 추가 작업 조치가 필요합니다.
+* 4xx (클라이언트 오류): 요청의 문법이 잘못되었거나 요청을 처리할 수 없습니다.
+* 5xx (서버 오류): 서버가 명백히 유효한 요청에 대해 충족을 실패했습니다.
+
+![](assets/README-2b36c08e.png)
+![](assets/README-8ed6faef.png)
+![](assets/README-ae8204c0.png)
+![](assets/README-f0a63521.png)
+![](assets/README-ce71c9a5.png)
+
 
 ## 장점
 * Open API를 제공하기 쉽다.

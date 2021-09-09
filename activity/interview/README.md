@@ -524,7 +524,6 @@
 * 나머지 타입은 전부 참조 타입으로, null 값을 가질 수 있으며, heap 영역에 저장
 
 ## String, StringBuffer, StringBuilder
-
 * String
   + 불변 타입의 객체
 * StringBuffer
@@ -534,6 +533,64 @@
 * StringBuilder
   + 가변
   + 속도는 빠르지만 병렬 상황에서 안전하지 않다.
+
+## Collection List, Set, Map 차이
+* List - Collection 상속
+  + 데이터를 순차적으로 저장
+  + 데이터 중복을 허용
+  + 데이터 null 저장 허용
+* Set - Collection 상속
+  + 순서없이 Key로 데이터 저장
+  + Key의 중복을 허용하지 않는다.
+  + Key의 null을 허용하지 않는다.
+* Map
+  + 순서없이 key, value 저장
+  + value는 중복허용, key는 x
+  + key의 null을 허용하지 않는다.
+
+## Vector, ArrayList 차이
+* Vector
+  + 한번에 하나의 스레드만 접근 가능(동기화)
+  + 동기화 떄문에 속도가 느림
+  + 현재 크기의 100% 증가
+* ArrayList
+  + 동시에 여러 스레드 접근 가능(비동기화)
+  + 동기화를 하지 않아 속도가 빠름
+  + 현재 크기의 50% 증가
+  + 멀티쓰레드가 아닌 경우, ArrayList가 유리하다
+
+## synchornized
+* 여러 쓰레드가 하나의 자원을 이용하고자 할 때, 한 쓰레드가 자원을 사용중인 경우, 자원에 접근할 수 없도록 막아주는 키워드
+* 병렬 상황에사 자원의 접근을 안전하게 한다
+
+## Java8 추가 기능
+* lambda: 함수형 프로그래밍
+* Stream: 코드를 간결하고 가독성 있게, 병렬처리로 빠른 속도
+* optional: 리턴 타입을 null로 반환하지 않도록 하는 안전한 타입
+
+---
+
+# Spring
+
+## Spring DI/IoC
+* IoC(Inversion Of Control) - 제어의 역전
+  + 프로그램의 제어 흐름을 직접 제어하는 것이 아닌, 외부에서 관리하는 것으로 스프링 프레임워크의 제어
+* DI(Dependency Injection) - 의존성 주입
+  + 클래스 사이의 의존관계를 빈 설정 정보 바탕으로 컨테이너가 자동으로 연결
+    - 생성자 주입
+    - Setter 주입
+    - @Autowire
+
+## Spring Bean
+* IoC 컨테이너에 등록되 있는 객체로, 애플리케이션이 최초 로드될 때, `@ComponentScan`을 통해 `@Component`들을 `@Bean`으로 등록
+* 생존주기(스코프)
+  + 싱글톤: 기본 스ㅡ코프로 스프링 컨테이너 시작과 종료까지 유지되는 스코프
+  + 프로토타입
+    - request: 웹 요청이 들어오고 나갈때 까지 유지
+    - session: 웹 세션이 생성, 종료할 떄 까지 유지
+    - application: 웹 서블릿 컨텍스트와 같은 번위로 유지
+
+## Servlet Filter & Interceptor 차이
 
 
 ---
@@ -557,50 +614,4 @@
 * 제가 가장 가까이 일할 사람에 대해서 이야기해 주실 수 있을까요?
 * 제 직속 상사와 그 위 상사의 관리 스타일은 어떤가요? (마이크로 매니징 혹은 매크로 매니징)
 
-
 ---
-
-# 후기
-
-## 네이버 z
-> 2021.04.23
-
-* HTTP Status: 304
-* Java 쓰레드 덤프와 힙덤프
-  - https://d2.naver.com/helloworld/10963
-  - https://bestugi.tistory.com/38
-  - http://honeymon.io/tech/2019/05/30/java-memory-leak-analysis.html
-  - https://jupiny.com/2019/07/15/java-heap-dump-analysis/
-* 우테캠 상세 후기
-  - 개발에 대한 정리 필요
-  - 앞으로의 발전
-
-## 블랙홀릭
-> 2021.04.26
-
-* Srping Interceptor & filter
-* Java String, StringBuffer, StringBuilder 차이 및 장단점
-  - https://ifuwanna.tistory.com/221
-  - 연산횟수가 많아지거나 멀티쓰레드, Race condition 등의 상황이 자주 발생 한다면 각 클래스의 특징을 이해하고 상황에 맞는 적절한 클래스를 사용
-  - String:  문자열 연산이 적고 멀티쓰레드 환경일 경우
-  - StringBuffer:  문자열 연산이 많고 멀티쓰레드 환경일 경우
-  - StringBuilder:  문자열 연산이 많고 단일쓰레드이거나 동기화를 고려하지 않아도 되는 경우
-
-## Next-Step 멘토링
-> 2021.04.27
-
-* Java Anotation vs Spring Anotation
-* Spring Singleton
-* OOP 개발 방법론 5가지
----
-숙제
-* 기술에 대한 본질적인 원리
-* 기술의 사용 이유 또는 장단점 파악
-* 상세하게 설명할 수 있는 스킬
-  - 아무것도 모르는 상대에게 알려줄 수 있을 정도의 지식 필요
-  - 모든 기술은 본질적으로 공식 홈페이지를 참조하기(한글x)
-* 진지한 목표와 방향성 그리기
-  - 향후 1년 뒤, 3년 뒤, 5년 뒤 방향성에 대해서 고민
-* 진지한 목표 가지기
-* 정리하는 슨관 필요
-* 환경 파악 및 devops

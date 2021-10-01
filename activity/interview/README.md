@@ -2,6 +2,8 @@
 
 * [Development common sense](#development-common-sense)
 
+* jpa, test code
+
 # Development common sense
 
 ## Object Oriented Programming

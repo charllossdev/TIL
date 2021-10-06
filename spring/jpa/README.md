@@ -51,3 +51,9 @@ JPA에서 가장 중요한 2가지
 * MySQL, Oracle 유사한 쿼리 시뮬레이션 가능
 * 시퀀스, AUTO INCREMENT 기능 지원
 * 메모리 DB
+
+
+
+---
+
+# JPA

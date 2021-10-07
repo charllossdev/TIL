@@ -57,3 +57,6 @@ JPA에서 가장 중요한 2가지
 ---
 
 # JPA
+
+1. List
+2. details

@@ -2,11 +2,6 @@
 
 * [Development common sense](#development-common-sense)
 
->
-> 저는 시스템 개발에 성능과 안정성이 중요하다고 생각합니다.
-> 이 두가지를 충족하면서 팀을 잘 받쳐주는 인정받는 개발자가 되고싶습니다.
-
-
 # Development common sense
 
 ## Object Oriented Programming

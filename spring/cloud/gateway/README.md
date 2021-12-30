@@ -191,3 +191,4 @@ spring:
 * `filters`: route 마다 특정 필터 적용 가능
   + [Request Setting](https://cloud.spring.io/spring-cloud-gateway/reference/html/#the-addrequestheader-gatewayfilter-factory)
   + [Response Setting](https://cloud.spring.io/spring-cloud-gateway/reference/html/#the-addrequestheader-gatewayfilter-factory)
+  + [HTTP Status Code 별 재시도 설정](https://cloud.spring.io/spring-cloud-gateway/reference/html/#the-retry-gatewayfilter-factory)

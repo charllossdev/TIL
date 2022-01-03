@@ -14,8 +14,7 @@
 
 ## SCG 기능 구조
 
-![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https://blog.kakaocdn.net/dn/bE325K/btq3nCbwYZC/UJeiuKAkkoBbKqIEkRTeG1/img.png)
-https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbE325K%2Fbtq3nCbwYZC%2FUJeiuKAkkoBbKqIEkRTeG1%2Fimg.png
+![](assets/README-00edc133.png)
 
 * Gateway Handler Mapping
   + SCG가 Client로 부터 어떤 요청이 들어왔는지 확인하고, `Route Service`와 맵핑

@@ -1,8 +1,8 @@
 # 참조
 * https://www.latera.kr/reference/java/2019-09-29-spring-boot-config-externalize/
 
-# Spring boot application.properties 설정
-application.properties란 SpringBoot 어플리케이션에서 사용하는 여러가지 설정 값을 정의할 수 있는 설정 파일로 애플리케이션을 구동할 때 자동으로 로딩
+# Spring boot 애플리케이션의 설정
+SpringBoot 어플리케이션에서 사용하는 여러가지 설정 값을 정의할 수 있는 설정 파일로 애플리케이션을 구동할 때 자동으로 로딩
 
 * Spring Boot는 동일한 애플리케이션 코드를 다른 환경에서 작업할 수 있도록 설정을 외부에서 전달할 수 있습니다.
 
@@ -13,7 +13,7 @@ application.properties란 SpringBoot 어플리케이션에서 사용하는 여�
   + 커맨드 라인 인자
 
 ## 우선 순위
-application.properties를 설정할 수 있는 방법은 매우 다양하며, 설정에 우선순위가 있다.
+properties를 설정할 수 있는 방법은 매우 다양하며, 설정에 우선순위가 있다.
 
 1. 홈 디렉토리에 있는 spring-boot-dev-tools.properties([전역 설정 프로퍼티](https://docs.spring.io/spring-boot/docs/current/reference/html/using.html#using.devtools))
 2. 테스트 코드 @TestPropertySource
@@ -46,4 +46,4 @@ application.properties를 설정할 수 있는 방법은 매우 다양하며, �
 
 설정 위치는 역순으로 검색하여 적용
 기본값으로 설정된 경로들은 classpath:/,classpath:/config/,file:./,file:./config/
-4 -> 3 -> 2 -> 1 순서로 검색되어 오버라이딩 적용
+4 -> 3 -> 2 -> 1 순서로 검색되어 **오버라이딩 적용**

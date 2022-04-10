@@ -16,3 +16,4 @@
 # Study
 
 * [삼색 공부법](http://egloos.zum.com/agile/v/3684946)
+	+ [구매링크](http://www.yes24.com/Product/Goods/339063?CategoryNumber=001001005003)

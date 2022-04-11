@@ -191,3 +191,11 @@ spring:
   + [Request Setting](https://cloud.spring.io/spring-cloud-gateway/reference/html/#the-addrequestheader-gatewayfilter-factory)
   + [Response Setting](https://cloud.spring.io/spring-cloud-gateway/reference/html/#the-addrequestheader-gatewayfilter-factory)
   + [HTTP Status Code 별 재시도 설정](https://cloud.spring.io/spring-cloud-gateway/reference/html/#the-retry-gatewayfilter-factory)
+
+
+## Modify Request & Response Body
+SCG는 Spring 5 WebFlux 기반으로 사용 된 SCG로 인해 Reactor 프로그래밍을 기반으로 작동하여, 요청 매개 변수에서 Request Body를 읽는 것은 쉽지 않다.
+* https://ko.n4zc.com/article/programming/java/74vk8srx.html
+
+* https://docs.spring.io/spring-cloud-gateway/docs/current/reference/html/#the-requestsize-gatewayfilter-factory
+* https://docs.spring.io/spring-cloud-gateway/docs/current/reference/html/#modify-a-response-body-gatewayfilter-factory

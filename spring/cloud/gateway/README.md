@@ -199,3 +199,36 @@ SCG는 Spring 5 WebFlux 기반으로 사용 된 SCG로 인해 Reactor 프로그�
 
 * https://docs.spring.io/spring-cloud-gateway/docs/current/reference/html/#the-requestsize-gatewayfilter-factory
 * https://docs.spring.io/spring-cloud-gateway/docs/current/reference/html/#modify-a-response-body-gatewayfilter-factory
+
+* Java DSL 환경 설정으로(`커스텀 게이트웨이 필터를 만들지 않고`) 유일하게 해결 가능
+
+```java
+@Bean
+public RouteLocator routes(RouteLocatorBuilder builder,
+                           AddRequestTimeHeaderPreFilter addRequestTimeHeaderPreFilter,
+                           AddResponseTimeHeaderPostFilter addResponseTimeHeaderPostFilter,
+                           AddRequestTimeBase64EncodePreFilter addRequestTimeBase64EncodePreFilter) {
+
+    String uri = "uri"
+
+    return builder.routes()
+            .route("owin-tmap-login-routing", r -> r
+                    .path("/owin/oauth/tmapauth")
+                    .filters(f -> f.rewritePath("/(?<base>.*?)/(?<segment>.*)", "/$\\{segment}")
+                            .filter(addRequestTimeHeaderPreFilter.apply(new AddRequestTimeHeaderPreFilter.Config()))
+                            .filter(addResponseTimeHeaderPostFilter.apply(new AddResponseTimeHeaderPostFilter.Config()))
+                            .filter(addRequestTimeBase64EncodePreFilter.apply(new AddRequestTimeBase64EncodePreFilter.Config()))
+                            .modifyResponseBody(String.class, String.class,
+                                    (exchange, originBody) -> {
+                                        if (AddRequestTimeBase64EncodePreFilter.isBase64DebugMode(exchange.getRequest()) && StringUtils.hasText(originBody)) {
+                                            String decode = Base64Encoder.decode(originBody);
+                                            log.info("Response Base64 is {}, Decode Body is: {}, ", originBody, decode);
+                                            return Mono.just(decode);
+                                        } else {
+                                            return Mono.empty();
+                                        }
+                                    }))
+                    .uri(uri))
+            .build();
+}
+```

@@ -215,7 +215,7 @@ public RouteLocator routes(RouteLocatorBuilder builder,
             .route("owin-tmap-login-routing", r -> r
                     .path("/owin/oauth/tmapauth")
                     .filters(f -> f.rewritePath("/(?<base>.*?)/(?<segment>.*)", "/$\\{segment}")
-                            .filter(addRequestTimeHeaderPreFilter.apply(new AddRequestTimeHeaderPreFilter.Config()))
+                            .filter(addRequestTimeHeaderPreFilter.apply(new AddRequestTimeHeaderPreFilter.Config())) //custom filters
                             .filter(addResponseTimeHeaderPostFilter.apply(new AddResponseTimeHeaderPostFilter.Config()))
                             .filter(addRequestTimeBase64EncodePreFilter.apply(new AddRequestTimeBase64EncodePreFilter.Config()))
                             .modifyResponseBody(String.class, String.class,

@@ -215,19 +215,16 @@ public RouteLocator routes(RouteLocatorBuilder builder,
             .route("owin-tmap-login-routing", r -> r
                     .path("/owin/oauth/tmapauth")
                     .filters(f -> f.rewritePath("/(?<base>.*?)/(?<segment>.*)", "/$\\{segment}")
-                            .filter(addRequestTimeHeaderPreFilter.apply(new AddRequestTimeHeaderPreFilter.Config())) //custom filters
+                            .filter(addRequestTimeHeaderPreFilter.apply(new AddRequestTimeHeaderPreFilter.Config()))
                             .filter(addResponseTimeHeaderPostFilter.apply(new AddResponseTimeHeaderPostFilter.Config()))
-                            .filter(addRequestTimeBase64EncodePreFilter.apply(new AddRequestTimeBase64EncodePreFilter.Config()))
-                            .modifyResponseBody(String.class, String.class,
-                                    (exchange, originBody) -> {
-                                        if (AddRequestTimeBase64EncodePreFilter.isBase64DebugMode(exchange.getRequest()) && StringUtils.hasText(originBody)) {
-                                            String decode = Base64Encoder.decode(originBody);
-                                            log.info("Response Base64 is {}, Decode Body is: {}, ", originBody, decode);
-                                            return Mono.just(decode);
-                                        } else {
-                                            return Mono.empty();
-                                        }
-                                    }))
+                            .filter(addRequestTimeBase64EncodePreFilter.apply(new AddRequestTimeBase64EncodePreFilter.Config(true)))
+                            .modifyResponseBody(String.class, String.class, this::getResponseBody))
+                    .uri(uri))
+            .route("owin-bypass-routing", r -> r
+                    .path("/owin/**")
+                    .filters(f -> f.rewritePath("/(?<base>.*?)/(?<segment>.*)", "/$\\{segment}")
+                            .filter(addRequestTimeBase64EncodePreFilter.apply(new AddRequestTimeBase64EncodePreFilter.Config(false)))
+                            .modifyResponseBody(String.class, String.class, this::getResponseBody))
                     .uri(uri))
             .build();
 }

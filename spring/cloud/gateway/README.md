@@ -203,13 +203,15 @@ SCG는 Spring 5 WebFlux 기반으로 사용 된 SCG로 인해 Reactor 프로그�
 * Java DSL 환경 설정으로(`커스텀 게이트웨이 필터를 만들지 않고`) 유일하게 해결 가능
 
 ```java
+public RouteLocators(ManualRouteConfiguration manualRouteConfiguration) {
+    this.manualRouteConfiguration = manualRouteConfiguration;
+}
+
 @Bean
 public RouteLocator routes(RouteLocatorBuilder builder,
                            AddRequestTimeHeaderPreFilter addRequestTimeHeaderPreFilter,
                            AddResponseTimeHeaderPostFilter addResponseTimeHeaderPostFilter,
                            AddRequestTimeBase64EncodePreFilter addRequestTimeBase64EncodePreFilter) {
-
-    String uri = "uri"
 
     return builder.routes()
             .route("owin-tmap-login-routing", r -> r
@@ -219,13 +221,13 @@ public RouteLocator routes(RouteLocatorBuilder builder,
                             .filter(addResponseTimeHeaderPostFilter.apply(new AddResponseTimeHeaderPostFilter.Config()))
                             .filter(addRequestTimeBase64EncodePreFilter.apply(new AddRequestTimeBase64EncodePreFilter.Config(true)))
                             .modifyResponseBody(String.class, String.class, this::getResponseBody))
-                    .uri(uri))
+                    .uri(manualRouteConfiguration.getOwinUri()))
             .route("owin-bypass-routing", r -> r
                     .path("/owin/**")
                     .filters(f -> f.rewritePath("/(?<base>.*?)/(?<segment>.*)", "/$\\{segment}")
                             .filter(addRequestTimeBase64EncodePreFilter.apply(new AddRequestTimeBase64EncodePreFilter.Config(false)))
                             .modifyResponseBody(String.class, String.class, this::getResponseBody))
-                    .uri(uri))
+                    .uri(manualRouteConfiguration.getOwinUri()))
             .build();
 }
 ```

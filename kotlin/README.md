@@ -6,6 +6,7 @@
 
 
 
+<<<<<<< HEAD
 * let null check
 * https://tourspace.tistory.com/208
 
@@ -20,3 +21,6 @@ DTO(POJO): 'Data Transfer Object', 'Plain Old Java Object' 형태의 모델(Mode
 Interface: 사용할 HTTP CRUD동작(메소드) 들을 정의해놓은 인터페이스
 CRUD ( Create / Read / Update / Delete ) -> HTTP Method ( POST / GET / PUT / DELETE )
 Retrofit.Builder Class: Interface를 사용할 인스턴스, baseUrl(URL) / Converter(변환기) 설정
+=======
+https://velog.io/@gosgjung/%EC%BD%94%ED%8B%80%EB%A6%B0%EC%96%B8%EC%96%B4-%EA%B8%B0%EB%B3%B8%EA%B0%9C%EB%85%90-%EC%B4%9D%EC%A0%95%EB%A6%AC-%EC%8A%A4%EC%95%95%EC%A3%BC%EC%9D%98
+>>>>>>> 985f07c5c8e5f3ad00f3d5ea38c0f797abe9271c

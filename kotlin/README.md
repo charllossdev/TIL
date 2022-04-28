@@ -27,3 +27,28 @@ https://velog.io/@gosgjung/%EC%BD%94%ED%8B%80%EB%A6%B0%EC%96%B8%EC%96%B4-%EA%B8%
 ## Feign Client
 
 https://kangwoojin.github.io/programing/open-feign-1/
+
+### Gradle dependencies
+
+```properties
+dependencies {
+    ...
+    implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
+    ...
+}
+```
+
+### Open feign setting
+
+```java
+@EnableFeignClients
+@SpringBootApplication
+class OpenFeignApplication
+
+
+fun main(args: Array<String>) {
+    runApplication<OpenFeignApplication>(*args)
+}
+
+```
+* `@EnableFeignClients`

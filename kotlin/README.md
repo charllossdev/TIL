@@ -42,13 +42,28 @@ dependencies {
 
 ```java
 @EnableFeignClients
-@SpringBootApplication
-class OpenFeignApplication
-
-
-fun main(args: Array<String>) {
-    runApplication<OpenFeignApplication>(*args)
-}
-
 ```
-* `@EnableFeignClients`
+
+* `@EnableFeignClients` 를 추가
+  + `@FeignClient` 어노테이션이 붙어 있는 Client들을 Bean으로 등록
+
+
+### Logging Config setting
+
+```java
+@Configuration
+class LoggingConfiguration {
+    @Bean
+    fun feignLoggerLevel(): Logger.Level {
+        return Logger.Level.FULL
+    }
+}
+```
+
+* Configuration @Bean 등록
+
+```java
+  @FeignClient(configuration = [LoggingConfiguration::class])
+```
+
+* `@FeignClient` configuration 속성에 추가

@@ -100,3 +100,62 @@ class OpenFeignApplicationTests(@Autowired private val exampleClient: ExampleCli
 
 }
 ```
+
+https://techblog.woowahan.com/2657/
+
+
+디폴트 설정으로는 http status code 가 200에서 300 사이가 아니면 에러가 발생하여 , 404 일때 에러가 아닌 정상적인 값으로 판단하고 싶을때 처리.
+
+
+
+1. FeignClient  로 데이터 찾기 호출시 404 에러가 발생하여 ResponseEntity<Member> 대신에 Optional<Member> 로 처리.
+
+2. @FeignClient 속성 decode404 = true
+
+Before:
+
+@FeignClient(name = "member", url = "${service-urls.xxxxxx}", configuration = FeignAutoConfiguration.class, contextId = "member")
+
+public interface MemberFeignClient {
+
+
+
+
+
+@GetMapping(value ="/members/search/findFirstByEmpId")
+
+Entity<Member> findFirstByEmpId(@RequestParam("empId") String empId);
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+After:
+
+@FeignClient(name = "member", url = "${service-urls.xxxxxx}", configuration = FeignAutoConfiguration.class, contextId = "member" , decode404 = true)
+
+public interface MemberFeignClient {
+
+
+
+
+
+@GetMapping(value ="/members/search/findFirstByEmpId")
+
+Optional<Member> findFirstByEmpId(@RequestParam("empId") String empId);
+
+
+
+
+
+}

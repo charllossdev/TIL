@@ -112,6 +112,7 @@ https://techblog.woowahan.com/2657/
 
 2. @FeignClient 속성 decode404 = true
 
+```java
 Before:
 
 @FeignClient(name = "member", url = "${service-urls.xxxxxx}", configuration = FeignAutoConfiguration.class, contextId = "member")
@@ -154,8 +155,7 @@ public interface MemberFeignClient {
 
 Optional<Member> findFirstByEmpId(@RequestParam("empId") String empId);
 
-
-
-
-
 }
+```
+
+https://blog.yevgnenll.me/posts/remove-stream-in-kotlin

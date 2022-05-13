@@ -159,3 +159,8 @@ Optional<Member> findFirstByEmpId(@RequestParam("empId") String empId);
 ```
 
 https://blog.yevgnenll.me/posts/remove-stream-in-kotlin
+
+
+https://yoon-dailylife.tistory.com/113
+
+sendTo.matches(Regex(MOBILE_REGEX))

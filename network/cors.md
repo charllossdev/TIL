@@ -227,6 +227,17 @@ chain.doFilter(req, res);
 ```
 
 
+## Local에서 Cors 테스트
+
+```cmd
+curl --verbose --location --request OPTIONS 'http://localhost:8080/flerken/api/v1/poi-recent-destination?userKey=$userKey' \
+--header 'Origin: https://m-dev.tmobiweb.com' \
+--header 'Access-Control-Request-Headers: accesskey' \
+--header 'Access-Control-Request-Method: GET'
+```
+
+
+
 # 출처
 * [교차 출처 리소스](https://developer.mozilla.org/ko/docs/Web/HTTP/CORS)
 * [Credentials 설정](https://developer.mozilla.org/ko/docs/Web/HTTP/Headers/Access-Control-Allow-Credentials)

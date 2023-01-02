@@ -192,6 +192,20 @@ spring:
   + [Response Setting](https://cloud.spring.io/spring-cloud-gateway/reference/html/#the-addrequestheader-gatewayfilter-factory)
   + [HTTP Status Code 별 재시도 설정](https://cloud.spring.io/spring-cloud-gateway/reference/html/#the-retry-gatewayfilter-factory)
 
+```
+  - id: per_route_timeouts
+    uri: https://example.org
+    predicates:
+      - name: Path
+        args:
+          pattern: /delay/{timeout}
+    metadata:
+      response-timeout: 200
+      connect-timeout: 200
+```
+
+* Route 별 timeout Setting
+
 
 ## Modify Request & Response Body
 SCG는 Spring 5 WebFlux 기반으로 사용 된 SCG로 인해 Reactor 프로그래밍을 기반으로 작동하여, 요청 매개 변수에서 Request Body를 읽는 것은 쉽지 않다.

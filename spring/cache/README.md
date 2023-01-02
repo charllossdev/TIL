@@ -16,5 +16,6 @@ Cache Miss:데이터 요소가 캐시에 요청되고 해당 키에 대해 요�
 System-of-record : 데이터에 대한 신뢰할 수있는 정보원. 이것을 흔히 시스템 레코드(SOR)이라고 한다. 캐시는 시스템 레코드에서 검색되거나 시스템 레코드에 저장된 데이터의 로컬 사본으로 작동된다. Ehcache를 사용하기 위해 SOR은 데이터베이스로 간주된다.
 
 
+
 ## Ehcache
 https://jaehun2841.github.io/2018/11/07/2018-10-03-spring-ehcache/#Cache%EB%9E%80
